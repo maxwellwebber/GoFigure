@@ -15,21 +15,25 @@ app.use(bodyParser.json());
 // server static files from the public/ directory.
 app.use(express.static('client'));
 
+var visualSettings;
+var gameSettings;
 /**
  * Handle a request for task data.
  */
-/*app.get("/data", function (req, res) {
-    console.log("GET Request to: /data");
-    
-     db.getAllTasks(function(err, data){
-         if(err){
-            res.status(500).send();
-        }else{
-            res.status(200).json(data);
-        } 
-     });
-    
-});*/
+app.post("/visualSettings", function (req, res) {
+    console.log("POST Request to: /visualSettings");
+    visualSettings = req.body;
+    res.status(200).send();
+    console.log(visualSettings);
+});
+
+app.post("/gameSettings", function (req, res) {
+    console.log("POST Request to: /gameSettings");
+    gameSettings = req.body;
+    res.status(200).send();
+    console.log(gameSettings);
+});
+
 
 
 /*

@@ -4,13 +4,15 @@
     <!-- JQuery and Bootstrap CSS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
     <div class="container">
         <div align="center">
             <h1>Game Settings</h1>
-            <a href="index.html" class="btn btn-default" role="button">Main Menu</a>
+            <a href="main-menu.html" class="btn btn-default" role="button">Main Menu</a>
         </div>
         <!-- end Game Settings -->
 
@@ -36,13 +38,13 @@
 
                           <div class="btn-group" data-toggle="buttons">
               
-                            <label class="btn btn-primary">
+                            <label class="btn btn-primary active scoring-settings">
                               <input type="radio" autocomplete="off" checked> Area Scoring
                             </label>
-                            <label class="btn btn-primary">
+                            <label class="btn btn-primary scoring-settings">
                               <input type="radio" name="options" autocomplete="off">Territory Scoring
                             </label>
-                            <label class="btn btn-primary">
+                            <label class="btn btn-primary scoring-settings">
                               <input type="radio" name="options" autocomplete="off">Army Scoring
                             </label>
                             
@@ -71,13 +73,13 @@
                             
                             <div class="btn-group" data-toggle="buttons">
               
-                            <label class="btn btn-primary">
+                            <label class="btn btn-primary active player-settings">
                               <input type="radio" autocomplete="off" checked> One Player
                             </label>
-                            <label class="btn btn-primary">
+                            <label class="btn btn-primary player-settings">
                               <input type="radio" name="options" autocomplete="off">Two Player Hotseat
                             </label>
-                            <label class="btn btn-primary">
+                            <label class="btn btn-primary player-settings">
                               <input type="radio" name="options" autocomplete="off">Tournament
                             </label>
                             
@@ -97,7 +99,7 @@
                     <div class="panel-heading" role="tab" id="headingThree">
                         <h4 class="panel-title">
               <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
-                Title 3
+                Handicap
               </a>
             </h4>
                     </div>
@@ -110,14 +112,17 @@
                             
                             <div class="btn-group" data-toggle="buttons">
               
-                            <label class="btn btn-primary">
-                              <input type="radio" autocomplete="off" checked> One Player
+                            <label class="btn btn-primary active handicap-settings">
+                              <input type="radio" autocomplete="off" checked>Zero
                             </label>
-                            <label class="btn btn-primary">
-                              <input type="radio" name="options" autocomplete="off">Two Player Hotseat
+                            <label class="btn btn-primary handicap-settings">
+                              <input type="radio" name="options" autocomplete="off">One
                             </label>
-                            <label class="btn btn-primary">
-                              <input type="radio" name="options" autocomplete="off">Tournament
+                            <label class="btn btn-primary handicap-settings">
+                              <input type="radio" name="options" autocomplete="off">Two
+                            </label>
+                            <label class="btn btn-primary handicap-settings">
+                              <input type="radio" name="options" autocomplete="off">Four
                             </label>
                             
                           </div>
@@ -139,7 +144,7 @@
     <!-- end container -->
 
     <div align="center">
-        <a href="game.html" class="btn btn-default" role="button">Start Game</a>
+        <a href="game.html" id="start-button" class="btn btn-default startButton" role="button">Start Game</a>
     </div>
 
 

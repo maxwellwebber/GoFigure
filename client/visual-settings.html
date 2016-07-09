@@ -3,16 +3,40 @@
 <head>
 	<!-- JQuery and Bootstrap CSS -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="js/client-server.js"></script>
 	<script src="js/visual-settings.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
+  
+      <nav class="navbar navbar-default navbar-static">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="main-menu.html">GO Home</a>
+            </div>
+            <div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav">
+                        <li><a href="how-to.html">How to Play</a>
+                        </li>
+                        <li><a href="visual-settings.html">Visual Settings</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
 
 	<div align="center">
 		<h1>Settings</h1>
-		<a href="index.html" class="btn btn-default" role="button">Main Menu</a>
 	</div>
 	<div class="container">
 		<!-- main container -->
@@ -27,17 +51,30 @@
 				</div>
 				<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
 					<div class="panel-body">
+					  <table class="table table-striped table-sm">
+							<tr>
+								<td>Select Color:</td>
+								<td>
 						<div class="btn-group" data-toggle="buttons">
-							<label class="btn btn-primary active token-color">
-								<input type="radio" autocomplete="off" checked>Black and White</input>
+							<label class="btn btn-primary active board-color">
+								<input type="radio" autocomplete="off" checked>Brown</input>
 							</label>
-							<label class="btn btn-primary token-color">
-								<input type="radio" autocomplete="off">Red and Green</input>
+							<label class="btn btn-primary board-color">
+								<input type="radio" autocomplete="off">White</input>
 							</label>
-							<label class="btn btn-primary token-color">
-								<input type="radio" autocomplete="off">Blue and Orange</input>
+							<label class="btn btn-primary board-color">
+								<input type="radio" autocomplete="off">Pink</input>
+							</label>
+							<label class="btn btn-primary board-color">
+								<input type="radio" autocomplete="off">Grey</input>
+							</label>
+							<label class="btn btn-primary board-color">
+								<input type="radio" autocomplete="off">Yellow</input>
 							</label>
 							</div>
+							</td>
+							</tr>
+							</table>
 					</div>
 				</div>
 			</div>
@@ -98,7 +135,7 @@
 
 
 
-		<a class="btn btn-default" role="button">Save</a>
+		<a class="btn btn-default save-button" role="button">Save</a>
 
 		<!-- Bootstrap core JavaScript -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
