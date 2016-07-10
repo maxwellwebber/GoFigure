@@ -1,6 +1,6 @@
 body {
     background-repeat: no-repeat;
-    background-size: 100%;
+    background-size: cover;
     position: relative;
     text-align: center;
 
@@ -8,11 +8,13 @@ body {
 
 
 
-.title-opac{ background-color:#222222;
+.title-opac {
+    background-color:#222222;
     text-align: center;
     margin: 0 auto; 
     width: 22%;  
 }
+
 h2 {
     color:#eeeeee;
 }

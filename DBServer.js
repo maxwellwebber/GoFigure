@@ -58,15 +58,62 @@ class DBServer{
     makeAccount(newUser, callback){
         var collection = this._db.collection("users");
         
-        if(this._db.collection.find( {username: newUser.username}) != null){
-            callback("This user already exists");
+        /*
+        console.log(collection.find({"userName": "a"}).toArray());
+        var count = 0;
+        //console.log(newUser.userName);
+        count = collection.find({"userName": newUser.userName}).count();
+
+        if(count > 0){
+            //callback("This user already exists");
+            //console.log("USER "  + newUser.userName + " EXISTS")
+            console.log(collection.find({"userName": newUser.userName}).count());
         }
-        else{
-            collection.insertOne(newUser, function(err, result){
-                if(err) callback(err);
-                else callback(null);
-            });
-        }
+            //console.log(docs);
+            //if(docs.length != 0){
+              //  callback("This user already exists");
+                //console.log("USER "  + newUser.userName + "EXISTS");
+                
+            
+            
+            /*
+            if(collection.count({"userName": newUser.userName}) != 0){
+                console.log(collection.find({"userName": newUser.userName}));
+                callback("This user already exists");
+            }
+            
+            */
+            //}
+            /*
+            //else{
+                //console.log("Count is " + collection.find({"userName": newUser.userName}).count());
+                console.log("Created user with username: " + newUser.userName);
+                collection.insertOne(newUser, function(err, result){
+                    if(err) callback(err);
+                    else callback(null);
+                });
+            //}
+            
+          //console.log(newUser.userName);  
+       //});
+      */
+    collection.find({"userName": newUser.userName}).toArray(function(err, docs) {
+        //console.log(docs);
+ 	if (docs.length > 0){
+ 		callback("This user already exists");
+        console.log("USER "  + newUser.userName + " EXISTS");
+ 	} else {
+ 	    console.log("Created user with username: " + newUser.userName);
+ 		collection.insertOne(newUser, function(err, result){
+            if(err) callback(err);
+            else callback(null);
+         });
+ 	}
+  });
+       
+       
+       
+       
     }
     
    getAllUsers(callback) {

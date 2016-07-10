@@ -4,6 +4,8 @@
 <head>
     <!-- JQuery and Bootstrap CSS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/client-server.js"></script>
+    <script src="js/login.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <title>Login</title>
     <meta charset="utf-8">
@@ -13,7 +15,7 @@
     <link rel="stylesheet" type="text/css" href="css/navBar.css">
 </head>
 
-<body background-image="/img/MainMenu.jpeg">
+<body background="/img/MainMenu.jpeg">
 
   <nav class="navbar navbar-default navbar-static">
         <div class="container-fluid">
@@ -32,14 +34,14 @@
         <form role="form" class="form-signin">
             <div class="form-group">
                 <label for="username">Username: </label>
-                <input type="username" class="form-control" id="username" placeholder="Enter username">
+                <input type="username" class="form-control username-field" id="username" placeholder="Enter username"></input>
             </div>
             <div class="form-group">
                 <label for="pwd">Password: </label>
-                <input type="password" class="form-control" id="pwd" placeholder="Enter password">
+                <input type="password" class="form-control password-field" id="pwd" placeholder="Enter password"></input>
             </div>
-            <a href="main-menu.html" class="btn btn-default" role="button">Login</a>
-            <button class="btn btn-default" type="submit">Register</button>
+            <a href="#" class="btn btn-default login-button" role="button">Login</a>
+            <a href="#" class="btn btn-default register-button" role="button">Register</a>
         </form>
     </div>
 

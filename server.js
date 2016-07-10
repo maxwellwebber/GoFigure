@@ -37,7 +37,16 @@ app.post("/gameSettings", function (req, res) {
 app.post("/makeAccount", function(req, res){
    
    console.log("POST Request to: /makeAccount"); 
+   db.makeAccount(req.body, function(err){
+       if(err){
+           res.status(500).send();
+       }else{
+           res.status(200).send();
+       }
+    
+    });
 });
+
 
 /*
 app.post("/add", function (req, res) {
