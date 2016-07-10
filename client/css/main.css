@@ -1,35 +1,15 @@
 body {
-        background-repeat: no-repeat;
-        background-size:cover;
-            position: relative;
-            text-align: center;
-        }
-        #section1 {
-            padding: 20px;
-            padding-top: 50px;
-            height: auto;
-
-        }
-        #section2 {
-            padding: 20px;
-            height: auto;
-
-        }
-        #section3 {
-            padding: 20px;
-            height: auto;
-        }
-        #section4 {
-            padding: 20px;
-            height: auto;
-            
-        }
-        p {
-            font-size: 20px;
-        }
-        h1 {
-            padding-top: 50px;
-            font-size: 120px;
-            color: #EEEEEE;
-        }
-        h2 {color:#eeeeee;}
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    text-align: center;
+}
+p {
+    font-size: 20px;
+}
+h1 {
+    padding-top: 50px;
+    font-size: 120px;
+    color: #EEEEEE;
+}
+h2 {color:#eeeeee;}

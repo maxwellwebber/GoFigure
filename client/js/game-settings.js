@@ -26,7 +26,7 @@ $(document).ready(function() {
     });
 
     $('.start-button').click(function() {
-        gameServer.sendData(gameSettings,"gameSettings", function(status) {
+        clientServer.sendData(gameSettings,"gameSettings", function(status) {
             // do error checking with status parameter here
         });
     });

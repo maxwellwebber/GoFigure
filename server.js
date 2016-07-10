@@ -3,11 +3,11 @@
 var express    = require("express");
 var bodyParser = require("body-parser");
 
-//var Storage = require('./lib/MongoDB');
+var Storage = require('./DBServer');
 
 var app = express();
 
-//var db = new Storage(null, null, 'timer');
+var db = new Storage('GoFigure');
 
 // use the parse to get JSON objects out of the request. 
 app.use(bodyParser.json());
@@ -34,7 +34,10 @@ app.post("/gameSettings", function (req, res) {
     console.log(gameSettings);
 });
 
-
+app.post("/makeAccount", function(req, res){
+   
+   console.log("POST Request to: /makeAccount"); 
+});
 
 /*
 app.post("/add", function (req, res) {
@@ -71,10 +74,11 @@ app.listen(process.env.PORT || 80, function () {
     
     console.log("Listening on port 80");
     
-    /*
+    
     db.connect(function(){
         // some message here....
+        
     });
-    */
+    
     
 });

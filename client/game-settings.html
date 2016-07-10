@@ -3,12 +3,45 @@
 <head>
     <!-- JQuery and Bootstrap CSS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/client-server.js"></script>
+	  <script src="js/game-settings.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/navBar.css"/>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
+  
+  <nav class="navbar navbar-default navbar-static">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="main-menu.html">GO Home</a>
+        </div>
+        <div>
+          <div class="collapse navbar-collapse" id="myNavbar">
+              <ul class="nav navbar-nav">
+              <li><a href="how-to.html">How to Play</a>
+              </li>
+              <li><a href="visual-settings.html">Visual Settings</a>
+              </li>
+              <li><a href="index.html">Log Out</a>
+            </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+  
+  
+  
+  
+  
     <div class="container">
         <div align="center">
             <h1>Game Settings</h1>
@@ -144,7 +177,7 @@
     <!-- end container -->
 
     <div align="center">
-        <a href="game.html" id="start-button" class="btn btn-default startButton" role="button">Start Game</a>
+        <a class="btn btn-default start-button" role="button">Start Game</a>
     </div>
 
 
