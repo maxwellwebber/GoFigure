@@ -34,3 +34,11 @@ h2 {
   padding: 10px;
   font-size: 16px;
 }
+
+#user-prompt{
+    color:red;
+}
+
+#user-prompt-good{
+    color:green;
+}

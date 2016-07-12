@@ -35,7 +35,10 @@ class ClientServer{
         }
     }
 }
-    /**
+
+
+
+    
      * Requests time tracker data from the server using a HTTP GET request.
      *
      * @param callback {function} the function to call when the get request comes back.
@@ -43,11 +46,11 @@ class ClientServer{
      *          1) an error paramenter, will be null if everything was OK.
      *          2) an object that represents the response from the server.
      
-     getData(callback) {
-        console.log("sending GET to /data");
+     getData(path, callback) {
+        console.log("sending GET to "+ path);
 
         var xhr = new XMLHttpRequest();
-        xhr.open("GET", "/data", true);
+        xhr.open("GET", path, true);
         xhr.send();
 
         xhr.onreadystatechange = function () {
@@ -61,5 +64,6 @@ class ClientServer{
                 callback(xhr.status, null);
             }
         };
-    }*/
+    }
+}
 

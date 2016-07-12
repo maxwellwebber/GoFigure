@@ -1,19 +1,25 @@
 <html>
   <head>
- <!-- JQuery and Bootstrap CSS -->
+   <!-- JQuery and Bootstrap CSS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" 
     integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <script src="js/svgFactory.js"></script>
+    <script src="js/game-script.js"></script>
   </head>
   <body>
       <div align="center">
-          <a href="main-menu.html" class="btn btn-default" role="button">Exit</a>
+        <h1>Title</h1>
+        <div>
           <a class="btn btn-default" role="button">Pass</a>
+          <a href="main-menu.html" class="btn btn-default" role="button">Exit</a>
+        </div>
+        <div style='width:100%;'>
+          <div id='canvas'></div>
+        </div>
       </div>
-    
-    
-    
-    
-    
-  </body>
+        <script>
+          init();   
+        </script>
+    </body>
 </html>

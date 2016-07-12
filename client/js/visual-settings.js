@@ -1,35 +1,53 @@
 $(document).ready(function() {
 
     var clientServer = new ClientServer("localhost", 80);
-    var visualSettings = {
+    
+    var object = {
         
-        tokenColor : "Black and White",
-        tokenShape: "Circle",
-        boardColor: "Brown"
-        
+        userName : "userName",
+        visualSettings : {
+            tokenColor : "Black and White",
+            tokenShape: "Circle",
+            boardColor: "Brown"
+        }
     }
+    
+    object.userName = document.cookie.split("=")[1];
+    
 
+    
     $('.token-color').click(function() {
-       visualSettings.tokenColor = $(this).text().trim();
+       object.visualSettings.tokenColor = $(this).text().trim();
         
     });
     
     $('.token-shape').click(function() {
        
-       visualSettings.tokenShape = $(this).text().trim();
+       object.visualSettings.tokenShape = $(this).text().trim();
        //console.log(visualSettings); 
     });
     
     $('.board-color').click(function() {
-       visualSettings.boardColor = $(this).text().trim();
+       object.visualSettings.boardColor = $(this).text().trim();
     
     });
 
     $('.save-button').click(function() {
-        clientServer.sendData(visualSettings,"visualSettings", function(status) {
+        console.log(document.cookie);
+        clientServer.sendData(object,"setVisualSettings", function(status) {
             // do error checking with status parameter here
         });
     });
     
-
+    function readCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0;i < ca.length;i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1,c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        }
+        return null;
+    }
 });
+

@@ -57,52 +57,20 @@ class DBServer{
     
     makeAccount(newUser, callback){
         var collection = this._db.collection("users");
-        
-        /*
-        console.log(collection.find({"userName": "a"}).toArray());
-        var count = 0;
-        //console.log(newUser.userName);
-        count = collection.find({"userName": newUser.userName}).count();
 
-        if(count > 0){
-            //callback("This user already exists");
-            //console.log("USER "  + newUser.userName + " EXISTS")
-            console.log(collection.find({"userName": newUser.userName}).count());
-        }
-            //console.log(docs);
-            //if(docs.length != 0){
-              //  callback("This user already exists");
-                //console.log("USER "  + newUser.userName + "EXISTS");
-                
-            
-            
-            /*
-            if(collection.count({"userName": newUser.userName}) != 0){
-                console.log(collection.find({"userName": newUser.userName}));
-                callback("This user already exists");
-            }
-            
-            */
-            //}
-            /*
-            //else{
-                //console.log("Count is " + collection.find({"userName": newUser.userName}).count());
-                console.log("Created user with username: " + newUser.userName);
-                collection.insertOne(newUser, function(err, result){
-                    if(err) callback(err);
-                    else callback(null);
-                });
-            //}
-            
-          //console.log(newUser.userName);  
-       //});
-      */
     collection.find({"userName": newUser.userName}).toArray(function(err, docs) {
-        //console.log(docs);
+        console.log(docs);
  	if (docs.length > 0){
  		callback("This user already exists");
         console.log("USER "  + newUser.userName + " EXISTS");
  	} else {
+ 	    
+ 	    newUser["visualSettings"] = {
+ 	        "tokenColor" : "Black and White",
+ 	        "tokenShape" : "Circle",
+ 	        "boardColor" : "Brown"
+ 	    }
+ 	    
  	    console.log("Created user with username: " + newUser.userName);
  		collection.insertOne(newUser, function(err, result){
             if(err) callback(err);
@@ -110,10 +78,54 @@ class DBServer{
          });
  	}
   });
-       
-       
-       
-       
+    }
+    
+    authenticateUser(user, callback) {
+        var collection = this._db.collection("users");
+        
+        collection.find({"userName": user.userName,"password": user.password}).toArray(function(err, docs) {
+        console.log(docs);
+ 	if (docs.length > 0){
+ 		if(err) callback(err);
+        else callback(null);
+ 	} else {
+ 	    callback("incorrect username or password.");
+ 	}
+  });
+        
+    }
+    
+    setVisualSetting(object){
+        var collection = this._db.collection("users");
+        
+        var userName = object.userName;
+        var visualSettings = object.visualSettings;
+        
+        collection.update({"userName":userName},{$set:{"visualSettings":visualSettings}});
+    }
+    
+    //setGame(object){
+    //     var collection = this._db.collection("users");
+         
+    //     var userName = object.userName;
+    //     var gameSettings = object.gameSettings;
+         
+         
+         //object.board = []
+         
+    //     collection.update({"userName"})
+    //}
+    
+    getVisualSettings(object){
+        var collection = this._db.collection("users");
+        
+        var userName = object.userName;
+        
+        collection.find({"userName": userName}).toArray(function(err, docs) {
+            if(err) callback(err);
+            else callback(null);
+            console.log(docs);
+        });
     }
     
    getAllUsers(callback) {
@@ -128,6 +140,8 @@ class DBServer{
             }
         });
     }
+    
+    
 }
 
 module.exports = DBServer; 

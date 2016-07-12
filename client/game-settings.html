@@ -5,6 +5,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="js/client-server.js"></script>
 	  <script src="js/game-settings.js"></script>
+    <script src="js/logout.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/navBar.css"/>
     <meta charset="utf-8">
@@ -30,7 +31,7 @@
               </li>
               <li><a href="visual-settings.html">Visual Settings</a>
               </li>
-              <li><a href="index.html">Log Out</a>
+              <li><a id="logout-button">Log Out</a>
             </li>
             </ul>
           </div>
@@ -45,7 +46,6 @@
     <div class="container">
         <div align="center">
             <h1>Game Settings</h1>
-            <a href="main-menu.html" class="btn btn-default" role="button">Main Menu</a>
         </div>
         <!-- end Game Settings -->
 
@@ -177,7 +177,7 @@
     <!-- end container -->
 
     <div align="center">
-        <a class="btn btn-default start-button" role="button">Start Game</a>
+        <a href = "game.html" class="btn btn-default start-button" role="button">Start Game</a>
     </div>
 
 
