@@ -28,7 +28,9 @@ class ClientServer{
             // back from the server. 
 
             if (postXhr.readyState == 4 && postXhr.status == 200) {
-                callback(null);
+               // callback(null);
+                callback(JSON.parse(postXhr.responseText));
+                //callback(data);
             }else if(postXhr.readyState == 4 && postXhr.status !== 200){
                 callback(postXhr.status);
             }

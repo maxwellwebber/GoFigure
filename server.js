@@ -133,16 +133,22 @@ function generateBoard(){
 }
 
 // get the board data
-app.get("/board", function (req, res) {
-    console.log("GET Request to: /board");
-    res.json(); 
+app.post("/getCurrentGame", function (req, res) {
+    console.log("POST Request to: /getCurrentGame");
+    db.getCurrentGame(req.body, function(docs){
+            console.log(docs);
+            res.json(docs);
+        });
+  
 });
+
 
 app.get("/getVisualSettings",function(req,res){
     var test = {boardcolor : "green", token1: "blue", token2:"red"};
     //db.getVisualSettings();
     res.json(test);
 });
+
 
 // Listen for changes
 app.listen(process.env.PORT || 80, function () {

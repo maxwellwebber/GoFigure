@@ -59,7 +59,7 @@ class DBServer{
         var collection = this._db.collection("users");
 
     collection.find({"userName": newUser.userName}).toArray(function(err, docs) {
-        console.log(docs);
+        console.log(docs[0]);
  	if (docs.length > 0){
  		callback("This user already exists");
         console.log("USER "  + newUser.userName + " EXISTS");
@@ -84,7 +84,7 @@ class DBServer{
         var collection = this._db.collection("users");
         
         collection.find({"userName": user.userName,"password": user.password}).toArray(function(err, docs) {
-        console.log(docs);
+        console.log(docs[0]);
  	if (docs.length > 0){
  		if(err) callback(err);
         else callback(null);
@@ -130,13 +130,36 @@ class DBServer{
          collection.update({"userName":userName},{$set:{"currentGame":game}});
     }
     
-    getVisualSettings(object){
+    getCurrentGame(userName, callback){
+        
         var collection = this._db.collection("users");
+        //console.log()
+        collection.find(userName).toArray(function(err, docs) {
+     	if (docs.length > 0){
+     	    var user = docs[0];
+     	    
+     	    var game = {
+     	        "visualSettings" : user.visualSettings,
+     	        "currentGame" : user.currentGame
+     	    }
+     	    //console.log(game);
+     		callback(game);
+     	} else {
+     	    callback(err, null);
+            }
+        });
+    }
+    
+}  
+    
+    
+    /*getVisualSettings(object){
+    //    var collection = this._db.collection("users");
         
-        var userName = object.userName;
+    //    var userName = object.userName;
         
-        collection.find({"userName": userName}).toArray(function(err, docs) {
-            console.log(docs);
+    //    collection.find({"userName": userName}).toArray(function(err, docs) {
+    //        console.log(docs);
         });
     }
     
@@ -151,9 +174,9 @@ class DBServer{
                 callback(null, data);
             }
         });
-    }
+    }*/
     
     
-}
+
 
 module.exports = DBServer; 
