@@ -104,17 +104,31 @@ class DBServer{
         collection.update({"userName":userName},{$set:{"visualSettings":visualSettings}});
     }
     
-    //setGame(object){
-    //     var collection = this._db.collection("users");
+    setGame(object){
+         var collection = this._db.collection("users");
          
-    //     var userName = object.userName;
-    //     var gameSettings = object.gameSettings;
+         var userName = object.userName;
+         var gameSettings = object.gameSettings;
          
+         var boardRow = []
+         var board = []
          
-         //object.board = []
+         for (var i = 0; i < object.gameSettings.boardSize; i++) {
+             boardRow.push(0);
+         }
+         for (var i = 0; i < object.gameSettings.boardSize; i++) {
+             board.push(boardRow);
+         }
          
-    //     collection.update({"userName"})
-    //}
+         var game = {
+             'gameSettings': gameSettings,
+             'boardState': board,
+             'turn': 1
+         }
+         
+         console.log(game);
+         collection.update({"userName":userName},{$set:{"currentGame":game}});
+    }
     
     getVisualSettings(object){
         var collection = this._db.collection("users");
@@ -122,8 +136,6 @@ class DBServer{
         var userName = object.userName;
         
         collection.find({"userName": userName}).toArray(function(err, docs) {
-            if(err) callback(err);
-            else callback(null);
             console.log(docs);
         });
     }

@@ -27,11 +27,11 @@ app.post("/setVisualSettings", function (req, res) {
     res.status(200).send();
 });
 
-/*app.post("/setGame", function (req, res) {
+app.post("/setGame", function (req, res) {
     console.log("POST Request to: /setGame");
     db.setGame(req.body);
     res.status(200).send();
-});*/
+});
 
 app.post("/makeAccount", function(req, res){
    
@@ -135,7 +135,7 @@ function generateBoard(){
 // get the board data
 app.get("/board", function (req, res) {
     console.log("GET Request to: /board");
-    res.json(generateBoard()); 
+    res.json(); 
 });
 
 app.get("/getVisualSettings",function(req,res){

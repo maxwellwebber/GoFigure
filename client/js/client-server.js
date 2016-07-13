@@ -39,7 +39,7 @@ class ClientServer{
 
 
     
-     * Requests time tracker data from the server using a HTTP GET request.
+    /* Requests time tracker data from the server using a HTTP GET request.
      *
      * @param callback {function} the function to call when the get request comes back.
      *      takes 2 parameters:
@@ -65,5 +65,5 @@ class ClientServer{
             }
         };
     }
-}
+}*/
 
