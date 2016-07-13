@@ -136,7 +136,7 @@ function generateBoard(){
 app.post("/getCurrentGame", function (req, res) {
     console.log("POST Request to: /getCurrentGame");
     db.getCurrentGame(req.body, function(docs){
-            console.log(docs);
+            //console.log(docs);
             res.json(docs);
         });
   

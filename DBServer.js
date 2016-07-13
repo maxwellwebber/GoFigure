@@ -95,6 +95,8 @@ class DBServer{
         
     }
     
+
+    
     setVisualSetting(object){
         var collection = this._db.collection("users");
         
@@ -109,15 +111,40 @@ class DBServer{
          
          var userName = object.userName;
          var gameSettings = object.gameSettings;
+         var handicap = gameSettings.handicapSettings;
          
          var boardRow = []
-         var board = []
+         var board = [];
+
          
          for (var i = 0; i < object.gameSettings.boardSize; i++) {
+
              boardRow.push(0);
          }
          for (var i = 0; i < object.gameSettings.boardSize; i++) {
-             board.push(boardRow);
+            var row = boardRow.slice()
+             board.push(row);
+         }
+         
+         
+         
+         console.log(handicap)
+         
+         if (handicap == "One"){
+             board[Math.floor(gameSettings.boardSize/2)][Math.floor(gameSettings.boardSize/2)] = 1;
+         }
+         
+         if (handicap == "Two") {
+             board[Math.floor(gameSettings.boardSize/2)][Math.floor(gameSettings.boardSize/2)+Math.floor(gameSettings.boardSize/4)] = 1;
+             board[Math.floor(gameSettings.boardSize/2)][Math.floor(gameSettings.boardSize/2)-Math.floor(gameSettings.boardSize/4)] = 1;
+         }
+         console.log(board);
+         if (handicap == "Four") {
+            board[Math.floor(gameSettings.boardSize/2)+Math.floor(gameSettings.boardSize/4)][Math.floor(gameSettings.boardSize/2)+Math.floor(gameSettings.boardSize/4)] = 1;
+            board[Math.floor(gameSettings.boardSize/2)+Math.floor(gameSettings.boardSize/4)][Math.floor(gameSettings.boardSize/2)-Math.floor(gameSettings.boardSize/4)] = 1;
+            board[Math.floor(gameSettings.boardSize/2)-Math.floor(gameSettings.boardSize/4)][Math.floor(gameSettings.boardSize/2)+Math.floor(gameSettings.boardSize/4)] = 1;
+            board[Math.floor(gameSettings.boardSize/2)-Math.floor(gameSettings.boardSize/4)][Math.floor(gameSettings.boardSize/2)-Math.floor(gameSettings.boardSize/4)] = 1;
+             
          }
          
          var game = {
@@ -126,8 +153,8 @@ class DBServer{
              'turn': 1
          }
          
-         console.log(game);
-         collection.update({"userName":userName},{$set:{"currentGame":game}});
+         //console.log(game);
+         collection.update({"userName":userName},{$set:{"currentGame":game}},{"upsert":true});
     }
     
     getCurrentGame(userName, callback){

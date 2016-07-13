@@ -10,7 +10,6 @@ var testBoard = [
                 [0,0,0,0,0,0,2,0,0]
 ];
   
-  
 console.log(testBoard);
 
 function Board (x,y,token)  {
@@ -88,7 +87,6 @@ function getNeighbours(board){
         FloodFillBFS(A[0][0]);
         //var i = 0;
         //console.log(A[i][0].neighbour[i].visited);
-    
  }
 
 

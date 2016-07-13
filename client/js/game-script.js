@@ -8,7 +8,7 @@
 function getData(cb){
     
     sendData = {'userName' :document.cookie.split('=')[1] }
-    clientServer.sendData(sendData,"getCurrentGame", function(data) {
+    clientServer.sendAndRecieveData(sendData,"getCurrentGame", function(data) {
 
         // handle any errors here....
         console.log(data)
@@ -32,6 +32,38 @@ function getVisualSettings(state){
 }
 
 
+var playerToggle; 
+
+function makeMove(){
+    
+    $("#canvas").click(function(e){
+        var offset = $(this).offset();
+        var mouseX = e.pageX - offset.left;
+        var mouseY = e.pageY - offset.top
+    
+        for (var i = 0;i< size; i++) {
+            for (var j = 0;j< size; j++) {
+                var x = j*gridSizeScaled*ratio+gridSizeNonScaled;
+                var y = i*gridSizeScaled*ratio+gridSizeNonScaled;
+                //mouseX > x-10 && mouseX < x+10 && mouseY > y-10 && mouseY < y+10
+                //var mouseX = 
+                //console.log(j*gridSizeScaled*ratio+gridSizeNonScaled + " " + i*gridSizeScaled*ratio+gridSizeNonScaled);
+                if (mouseX > x-10 && mouseX < x+10 && mouseY > y-10 && mouseY < y+10) 
+                    //comment this out to not draw and add to the array so it is drawn by the draw board function
+                    //svg.append(makeCircle(j*gridSizeScaled*ratio+gridSizeNonScaled,i*gridSizeScaled*ratio+gridSizeNonScaled,gridSizeScaled/2.8,"black")); 
+                    //for this
+                    sendData = {'userName' :document.cookie.split('=')[1], 'x' : i, 'y' : j};
+                    clientServer.sendAndRecieveData(sendData,"makeMove",function(data){
+                    
+                    });
+                
+            }
+        }
+    
+    });//end canvas click function
+}
+
+
 /**
  * Draws the board to the #canvas element on the page. 
  *
@@ -48,7 +80,8 @@ function getVisualSettings(state){
 function drawBoard(game,visualSettings){
     //var myData = visualSettings;
     
-    
+    //------------------------------
+    //-------------------------------
     
     //console.log("myData is " + myData.token1);
     
@@ -65,17 +98,15 @@ function drawBoard(game,visualSettings){
         token2 = '#FFA500'
     }
     
-    if (visualSettings.boardColor = 'Brown') {boardcolor = "#AF9B60"}
-    if (visualSettings.boardColor = 'Pink') {boardcolor = "#FFDFDD"}
-    if (visualSettings.boardColor = 'White') {boardcolor = "#FFFFFF"}
-    if (visualSettings.boardColor = 'Grey') {boardcolor = "#C0C0C0"}
-    if (visualSettings.boardColor = 'Yellow') {boardcolor = "#FFFF00"}
-
-    
+    if (visualSettings.boardColor == 'Brown') {boardcolor = "#AF9B60"}
+    if (visualSettings.boardColor == 'Pink') {boardcolor = "#FFDFDD"}
+    if (visualSettings.boardColor == 'White') {boardcolor = "#FFFFFF"}
+    if (visualSettings.boardColor == 'Grey') {boardcolor = "#C0C0C0"}
+    if (visualSettings.boardColor == 'Yellow') {boardcolor = "#FFFF00"}
 
 
     var canvas = $("#canvas"); 
-
+    
     // Change the height and width of the board here...
     // everything else should adapt to an adjustable
     // height and width.
@@ -89,52 +120,33 @@ function drawBoard(game,visualSettings){
     var svg = $(makeSVG(W, H));
 
 	// Variables for board size and grid
-	var size = game.gameSettings.boardSize;
+//	var size = game.gameSettings.boardSize;
 	var grid = (W/size);
-    var state = game.boardState;
+    var board = game.boardState;
 	// Draw a rectangle for the board
 	svg.append(makeRectangle(0, 0, W, H, boardcolor));
 
-	
-	// Draw the lines
-	
-	for (var i = 1; i < size; i++) {
-		svg.append(makeLine(grid,(grid*i),W-grid,(grid*i)));
-		
-	}
-	for (var i = 1; i < size; i++) {
-		svg.append(makeLine((grid*i), grid, (grid*i), H-grid));
-	}
+	var size = game.gameSettings.boardSize;
+   // var board = state.board;
+    var gridSizeNonScaled = 600/size;
+    var gridSizeScaled = (600-2*gridSizeNonScaled)/size;
+    svg.append(makeRectangle(gridSizeNonScaled*0.60,gridSizeNonScaled*0.60,600-1.2*gridSizeNonScaled,600-1.2*gridSizeNonScaled,boardcolor));
+    svg.append(makeRectangle(gridSizeNonScaled,gridSizeNonScaled,600-2*gridSizeNonScaled,600-2*gridSizeNonScaled,boardcolor));
+    var ratio = size/(size-1);
+    for (var i = 1; i < size-1; i++) 
+        svg.append(makeLine(i*gridSizeScaled*ratio+gridSizeNonScaled,gridSizeNonScaled,i*gridSizeScaled*ratio+gridSizeNonScaled,600-gridSizeNonScaled,"#000000",1));
+    for (var i = 1; i < size-1; i++) 
+        svg.append(makeLine(gridSizeNonScaled,i*gridSizeScaled*ratio+gridSizeNonScaled,600-gridSizeNonScaled,i*gridSizeScaled*ratio+gridSizeNonScaled,"#000000",1));
 
-
-
-/*
-
-    var s = Snap(600, 600);
-
-
-    for (var k = 1; k<size; k++) {
-        for (var l = 1; l<size; l++) {
-            var token = s.circle((grid*i),(grid*j),grid/2.3);
-            //token.appendTo(board);
+    
+    for (var i = 0;i< size; i++) {
+        for (var j = 0;j< size; j++) {
+            if (board[i][j] == 1) 
+                svg.append(makeCircle(j*gridSizeScaled*ratio+gridSizeNonScaled,i*gridSizeScaled*ratio+gridSizeNonScaled,gridSizeScaled/2.8,token1));
+            if (board[i][j] == 2) 
+                svg.append(makeCircle(j*gridSizeScaled*ratio+gridSizeNonScaled,i*gridSizeScaled*ratio+gridSizeNonScaled,gridSizeScaled/2.8,token2));
         }
     }
-
-
-*/
-
-
-	// Draw the armies
-	for (i = 1; i < size; i++) {
-		for (j = 1; j < size; j++) {
-			if (state[i][j] == 1) {
-				svg.append(makeCircle((grid*i),(grid*j),grid/2.3, visualSettings.token1));
-			}
-			else if (state[i][j] == 2) {
-				svg.append(makeCircle((grid*i),(grid*j),grid/2.3, visualSettings.token2));
-			}
-		}
-	}	
 
     // append the svg object to the canvas object.
     canvas.append(svg);
