@@ -142,14 +142,23 @@ app.post("/getCurrentGame", function (req, res) {
   
 });
 
-
-app.get("/getVisualSettings",function(req,res){
-    var test = {boardcolor : "green", token1: "blue", token2:"red"};
-    //db.getVisualSettings();
-    res.json(test);
+app.post("/makeMove", function(req,res){
+    console.log("POST Request to: /makeMove");
+    var err = validate(req.body);
+    if (!err) {
+        db.makeMove(req.body, function(docs) {
+            res.json(docs);
+        });
+    } else {
+        res.json(err);
+    }
+    
+    
 });
 
-
+function validate(move) {
+    return null;
+}
 // Listen for changes
 app.listen(process.env.PORT || 80, function () {
     

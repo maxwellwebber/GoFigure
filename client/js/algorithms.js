@@ -14,6 +14,7 @@ console.log(testBoard);
 
 function Board (x,y,token)  {
     this.neighbour = [],
+    this.liberties = 0,
     this.x = x ,
     this.y = y,
     this.token = token,
@@ -36,7 +37,7 @@ function removeNeighbour(Board, neighbour){
 
                 
 
-function getNeighbours(board){
+function getNeighbours(board,position){
     var A = [];
     //console.log(A[0][0]);
     //console.log(A);
@@ -62,10 +63,16 @@ function getNeighbours(board){
 					if (A[i][j].token == (A[i][j+1].token)){
 						addNeighbour(A[i][j],A[i][j+1]);
 					}
+					if (A[i][j+1] == 0){
+					    A[i][j].liberties++;
+					}
 				}
 				if (i+1 < board.length){
 					if (A[i][j].token == (A[i+1][j].token)){
 						addNeighbour(A[i][j],A[i+1][j]);
+					}
+					if (A[i+1][j] == 0){
+					    A[i][j].liberties++;
 					}
 				}	
 				if (j-1 >= 0){	
@@ -73,18 +80,31 @@ function getNeighbours(board){
 
 						addNeighbour(A[i][j],A[i][j-1]);
 					}
+					if (A[i][j-1] == 0){
+					    A[i][j].liberties++;
+					}
 				}	
 				if (i-1 >= 0){	
 					if (A[i][j].token ==(A[i-1][j].token)){
 						addNeighbour(A[i][j],A[i-1][j]);
+					}
+					if (A[i-1][j] == 0){
+					    A[i][j].liberties++;
 					}
 				}	
 				
 						
 			}
 		}
-		console.log(A[0][0]);
-        FloodFillBFS(A[0][0]);
+		
+		if (A[position.x][position.y].liberties == 0 && A[position.x][position.y].neighbour.length == 0){
+		    //trying to commit suicide
+		    console.log("suicide");
+		    return;
+		}
+		
+		console.log(A[position.x][position.y]);
+        FloodFillBFS(A[position.x][position.y]);
         //var i = 0;
         //console.log(A[i][0].neighbour[i].visited);
  }
@@ -111,25 +131,14 @@ function FloodFillBFS(Board){
             }
         }    
     }
-    /*
-    while (queue.size != 0){
-        console.log(queue[0]);
-        var test = queue.pop();
-        console.log(test);
-        var i = 0;
-        /*
-        for(; i < r.neighbour.length; i++){
-            //console.log(i);
-            //console.log(Board.neighbour[i].visited);
-            
-            if(Board.neighbour[i].visited){
-                r.neighbour[i].visited = true;
-                queue.push(r.neighbour[i]);
-            }
-            
-        }
-        */
-    //}
 }
 
+function validateMove(board,position){ //add previous board here to check against ko for previous state
+    
+    
+    getNeighbours(board,position);
+}
 
+function getScore(board){
+    
+}

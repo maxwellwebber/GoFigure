@@ -157,6 +157,24 @@ class DBServer{
          collection.update({"userName":userName},{$set:{"currentGame":game}},{"upsert":true});
     }
     
+    makeMove(object, callback) {
+        var collection = this._db.collection("users");
+        var currentGame = {
+            "gameSettings":object.gameSettings,
+            "boardState":object.board
+        }
+        collection.update({"userName":object.userName},{$set:{"currentGame":currentGame}},{"upsert":true});
+        
+        collection.find({"userName":object.userName}).toArray(function(err, docs) {
+     	if (docs.length > 0){
+     	    var user = docs[0];
+     		callback(user.currentGame);
+     	} else {
+     	    callback(err, null);
+            }
+        });
+    }
+    
     getCurrentGame(userName, callback){
         
         var collection = this._db.collection("users");
