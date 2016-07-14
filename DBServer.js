@@ -148,6 +148,7 @@ class DBServer{
          }
          
          var game = {
+             "pass" : false,
              'gameSettings': gameSettings,
              'boardState': board,
              'turn': 1
@@ -173,6 +174,25 @@ class DBServer{
      	    callback(err, null);
             }
         });
+    }
+    
+    passMove(object, callback) {
+        var collection = this._db.collection("users");
+        collection.find({"userName":object.userName}).toArray(function(err, docs) {
+         	if (docs.length > 0){
+         	    var user = docs[0];
+         	    var currentGame = user.currentGame;
+                if (currentGame.pass == true) {
+                    //two passes have been detected
+                    callback({"gameIsOver":1});
+                } else {
+                    currentGame.pass=true;
+                    collection.update({"userName":object.userName},{$set:{"currentGame":currentGame}},{"upsert":true});
+                    callback({"gameIsOver":0});
+                }
+         	}
+        });
+        
     }
     
     getCurrentGame(userName, callback){

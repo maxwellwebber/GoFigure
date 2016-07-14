@@ -23,7 +23,7 @@ function getData(cb){
 
 
 
-function makeMove(game/*board,gridSizeScaled,gridSizeNonScaled,ratio,gameSettings*/){
+function makeMove(game){
     
     var size = game.gameSettings.boardSize;
    
@@ -52,41 +52,45 @@ function makeMove(game/*board,gridSizeScaled,gridSizeNonScaled,ratio,gameSetting
                     //mouseX > x-10 && mouseX < x+10 && mouseY > y-10 && mouseY < y+10
                     //var mouseX = 
                     //console.log(j*gridSizeScaled*ratio+gridSizeNonScaled + " " + i*gridSizeScaled*ratio+gridSizeNonScaled);
-                    if (mouseX > x_grid_location-radius && mouseX < x_grid_location+radius && mouseY > y_grid_location-radius && mouseY < y_grid_location+radius && board[i][j] == 0) { 
-                        //comment this out to not draw and add to the array so it is drawn by the draw board function
-                        //svg.append(makeCircle(j*gridSizeScaled*ratio+gridSizeNonScaled,i*gridSizeScaled*ratio+gridSizeNonScaled,gridSizeScaled/2.8,"black")); 
-                        //for this
-                        if (playerTurn == 1){
-                            board[i][j] = 1;
+                    if (mouseX > x_grid_location-radius && mouseX < x_grid_location+radius && mouseY > y_grid_location-radius && mouseY < y_grid_location+radius) {
+                        if (board[i][j] == 0) {
+                            //comment this out to not draw and add to the array so it is drawn by the draw board function
+                            //svg.append(makeCircle(j*gridSizeScaled*ratio+gridSizeNonScaled,i*gridSizeScaled*ratio+gridSizeNonScaled,gridSizeScaled/2.8,"black")); 
+                            //for this
+                            if (playerTurn == 1){
+                                board[i][j] = 1;
+                            } else {
+                                board[i][j] = 2;
+                            }
+                            //console.log(board[i][j]);
+                            sendData = {'userName' :document.cookie.split('=')[1],'pass':false, 'board' : board, "turn":playerTurn,"gameSettings":gameSettings};
+                            wentThrough = true;
+                            $("#error-prompt").empty();
+                            break end;
                         } else {
-                            board[i][j] = 2;
+                            $("#error-prompt").text("A token already exists on that spot");
                         }
-                        //console.log(board[i][j]);
-                        sendData = {'userName' :document.cookie.split('=')[1], 'board' : board, "turn":playerTurn,"gameSettings":gameSettings};
-                        wentThrough = true;
-                        break end;
-                    }   
+                    }  
                 }
             }
             return;
         }
       
     clientServer.sendAndRecieveData(sendData,"/makeMove",function(data){
-                        if (data.boardState != undefined){
-                            if (playerTurn == 1){
-                                console.log(i + " " +j);
-                                svg.append(makeCircle(x_grid_location,y_grid_location,radius,token1));
-                                playerTurn = 2;
-                            } else {
-                                svg.append(makeCircle(x_grid_location,y_grid_location,radius,token2));
-                                playerTurn = 1;
-                            }
+                    if (data.boardState != undefined){
+                        if (playerTurn == 1){
+                            svg.append(makeCircle(x_grid_location,y_grid_location,radius,token1));
+                            playerTurn = 2;
                         } else {
-                            // here is where we put error
-                            console.log(data);
+                            svg.append(makeCircle(x_grid_location,y_grid_location,radius,token2));
+                            playerTurn = 1;
                         }
+                    } else {
+                        // here is where we put error
+                        console.log(data);
+                    }
                         return;
-                    });
+                });
     
     });//end canvas click function  
 }
@@ -205,5 +209,25 @@ function init(){
     // do page load things here...
     clientServer = new ClientServer("localhost", 80);
     console.log("Initalizing Page...."); 
-    getData(initializeBoard); 
+    getData(initializeBoard);
+    
+    $("#pass-button").click(function() {
+        
+        sendData = {
+            "userName": document.cookie.split('=')[1]
+        }
+        
+        clientServer.sendAndRecieveData(sendData,"pass",function(data){
+            if (data.gameIsOver > 0) {
+                alert("Player "+data.gameIsOver+" Wins!!");
+            } else {
+               if (playerTurn == 1){
+                    playerTurn = 2;
+                } else {
+                    playerTurn = 1;
+                }
+                $("#error-prompt").empty();
+            }
+        });
+    });
 }

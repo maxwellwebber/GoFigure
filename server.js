@@ -156,6 +156,13 @@ app.post("/makeMove", function(req,res){
     
 });
 
+app.post("/pass", function(req,res) {
+    console.log("POST Request to: /pass");
+    db.passMove(req.body, function(docs) {
+       res.json(docs); 
+    });
+});
+
 function validate(move) {
     return null;
 }

@@ -7,20 +7,37 @@
     <script src="js/svgFactory.js"></script>
     <script src="js/client-server.js"></script>
     <script src="js/game-script.js"></script>
+    <style>
+      .test-coloring {
+        background-color: rgb(240,240,240);
+        height: 100%;
+      }
+
+      .btn-default {
+        margin: 10px 0px;
+      }      
+    </style>
   </head>
   <body>
-      <div align="center">
-        <h1>Title</h1>
-        <div>
-          <a class="btn btn-default" role="button">Pass</a>
-          <a href="main-menu.html" class="btn btn-default" role="button">Exit</a>
+  <div class="container-fluid" align="center">  
+            <h1>FIGHT!</h1>
+            <div>
+              <a class="btn btn-default" id="pass-button" role="button">Pass</a>
+              <a href="main-menu.html" class="btn btn-default" role="button">Exit</a>
+            </div>
+            <div style='width:100%;'>
+              <div id='canvas'></div>
+            </div>
+            
+            <div ><p class="text-danger" id="error-prompt"></p>
+              
+            </div>
+          
+            <script>
+              init();
+            </script>
         </div>
-        <div style='width:100%;'>
-          <div id='canvas'></div>
-        </div>
-      </div>
-        <script>
-          init();   
-        </script>
-    </body>
+    </div>
+  </div>  
+  </body>
 </html>
