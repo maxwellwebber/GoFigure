@@ -39,7 +39,7 @@ function removeNeighbour(Board, neighbour){
 
                 
 
-function getNeighbours(board,position){
+function getNeighbours(board){
     var A = [];
     //console.log(A[0][0]);
     //console.log(A);
@@ -145,6 +145,7 @@ function FloodFillBFS(Board){
 }
 
 function FloodFillBFSForDeath(Board){
+
     //console.log(Board);
     var queue = [];
     queue.push(Board);
@@ -170,6 +171,90 @@ function FloodFillBFSForDeath(Board){
     }//end while
     
     console.log("ARMY IS DEAD");
+}
+
+function checkAdjacentTokens(A, tokens,position){
+	//console.log(position.row + " AND " + position.column);
+	//console.log("TOKEN X and TOKEN Y " + tokens.one + "  " +  tokens.two);
+	//console.log(" A IS " + A);
+	//tokens.one++;
+	//console.log(A.length);
+    if (position.column+1 < A.length){
+	    //if (A[position.row][position.column].token != A[position.row][position.column+1].token && A[position.row][position.column+1].token != 0){
+		//console.log("in here");
+		//console.log(A)
+		
+			if (A[position.row][position.column+1].token == 1){
+		//		console.log("in here");
+			    tokens.one++;
+			} else if (A[position.row][position.column+1].token == 2){
+				tokens.two++;
+			}
+		//}
+    }
+	if (position.row+1 < A.length){
+		//if (A[position.row][position.column].token != A[position.row+1][position.column].token && A[position.row+1][position.column].token != 0){
+		//console.log("in here");
+			if (A[position.row+1][position.column].token == 1){
+		//		console.log("in here");
+			   tokens.one++;
+			} else if (A[position.row+1][position.column].token == 2){
+				tokens.two++;
+			}
+		//}
+	}	
+	if (position.column-1 >= 0){	
+		//if (A[position.row][position.column].token != A[position.row][position.column-1].token && A[position.row][position.column-1].token != 0){
+		//console.log("in here");
+			if (A[position.row][position.column-1].token == 1){
+		//		console.log("in here");
+			    tokens.one++;
+			} else if (A[position.row][position.column-1].token == 2){
+				tokens.two++;
+			}
+		//}
+	}	
+	if (position.row-1 >= 0){	
+		//if (A[position.row][position.column].token != A[position.row-1][position.column].token && A[position.row-1][position.column].token != 0){
+		//console.log("in here");
+			if (A[position.row-1][position.column].token == 1){
+				//console.log("in here");
+			    tokens.one++;
+			} else if (A[position.row-1][position.column].token == 2){
+				tokens.two++;
+			}
+		//}
+	}
+	//console.log(tokens.one);
+}
+
+function FloodFillBFSArea(Board, A){
+	//console.log(Board);
+	var tokens = {one: 0, two: 0}
+	var position = {row: 0, column: 0}
+    //console.log(Board);
+    var queue = [];
+    queue.push(Board);
+    Board.visited = true;
+    //console.log(Board);
+    console.log("visited " + Board.x + " , " + Board.y);
+    while (queue.length != 0){
+        var r = queue.pop();
+        //console.log(r);
+        //console.log(queue.length);
+        for (var i = 0; i < r.neighbour.length; i++){
+            //console.log(i);
+            if(r.neighbour[i].visited == false){
+                r.neighbour[i].visited = true;
+                console.log("visited " + r.neighbour[i].x + " , " + r.neighbour[i].y);
+                position.row = r.neighbour[i].x;
+                position.column = r.neighbour[i].y;
+                checkAdjacentTokens(A,tokens,position);
+                queue.push(r.neighbour[i]);
+            }
+        }    
+    }
+    console.log("Area is surrounded by tokens one: " + tokens.one + "and two: " + tokens.two);
 }
 
 
@@ -232,9 +317,9 @@ function checkDeath(A, position, board){
 function validateMove(board,position){ //add previous board here to check against ko for previous state
     
     //console.log(board[position.row][position.column]);
-    var A = getNeighbours(board,position);
+    var A = getNeighbours(board);
     console.log(A[position.row][position.column]);
-    checkSuicide(A);
+    checkSuicide(A, position);
 	//checkKO
     checkDeath(A,position,board);
 }
@@ -279,7 +364,16 @@ function stoneScoring(board){
 
 
 function areaScoring(board){
+	var A = getNeighbours(board);
+	//console.log(A);
 	
+	for (i =0; i <A.length; i++){
+		for(j=0; j < A.length; j++){
+			if (A[i][j].token == 0 && A[i][j].visited == false){
+				FloodFillBFSArea(A[i][j],A);
+			}
+		}
+	}
 }
 
 function territoryScoring(board){
