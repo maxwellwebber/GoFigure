@@ -1,3 +1,4 @@
+/*
 var testBoard = [
                 [0,0,1,0,0,0,0,0,0],
                 [0,0,1,0,0,0,0,0,0],
@@ -9,8 +10,9 @@ var testBoard = [
                 [0,0,0,0,0,0,2,0,0],
                 [0,0,0,0,0,0,2,0,0]
 ];
+*/
   
-console.log(testBoard);
+//console.log(testBoard);
 
 function Board (x,y,token)  {
     this.neighbour = [],
@@ -63,7 +65,7 @@ function getNeighbours(board,position){
 					if (A[i][j].token == (A[i][j+1].token)){
 						addNeighbour(A[i][j],A[i][j+1]);
 					}
-					if (A[i][j+1] == 0){
+					if (A[i][j+1].token == 0){
 					    A[i][j].liberties++;
 					}
 				}
@@ -71,7 +73,7 @@ function getNeighbours(board,position){
 					if (A[i][j].token == (A[i+1][j].token)){
 						addNeighbour(A[i][j],A[i+1][j]);
 					}
-					if (A[i+1][j] == 0){
+					if (A[i+1][j].token == 0){
 					    A[i][j].liberties++;
 					}
 				}	
@@ -79,7 +81,7 @@ function getNeighbours(board,position){
 					if (A[i][j].token ==(A[i][j-1].token)){
 						addNeighbour(A[i][j],A[i][j-1]);
 					}
-					if (A[i][j-1] == 0){
+					if (A[i][j-1].token == 0){
 					    A[i][j].liberties++;
 					}
 				}	
@@ -87,7 +89,7 @@ function getNeighbours(board,position){
 					if (A[i][j].token ==(A[i-1][j].token)){
 						addNeighbour(A[i][j],A[i-1][j]);
 					}
-					if (A[i-1][j] == 0){
+					if (A[i-1][j].token == 0){
 					    A[i][j].liberties++;
 					}
 				}	
@@ -96,16 +98,19 @@ function getNeighbours(board,position){
 			}
 		}
 		
-		if (A[position.x][position.y].liberties == 0 && A[position.x][position.y].neighbour.length == 0){
-		    //trying to commit suicide
-		    console.log("suicide (Return some error");
-		    return;
-		}
+		
+
+		
 		
 		//if we get here there should be no KO, or Suicide or trying to place in same position
 		
 		//check if killed something by placing the token
-		checkDeath(A,position,board);
+		
+		//console.log(A[position.row][position.column]);
+		//console.log(A[5][4]);
+		//checkDeath(A,position,board);
+		
+		return A;
 		
 		
 		//getScore
@@ -140,7 +145,7 @@ function FloodFillBFS(Board){
 }
 
 function FloodFillBFSForDeath(Board){
-    console.log(Board);
+    //console.log(Board);
     var queue = [];
     queue.push(Board);
     Board.visited = true;
@@ -155,7 +160,7 @@ function FloodFillBFSForDeath(Board){
             if(r.neighbour[i].visited == false){
                 r.neighbour[i].visited = true;
                 console.log("visited " + r.neighbour[i].x + " , " + r.neighbour[i].y);
-                if (r.neighbour[i].liberties > 1){
+                if (r.neighbour[i].liberties >= 1){
                     console.log("WILL NOT KILL ARMY");
                     return;
                 }
@@ -168,40 +173,56 @@ function FloodFillBFSForDeath(Board){
 }
 
 
+function checkSuicide(A,position){
+	if (A[position.row][position.column].liberties == 0 && A[position.row][position.column].neighbour.length == 0){
+	    //trying to commit suicide
+	    console.log("suicide (Return some error)");
+	    return;
+	}
+}
+
+function checkKO(board, prevBoard){
+	if (board == prevBoard){
+		return ("KO KO KO KO KO!!!!");
+	}
+}
+
+
 function checkDeath(A, position, board){
-    if (position.y+1 < board.length){
-	    if (A[position.x][position.y].token != A[position.x][position.y+1].token && A[position.x][position.y+1].token != 0){
-	        console.log(A[position.x][position.y+1].token);
+	//console.log(A[position.row][position.column].token != A[position.row][position.column-1].token);
+    if (position.column+1 < board.length){
+	    if (A[position.row][position.column].token != A[position.row][position.column+1].token && A[position.row][position.column+1].token != 0){
+	        //console.log(A[position.row][position.column+1].token);
 			//addNeighbour(A[i][j],A[i][j+1]);
-			if (A[position.x][position.y+1].neighbour.length != 0){
-			    FloodFillBFSForDeath(A[position.x][position.y+1]);
+			if (A[position.row][position.column+1].neighbour.length != 0){
+			    FloodFillBFSForDeath(A[position.row][position.column+1]);
 			}
 		}
     }
-	if (position.x+1 < board.length){
-		if (A[position.x][position.y].token == A[position.x+1][position.y].token && A[position.x+1][position.y].token != 0){
-		    console.log(A[position.x+1][position.y].token);
+	if (position.row+1 < board.length){
+		if (A[position.row][position.column].token != A[position.row+1][position.column].token && A[position.row+1][position.column].token != 0){
+		    console.log(A[position.row+1][position.column].token);
 			//addNeighbour(A[i][j],A[i+1][j]);
-			if (A[position.x+1][position.y].neighbour.length != 0){
-			    FloodFillBFSForDeath(A[position.x+1][position.y]);
+			if (A[position.row+1][position.column].neighbour.length != 0){
+			    FloodFillBFSForDeath(A[position.row+1][position.column]);
 			}
 		}
 	}	
-	if (position.y-1 >= 0){	
-		if (A[position.x][position.y].token == A[position.x][position.y-1].token && A[position.x][position.y-1].token != 0){
-		    console.log(A[position.x][position.y-1].token);
+	if (position.column-1 >= 0){	
+		if (A[position.row][position.column].token != A[position.row][position.column-1].token && A[position.row][position.column-1].token != 0){
+		    console.log(A[position.row][position.column-1].token);
 			//addNeighbour(A[i][j],A[i][j-1]);
-		    if (A[position.x][position.y-1].neighbour.length != 0){
-		        FloodFillBFSForDeath(A[position.x][position.y-1]);
+		    if (A[position.row][position.column-1].neighbour.length != 0){
+		        FloodFillBFSForDeath(A[position.row][position.column-1]);
 		    }
 		}
 	}	
-	if (position.x-1 >= 0){	
-		if (A[position.x][position.y].token == A[position.x-1][position.y].token && A[position.x-1][position.y-1]){
-		    console.log(A[position.x-1][position.y-1]);
+	if (position.row-1 >= 0){	
+		if (A[position.row][position.column].token != A[position.row-1][position.column].token && A[position.row-1][position.column].token != 0){
+		    //console.log(A[position.row-1][position.column-1]);
 			//addNeighbour(A[i][j],A[i-1][j]);
-			if (A[position.x-1][position.y].neighbour.length != 0){
-			    FloodFillBFSForDeath(A[position.x-1][position.y]);
+			if (A[position.row-1][position.column].neighbour.length != 0){
+			    FloodFillBFSForDeath(A[position.row-1][position.column]);
 			}
 		}
 	}	
@@ -210,11 +231,23 @@ function checkDeath(A, position, board){
 
 function validateMove(board,position){ //add previous board here to check against ko for previous state
     
-    console.log(board[5][7]);
-    getNeighbours(board,position);
+    //console.log(board[position.row][position.column]);
+    var A = getNeighbours(board,position);
+    console.log(A[position.row][position.column]);
+    checkSuicide(A);
+	//checkKO
+    checkDeath(A,position,board);
 }
 
 function getScore(board){
+	//if stoneScoring
+	stoneScoring(board);
+	
+	//if armyscoring
+	areaScoring(board);//undisputed liberties no substraction
+	
+	//if territory scoring
+	territoryScoring();//undisputed liberties - death armies 
     
 }
 
@@ -241,4 +274,14 @@ function stoneScoring(board){
 		return 2;
 	}
 
+}
+
+
+
+function areaScoring(board){
+	
+}
+
+function territoryScoring(board){
+	
 }

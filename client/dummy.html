@@ -14,7 +14,7 @@
         <script>
             var testBoard = [
                     [0,0,1,0,0,0,0,0,0],
-                    [0,0,1,0,0,0,0,0,0],
+                    [0,0,1,0,0,0,0,1,0],
                     [1,1,1,0,0,0,0,0,0],
                     [0,0,1,1,1,0,0,0,0],
                     [0,1,2,2,2,1,0,0,0],
@@ -25,7 +25,9 @@
             ];
         
             //getNeighbours(testBoard);
-            var position = {x: 4, y: 6};
+            var position = {row: 6, column: 4};
+            
+            //console.log(testBoard[position.row][position.column]);
             validateMove(testBoard,position);
         </script>
         

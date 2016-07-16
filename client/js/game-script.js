@@ -79,10 +79,10 @@ function makeMove(game){
     clientServer.sendAndRecieveData(sendData,"/makeMove",function(data){
                     if (data.boardState != undefined){
                         if (playerTurn == 1){
-                            svg.append(makeCircle(x_grid_location,y_grid_location,radius,token1));
+                            svg.append(makeShape(x_grid_location,y_grid_location,radius,token1,tokenShape));
                             playerTurn = 2;
                         } else {
-                            svg.append(makeCircle(x_grid_location,y_grid_location,radius,token2));
+                            svg.append(makeShape(x_grid_location,y_grid_location,radius,token2,tokenShape));
                             playerTurn = 1;
                         }
                     } else {
@@ -136,8 +136,8 @@ function initializeBoard(game,visualSettings){
     if (visualSettings.boardColor == 'Grey') {boardcolor = "#C0C0C0"}
     if (visualSettings.boardColor == 'Yellow') {boardcolor = "#FFFF00"}
 
-
-
+    tokenShape = visualSettings.tokenShape;
+    
     canvas = $("#canvas"); 
     W = 600;
     H = 600;
@@ -189,9 +189,9 @@ function drawBoard(game) {
     for (var i = 0;i< size; i++) {
         for (var j = 0;j< size; j++) {
             if (board[i][j] == 1) 
-                svg.append(makeCircle(j*gridSizeScaled*ratio+gridSizeNonScaled,i*gridSizeScaled*ratio+gridSizeNonScaled,gridSizeScaled/2.8,token1));
+                svg.append(makeShape(j*gridSizeScaled*ratio+gridSizeNonScaled,i*gridSizeScaled*ratio+gridSizeNonScaled,gridSizeScaled/2.8,token1,tokenShape));
             if (board[i][j] == 2) 
-                svg.append(makeCircle(j*gridSizeScaled*ratio+gridSizeNonScaled,i*gridSizeScaled*ratio+gridSizeNonScaled,gridSizeScaled/2.8,token2));
+                svg.append(makeShape(j*gridSizeScaled*ratio+gridSizeNonScaled,i*gridSizeScaled*ratio+gridSizeNonScaled,gridSizeScaled/2.8,token2,tokenShape));
         }
     }
     
@@ -203,15 +203,8 @@ function drawBoard(game) {
     canvas.append(svg);
 }
 
-function init(){
-
-    playerTurn = 1;
-    // do page load things here...
-    clientServer = new ClientServer("localhost", 80);
-    console.log("Initalizing Page...."); 
-    getData(initializeBoard);
-    
-    $("#pass-button").click(function() {
+function initializePassButton() {
+   $("#pass-button").click(function() {
         
         sendData = {
             "userName": document.cookie.split('=')[1]
@@ -229,5 +222,16 @@ function init(){
                 $("#error-prompt").empty();
             }
         });
-    });
+    });  
+}
+
+function init(){
+
+    playerTurn = 1;
+    // do page load things here...
+    clientServer = new ClientServer("localhost", 80);
+    console.log("Initalizing Page...."); 
+    getData(initializeBoard);
+    initializePassButton();
+   
 }
