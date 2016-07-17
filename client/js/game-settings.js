@@ -5,7 +5,7 @@ $(document).ready(function() {
     var object = {
         userName : document.cookie.split('=')[1],
         gameSettings : {
-            scoringSettings : "Area",
+            scoringSettings : "Area Scoring",
             playerSettings: "One Player",
             handicapSettings: "Zero",
             boardSize: 13

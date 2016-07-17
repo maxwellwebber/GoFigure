@@ -4,7 +4,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" 
     integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    <script src="js/algorithms.js"></script>
+    <script src="js/dummyAlg.js"></script>
     <script src="js/dummy.js"></script>
     <script src="js/svgFactory.js"></script>
     <script src="js/client-server.js"></script>
@@ -14,21 +14,35 @@
         <script>
             var testBoard = [
                     [0,0,1,0,0,0,0,0,0],
-                    [0,0,1,0,0,0,0,1,0],
+                    [0,0,1,0,0,0,0,0,0],
                     [1,1,1,0,0,0,0,0,0],
-                    [0,0,1,1,1,0,0,0,0],
-                    [0,1,2,2,2,1,0,0,0],
-                    [0,0,1,1,2,1,0,0,0],
-                    [0,0,0,0,1,0,2,2,2],
+                    [0,0,0,1,1,1,1,0,0],
+                    [0,0,1,2,2,2,1,0,0],
+                    [0,0,0,1,1,1,0,0,0],
+                    [0,0,0,0,0,0,2,2,2],
+                    [0,0,0,0,0,0,2,0,0],
+                    [0,0,0,0,0,0,2,0,0]
+            ];
+            
+            var testBoard2 = [
+                    [0,0,1,0,0,0,1,0,0],
+                    [0,0,1,0,0,0,0,0,0],
+                    [1,1,1,0,0,0,0,0,0],
+                    [0,0,0,1,1,1,1,0,0],
+                    [0,0,1,2,2,2,1,0,0],
+                    [0,0,0,1,1,1,0,0,0],
+                    [0,0,0,0,0,0,2,2,2],
                     [0,0,0,0,0,0,2,0,0],
                     [0,0,0,0,0,0,2,0,0]
             ];
         
             //getNeighbours(testBoard);
-            var position = {row: 6, column: 4};
+            var position = {row: 4, column: 2};
             
             //console.log(testBoard[position.row][position.column]);
-            validateMove(testBoard,position);
+            checkDeath(position,testBoard);
+           //areaScoring(testBoard);
+            
         </script>
         
         

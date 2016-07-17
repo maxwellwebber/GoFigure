@@ -11,7 +11,7 @@ function getData(cb){
     clientServer.sendAndRecieveData(sendData,"getCurrentGame", function(data) {
 
         // handle any errors here....
-        console.log(data)
+        console.log(data.currentGame.gameSettings);
         // draw the board....
         
         cb(data.currentGame,data.visualSettings);
@@ -63,7 +63,7 @@ function makeMove(game){
                                 board[i][j] = 2;
                             }
                             //console.log(board[i][j]);
-                            sendData = {'userName' :document.cookie.split('=')[1],'pass':false, 'board' : board, "turn":playerTurn,"gameSettings":gameSettings};
+                            sendData = {'userName' :document.cookie.split('=')[1],'pass':false, 'board' : board, "turn":playerTurn,"gameSettings":gameSettings, 'player1Score':player1Score, 'player2Score':player2Score};
                             wentThrough = true;
                             $("#error-prompt").empty();
                             break end;
@@ -77,7 +77,7 @@ function makeMove(game){
         }
       
     clientServer.sendAndRecieveData(sendData,"/makeMove",function(data){
-                    if (data.boardState != undefined){
+                    if (data.boardState != undefined) {
                         if (playerTurn == 1){
                             svg.append(makeShape(x_grid_location,y_grid_location,radius,token1,tokenShape));
                             playerTurn = 2;
@@ -85,6 +85,7 @@ function makeMove(game){
                             svg.append(makeShape(x_grid_location,y_grid_location,radius,token2,tokenShape));
                             playerTurn = 1;
                         }
+                        updateScoreView()
                     } else {
                         // here is where we put error
                         console.log(data);
@@ -115,6 +116,8 @@ function initializeBoard(game,visualSettings){
     //------------------------------
     //-------------------------------
     
+    vs = visualSettings;
+    
     //console.log("myData is " + myData.token1);
     
     if (visualSettings.tokenColor == "Black and White") {
@@ -137,6 +140,10 @@ function initializeBoard(game,visualSettings){
     if (visualSettings.boardColor == 'Yellow') {boardcolor = "#FFFF00"}
 
     tokenShape = visualSettings.tokenShape;
+    
+    player1Score = game.player1Score;
+    player2Score = game.player2Score;
+    updateScoreView()
     
     canvas = $("#canvas"); 
     W = 600;
@@ -170,7 +177,7 @@ function drawBoard(game) {
 	var grid = (W/size);
     var board = game.boardState;
 	// Draw a rectangle for the board
-	$('#canvas').empty();
+	//$('#canvas').empty();
 	svg.append(makeRectangle(0, 0, W, H, boardcolor));
 
 	var size = game.gameSettings.boardSize;
@@ -203,6 +210,44 @@ function drawBoard(game) {
     canvas.append(svg);
 }
 
+function displayWinScreen(winner) {
+    // call algorithm to find winner
+    $("#canvas").append('<div class="win-screen container"><h3>Player '+winner+' wins!</h3>'+
+                  '<p>Player 1 score: <span id="p1score">999</span></p>'+
+                  '<p>Player 2 score: <span id="p1score">-999</span></p>'+
+                  '<a class="btn btn-default" role="button" id="save-replay-button-revealer">Save Replay</a>'+
+                  '<a href="main-menu.html" class="btn btn-default game-ender" role="button" id="main-menus">Main Menu</a>'+'</div>');
+    initializeGameEnd();
+    initializeSaveReplayRevealerButton(winner);
+    // return winner
+}
+
+function initializeSaveReplayRevealerButton(winner) {
+    $('#save-replay-button-revealer').one('click',function() {
+        $(".win-screen").append('<form class="form-inline">'+
+                                '<div class="form-group">'+
+                                '<input class="form-inline replayname" id="pwd" placeholder="Enter replay name">'+
+                                '<a class="btn btn-default" role="button" id="save-replay-button">Save</a></div>');
+        
+        $('#save-replay-button').one('click',function() {
+            var sendData = {
+                "userName": document.cookie.split('=')[1],
+                "replayName":  $('.replayname').val(),
+                "visualSettings": vs,
+                'winner': winner
+            }
+
+            clientServer.sendAndRecieveData(sendData, 'saveReplay', function(err) {
+                if (!err) {
+                    $(".win-screen").append('<p>Save Successful</p>');
+                } else {
+                    $(".win-screen").append('<p>'+err+'</p>');
+                }
+            });
+        });
+    });
+}
+
 function initializePassButton() {
    $("#pass-button").click(function() {
         
@@ -212,7 +257,9 @@ function initializePassButton() {
         
         clientServer.sendAndRecieveData(sendData,"pass",function(data){
             if (data.gameIsOver > 0) {
-                alert("Player "+data.gameIsOver+" Wins!!");
+                $('#canvas').off('click');
+                $('#pass-button').off('click');
+                displayWinScreen(1);
             } else {
                if (playerTurn == 1){
                     playerTurn = 2;
@@ -225,6 +272,21 @@ function initializePassButton() {
     });  
 }
 
+function initializeGameEnd() {
+    $(".game-ender").click(function() {
+        var sendData = {
+            userName: document.cookie.split('=')[1]
+        }
+        clientServer.sendData(sendData, 'endGame', function() {
+        });
+    });
+}
+
+function updateScoreView() {
+    $('#player1Score').text(player1Score);
+    $('#player2Score').text(player2Score);
+}
+
 function init(){
 
     playerTurn = 1;
@@ -233,5 +295,6 @@ function init(){
     console.log("Initalizing Page...."); 
     getData(initializeBoard);
     initializePassButton();
+    initializeGameEnd();
    
 }

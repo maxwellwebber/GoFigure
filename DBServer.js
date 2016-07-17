@@ -59,7 +59,7 @@ class DBServer{
         var collection = this._db.collection("users");
 
     collection.find({"userName": newUser.userName}).toArray(function(err, docs) {
-        console.log(docs[0]);
+        //console.log(docs[0]);
  	if (docs.length > 0){
  		callback("This user already exists");
         console.log("USER "  + newUser.userName + " EXISTS");
@@ -84,7 +84,7 @@ class DBServer{
         var collection = this._db.collection("users");
         
         collection.find({"userName": user.userName,"password": user.password}).toArray(function(err, docs) {
-        console.log(docs[0]);
+        //console.log(docs[0]);
  	if (docs.length > 0){
  		if(err) callback(err);
         else callback(null);
@@ -128,7 +128,7 @@ class DBServer{
          
          
          
-         console.log(handicap)
+         //console.log(handicap)
          
          if (handicap == "One"){
              board[Math.floor(gameSettings.boardSize/2)][Math.floor(gameSettings.boardSize/2)] = 1;
@@ -138,7 +138,7 @@ class DBServer{
              board[Math.floor(gameSettings.boardSize/2)][Math.floor(gameSettings.boardSize/2)+Math.floor(gameSettings.boardSize/4)] = 1;
              board[Math.floor(gameSettings.boardSize/2)][Math.floor(gameSettings.boardSize/2)-Math.floor(gameSettings.boardSize/4)] = 1;
          }
-         console.log(board);
+         //console.log(board);
          if (handicap == "Four") {
             board[Math.floor(gameSettings.boardSize/2)+Math.floor(gameSettings.boardSize/4)][Math.floor(gameSettings.boardSize/2)+Math.floor(gameSettings.boardSize/4)] = 1;
             board[Math.floor(gameSettings.boardSize/2)+Math.floor(gameSettings.boardSize/4)][Math.floor(gameSettings.boardSize/2)-Math.floor(gameSettings.boardSize/4)] = 1;
@@ -151,7 +151,9 @@ class DBServer{
              "pass" : false,
              'gameSettings': gameSettings,
              'boardState': board,
-             'turn': 1
+             'turn': 1,
+             'player1Score' : 0,
+             'player2Score' : 0.5
          }
          
          //console.log(game);
@@ -161,8 +163,12 @@ class DBServer{
     makeMove(object, callback) {
         var collection = this._db.collection("users");
         var currentGame = {
+            "pass":object.pass,
             "gameSettings":object.gameSettings,
-            "boardState":object.board
+            "boardState":object.board,
+            "turn" : object.turn,
+            "player1Score": object.player1Score,
+            "player2Score" : object.player2Score
         }
         collection.update({"userName":object.userName},{$set:{"currentGame":currentGame}},{"upsert":true});
         
@@ -173,6 +179,35 @@ class DBServer{
      	} else {
      	    callback(err, null);
             }
+        });
+    }
+    
+    saveReplay(object, callback) {
+        var collection = this._db.collection("users");
+        
+        collection.find({"userName":object.userName}).toArray(function(err, docs) {
+        //collection.update({"userName":object.userName})
+            //if(docs.length > 0){
+                var user = docs[0];
+                if (user[object.replayName] != undefined) callback("Replay name already exists");
+                else {
+                    
+                    var name = object.replayName;
+                    var query = {};
+                    query[name] = object;
+                    
+                    
+                    var userName = object.userName;
+                    delete object["userName"];
+                    collection.update({"userName":userName},{$set:query},{"upsert":true});
+                    callback(null);
+                }
+            //}
+            /*else{
+                console.log("DIDNT ENTER THE docs.length>0");
+                callback("Ths");
+            }*/
+            
         });
     }
     
