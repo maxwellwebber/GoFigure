@@ -107,41 +107,52 @@
 	    }
 	}
 	
-	function FloodFillBFSForDeath(Board,positions){
-		
-		
-		function positionKilled (x,y){
-			this.x = x,
-			this.y = y
-		}
-		
-	    ////console.log(Board);
-	    var queue = [];
-	    queue.push(Board);
-	    Board.visited = true;
-	    ////console.log(Board);
-	    //console.log("visited " + Board.x + " , " + Board.y);
-	    while (queue.length != 0){
-	        var r = queue.pop();
-	        ////console.log(r);
-	        ////console.log(queue.length);
-	        for (var i = 0; i < r.neighbour.length; i++){
-	            ////console.log(i);
-	            if(r.neighbour[i].visited == false){
-	                r.neighbour[i].visited = true;
-	                //console.log("visited " + r.neighbour[i].x + " , " + r.neighbour[i].y);
-	                if (r.neighbour[i].liberties >= 1){
-	                    //console.log("WILL NOT KILL ARMY");
-	                    return null;
-	                }
-	                positions.push(new positionKilled(r.neighbour[i].x, r.neighbour[i].y));
-	                queue.push(r.neighbour[i]);
-	            }
-	        }//end for
-	    }//end while
-	    console.log("ARMY was killed");
-	    
+function FloodFillBFSForDeath(Board,positions){
+	
+	
+	function positionKilled (row,column){
+		this.row = row,
+		this.column = column
 	}
+	
+	var position_floodFill = []
+    //console.log(Board);
+    var kill;
+    var queue = [];
+    queue.push(Board);
+    Board.visited = true;
+    console.log("visited " + Board.x + " , " + Board.y);
+    position_floodFill.push(new positionKilled(Board.x, Board.y));
+    while (queue.length != 0){
+        var r = queue.pop();
+        //console.log(r);
+        //console.log(queue.length);
+        for (var i = 0; i < r.neighbour.length; i++){
+            //console.log(i);
+            if(r.neighbour[i].visited == false){
+                r.neighbour[i].visited = true;
+                console.log("visited " + r.neighbour[i].x + " , " + r.neighbour[i].y);
+                if (r.neighbour[i].liberties >= 1){
+                    console.log("WILL NOT KILL ARMY");
+                    kill = 0;
+                }
+                position_floodFill.push(new positionKilled(r.neighbour[i].x, r.neighbour[i].y));
+                queue.push(r.neighbour[i]);
+            }
+        }//end for
+    }//end while
+    //console.log(positions[0]);
+    if (kill == 0){
+    	console.log("Positions in FloddFill is  ");
+    	console.log(positions);
+    } else {
+    	for (var i = 0; i < position_floodFill.length; i++){
+    		positions.push(position_floodFill[i]);
+    	}
+    	console.log("ARMY IS DEAD");
+    }
+    
+}
 	
 	function checkAdjacentTokens(A, tokens,position){
 		////console.log(position.row + " AND " + position.column);
@@ -265,8 +276,8 @@
 	}
 	
 	
-	function isSuicide(A,position){
-		if (A[position.row][position.column].liberties == 0 && A[position.row][position.column].neighbour.length == 0){
+	function isSuicide(A,position,numArmiesKilled){
+		if (A[position.row][position.column].liberties == 0 && A[position.row][position.column].neighbour.length == 0 && numArmiesKilled == 0){
 		    //trying to commit suicide
 		    console.log("suicidal move");
 		    return true;
@@ -276,7 +287,10 @@
 	}
 	
 	function isKO(board, prevBoard){
-		if (board == prevBoard){
+		console.log("prevBoard is :");
+		console.log(prevBoard);
+		//console.log("ABOUT TO CHECK KO");
+		if (arraysIdentical(board,prevBoard)){
 		console.log(("KO KO KO KO KO!!!!"));
 			return  true;
 		} else {
@@ -285,56 +299,83 @@
 	}
 	
 	
-	function checkDeath(position, board){
-		var A = getNeighbours(board);
-		////console.log(A[position.row][position.column].token != A[position.row][position.column-1].token);
-		var positions = [];
-	    if (position.column+1 < board.length){
-		    if (A[position.row][position.column].token != A[position.row][position.column+1].token && A[position.row][position.column+1].token != 0){
-		        ////console.log(A[position.row][position.column+1].token);
-				//addNeighbour(A[i][j],A[i][j+1]);
-				if (A[position.row][position.column+1].neighbour.length != 0){
-				    FloodFillBFSForDeath(A[position.row][position.column+1],positions);
-				}
-			}
-	    }
-		if (position.row+1 < board.length){
-			if (A[position.row][position.column].token != A[position.row+1][position.column].token && A[position.row+1][position.column].token != 0){
-			    //console.log(A[position.row+1][position.column].token);
-				//addNeighbour(A[i][j],A[i+1][j]);
-				if (A[position.row+1][position.column].neighbour.length != 0){
-				    FloodFillBFSForDeath(A[position.row+1][position.column],positions);
-				}
-			}
-		}	
-		if (position.column-1 >= 0){	
-			if (A[position.row][position.column].token != A[position.row][position.column-1].token && A[position.row][position.column-1].token != 0){
-			    //console.log(A[position.row][position.column-1].token);
-				//addNeighbour(A[i][j],A[i][j-1]);
-			    if (A[position.row][position.column-1].neighbour.length != 0){
-			        FloodFillBFSForDeath(A[position.row][position.column-1],positions);
-			    }
-			}
-		}	
-		if (position.row-1 >= 0){	
-			if (A[position.row][position.column].token != A[position.row-1][position.column].token && A[position.row-1][position.column].token != 0){
-			    ////console.log(A[position.row-1][position.column-1]);
-				//addNeighbour(A[i][j],A[i-1][j]);
-				if (A[position.row-1][position.column].neighbour.length != 0){
-				    FloodFillBFSForDeath(A[position.row-1][position.column],positions);
-				}
-			}
-		}
-		
-		return positions;
+function checkDeath(position, board){
+	
+	function positionKilled (row,column){
+		this.row = row,
+		this.column = column
 	}
 	
-	function validate(board, previousBoard, position){ //add previous board here to check against ko for previous state
+	
+	//console.log("check death received position:  row:" + position.row +" and column: " + position.column );
+	//console.log(board);
+	var A = getNeighbours(board);
+	var positions = [];
+	//console.log("token placed is  " + A[position.row][position.column].token);
+	//console.log("IN CHECK DEATH");
+	//console.log(A[position.row][position.column].token != A[position.row][position.column-1].token);
+	console.log("checking if token " + A[position.row][position.column].token + " placed at row: " + position.row + " column: " + position.column + " killed something");
+	
+    if (position.column+1 < board.length){
+	    if (A[position.row][position.column].token != A[position.row][position.column+1].token && A[position.row][position.column+1].token != 0){
+	        //console.log(A[position.row][position.column+1].token);
+			//addNeighbour(A[i][j],A[i][j+1]);
+			if (A[position.row][position.column+1].neighbour.length != 0){
+			    FloodFillBFSForDeath(A[position.row][position.column+1],positions);
+			} else if (A[position.row][position.column+1].liberties == 0){
+				positions.push(new positionKilled(position.row, position.column+1));
+			}
+		}
+    }
+	if (position.row+1 < board.length){
+		if (A[position.row][position.column].token != A[position.row+1][position.column].token && A[position.row+1][position.column].token != 0){
+		    console.log(A[position.row+1][position.column].token);
+			//addNeighbour(A[i][j],A[i+1][j]);
+			if (A[position.row+1][position.column].neighbour.length != 0){
+			    FloodFillBFSForDeath(A[position.row+1][position.column],positions);
+			} else if (A[position.row+1][position.column].liberties == 0){
+				positions.push(new positionKilled(position.row+1, position.column));
+			}
+		}
+	}	
+	if (position.column-1 >= 0){	
+		if (A[position.row][position.column].token != A[position.row][position.column-1].token && A[position.row][position.column-1].token != 0){
+		    console.log(A[position.row][position.column-1].token);
+			//addNeighbour(A[i][j],A[i][j-1]);
+		    if (A[position.row][position.column-1].neighbour.length != 0){
+		        FloodFillBFSForDeath(A[position.row][position.column-1],positions);
+		    } else if(A[position.row][position.column-1].liberties == 0){
+		    	positions.push(new positionKilled(position.row, position.column-1));
+		    }
+		}
+	}	
+	if (position.row-1 >= 0){	
+		if (A[position.row][position.column].token != A[position.row-1][position.column].token && A[position.row-1][position.column].token != 0){
+		    //console.log(A[position.row-1][position.column-1]);
+			//addNeighbour(A[i][j],A[i-1][j]);
+			if (A[position.row-1][position.column].neighbour.length != 0){
+			    FloodFillBFSForDeath(A[position.row-1][position.column],positions);
+			} else if(A[position.row-1][position.column].liberties == 0){
+				positions.push(new positionKilled(position.row-1, position.column));
+			}
+		}
+	}
+	//console.log("Killed armies");
+	 //console.log("Right before checkDeath returns");
+	 //console.log(new Date().getTime()/1000);
+	 console.log("Positions in check death is : ")
+	 console.log(positions);
+	return positions;
+    
+}
+	
+	function validate(board, previousBoard, position,numArmiesKilled){ //add previous board here to check against ko for previous state
 	    
 	    ////console.log(board[position.row][position.column]);
 	    var A = getNeighbours(board);
-	
-	    if (isSuicide(A, position)){
+		console.log("ALGORITHMS LINE 373");
+	    if (isSuicide(A, position,numArmiesKilled)){
+	    	console.log("ALGORITHMS LINE 375");
 	    	return 1;
 	    } else if(isKO(board, previousBoard)) {
 	    	return 2;  
@@ -400,11 +441,28 @@
 		return score;  
 		
 	}
+	
+	function arraysIdentical(a, b){
+	    
+	    for(var i = 0; i < a.length; i++){
+	        for(var j = 0; j < a.length; j++){
+	            if(a[i][j] != b[i][j]){
+	                return false;
+	            }
+	        }
+	    }
+	    
+	    return true;
+	}
 
 
 module.exports = 
 {
-	
+	arraysIdentical : arraysIdentical,
+	isKO:isKO,
+	getNeighbours : getNeighbours,
+	FloodFillBFSForDeath: FloodFillBFSForDeath,
+	FloodFillBFSArea:FloodFillBFSArea,
 	stoneScoring : stoneScoring,
 	areaScoring : areaScoring,
 	territoryScoring : territoryScoring,

@@ -127,7 +127,6 @@ function FloodFillBFS(Board){
 
 function FloodFillBFSForDeath(Board,positions){
 	
-	
 	function positionKilled (x,y){
 		this.x = x,
 		this.y = y
@@ -139,6 +138,7 @@ function FloodFillBFSForDeath(Board,positions){
     Board.visited = true;
     //console.log(Board);
     console.log("visited " + Board.x + " , " + Board.y);
+    positions.push(new positionKilled(Board.x, Board.y));
     while (queue.length != 0){
         var r = queue.pop();
         //console.log(r);
@@ -306,46 +306,47 @@ function isKO(board, prevBoard){
 
 function checkDeath(position, board){
 	var A = getNeighbours(board);
-	console.log("IN CHECK DEATH");
+	//console.log("IN CHECK DEATH");
 	//console.log(A[position.row][position.column].token != A[position.row][position.column-1].token);
+	console.log("checking if token " + A[position.row][position.column].token + " placed at row: " + position.row + " column: " + position.column);
 	var positions = [];
     if (position.column+1 < board.length){
 	    if (A[position.row][position.column].token != A[position.row][position.column+1].token && A[position.row][position.column+1].token != 0){
 	        //console.log(A[position.row][position.column+1].token);
 			//addNeighbour(A[i][j],A[i][j+1]);
-			if (A[position.row][position.column+1].neighbour.length != 0){
+			//if (A[position.row][position.column+1].neighbour.length != 0){
 			    FloodFillBFSForDeath(A[position.row][position.column+1],positions);
-			}
+			//} 
 		}
     }
 	if (position.row+1 < board.length){
 		if (A[position.row][position.column].token != A[position.row+1][position.column].token && A[position.row+1][position.column].token != 0){
 		    console.log(A[position.row+1][position.column].token);
 			//addNeighbour(A[i][j],A[i+1][j]);
-			if (A[position.row+1][position.column].neighbour.length != 0){
+			//if (A[position.row+1][position.column].neighbour.length != 0){
 			    FloodFillBFSForDeath(A[position.row+1][position.column],positions);
-			}
+			//}
 		}
 	}	
 	if (position.column-1 >= 0){	
 		if (A[position.row][position.column].token != A[position.row][position.column-1].token && A[position.row][position.column-1].token != 0){
 		    console.log(A[position.row][position.column-1].token);
 			//addNeighbour(A[i][j],A[i][j-1]);
-		    if (A[position.row][position.column-1].neighbour.length != 0){
+		    //if (A[position.row][position.column-1].neighbour.length != 0){
 		        FloodFillBFSForDeath(A[position.row][position.column-1],positions);
-		    }
+		    //}
 		}
 	}	
 	if (position.row-1 >= 0){	
 		if (A[position.row][position.column].token != A[position.row-1][position.column].token && A[position.row-1][position.column].token != 0){
 		    //console.log(A[position.row-1][position.column-1]);
 			//addNeighbour(A[i][j],A[i-1][j]);
-			if (A[position.row-1][position.column].neighbour.length != 0){
+			//if (A[position.row-1][position.column].neighbour.length != 0){
 			    FloodFillBFSForDeath(A[position.row-1][position.column],positions);
-			}
+			//}
 		}
 	}
-	console.log(positions);
+	console.log("Killed tokens are " + positions.length);
 	return positions;
     
 }

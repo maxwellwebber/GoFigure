@@ -138,30 +138,51 @@ app.post("/getCurrentGame", function (req, res) {
 
 app.post("/makeMove", function(req,res){
     console.log("POST Request to: /makeMove");
-    
-    
    
     var object = req.body;
     
-   // console.log(position);
-    //console.log(position.row);
-   getPosition(object, function(position, prevBoard){
-   
-        var isValid = algorithms.validate(object.board, prevBoard, position);
-        console.log(isValid);
+   //console.log(position);
+   //console.log(position.row);
+   getPosition(object, function(position){
+        var userName = req.body.userName;
+        var previousBoard = games[userName][games[userName].length-1];
+        if ( games[userName].length > 2)
+        {
+         previousBoard = games[userName][games[userName].length-2];
+        }
+
+       
+        //console.log(isValid);
+        
+        console.log("position is " + position.row + " " + position.column);
+        //console.log(new Date().getTime()/1000);
         var armiesKilled = algorithms.checkDeath(position, object.board);
-        //console.log(armiesKilled);
+        //console.log("checkDeath Has been called");
+        //console.log(new Date().getTime()/1000);
+       
+        //console.log(position);
+        
+        console.log(object.board);
+        
         var numArmiesKilled = armiesKilled.length;
+        var isValid = algorithms.validate(object.board, previousBoard, position, numArmiesKilled);
+        console.log("\n");
+        console.log(armiesKilled);
+        console.log("There have been "+ numArmiesKilled + " armies killed\n");
+        
         var scoringSettings = object.gameSettings.scoringSettings;
         var playerTurn = object.turn;
-        if(isValid > 0){
-            
-            if (isValid==1) res.json("Error, Suicidal Move");
-            if (isValid==2) res.json("Error, Ko");
-            //do bad things here
-        }
         
-        else {
+        console.log("is valid is " + isValid);
+        
+        if (isValid==1) {
+            res.json("Error, Suicidal Move")
+        
+        }if (isValid==2) {
+             res.json("Error, Ko")
+        
+        }else {
+            console.log("about to change turn");
             if(object.turn == 1){
                 object.turn = 2;
             }
@@ -171,6 +192,8 @@ app.post("/makeMove", function(req,res){
             for (var i = 0; i < numArmiesKilled; i++) {
                 object.board[armiesKilled[i].row][armiesKilled[i].column] = 0;
             }
+            if (algorithms.isKO(object.board, previousBoard))  res.json("Error, Ko");
+            console.log(object.board)
             var scores = {}
             if (scoringSettings == "Area Scoring") {
                 scores = algorithms.areaScoring(object.board);
@@ -191,8 +214,14 @@ app.post("/makeMove", function(req,res){
         
             db.makeMove(object, function(docs) {
                 res.json(docs);
+                console.log(armiesKilled);
                 var userName = req.body.userName;
-                games[userName].push(object.board);
+                if(games[userName] != undefined){
+                    games[userName].push(object.board);
+                }else{
+                    games[userName] = [];
+                    games[userName].push(object.board);
+                }
                 
                 //console.log(games[userName]);
             });
@@ -202,6 +231,8 @@ app.post("/makeMove", function(req,res){
    });
     
 });
+
+
 
 function getPosition(object, cb){
     
@@ -216,7 +247,9 @@ function getPosition(object, cb){
                 if (object.board[i][j] != prevBoard.currentGame.boardState[i][j]){
                     position.row = i;
                     position.column = j;
-                    cb(position, prevBoard);
+                    console.log("about to exit getPosition")
+                    cb(position);
+                    return;
                 }
             }
         }
