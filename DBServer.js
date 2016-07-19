@@ -153,7 +153,7 @@ class DBServer{
              'boardState': board,
              'turn': 1,
              'player1Score' : 0,
-             'player2Score' : 0.5
+             'player2Score' : 0
          }
          
          //console.log(game);
@@ -175,6 +175,8 @@ class DBServer{
         collection.find({"userName":object.userName}).toArray(function(err, docs) {
      	if (docs.length > 0){
      	    var user = docs[0];
+     	    user.currentGame["killCheck"] = false;
+     	    console.log(user.currentGame.boardState);
      		callback(user.currentGame);
      	} else {
      	    callback(err, null);

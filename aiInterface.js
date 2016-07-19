@@ -2,9 +2,9 @@ var http = require("http");
 
 var port = 8081;
 
-  function getMove() {}
 
-  function random(size, board, lastMove, cb){
+
+  function getRandomMove(size, board, lastMove, cb){
       var input = {
         size : size,
         board : board,
@@ -41,7 +41,7 @@ var port = 8081;
   
   }
   
-  function maxLibs(size, board, lastMove, cb){
+  function getMaxLibsMove(size, board, lastMove, cb){
       var input = {
         size : size,
         board : board,
@@ -81,7 +81,7 @@ var port = 8081;
   
   
   
-  function attackEnemy(size, board, lastMove, cb){
+  function getAttackEnemyMove(size, board, lastMove, cb){
       var input = {
         size : size,
         board : board,
@@ -119,7 +119,7 @@ var port = 8081;
   }
   
   
-  function formEyes(size, board, lastMove, cb){
+  function getFormEyesMove(size, board, lastMove, cb){
       var input = {
         size : size,
         board : board,
@@ -160,10 +160,10 @@ var port = 8081;
 module.exports = 
 {
 	
-	randmom : random,
-	maxLibs : maxLibs,
-  attackEnemy : attackEnemy,
-	formEyes : formEyes
+	getRandomMove : getRandomMove,
+	getMaxLibsMove : getMaxLibsMove,
+  getAttackEnemyMove : getAttackEnemyMove,
+	getFormEyesMove : getFormEyesMove
 }
 
 

@@ -57,7 +57,7 @@ function makeMove(game){
                             //comment this out to not draw and add to the array so it is drawn by the draw board function
                             //svg.append(makeCircle(j*gridSizeScaled*ratio+gridSizeNonScaled,i*gridSizeScaled*ratio+gridSizeNonScaled,gridSizeScaled/2.8,"black")); 
                             //for this
-                            if (playerTurn == 1){
+                            if (playerTurn == 1) {
                                 board[i][j] = 1;
                             } else {
                                 board[i][j] = 2;
@@ -73,11 +73,15 @@ function makeMove(game){
                     }  
                 }
             }
+            
             return;
         }
       
     clientServer.sendAndRecieveData(sendData,"/makeMove",function(data){
-                    if (data.boardState != undefined) {
+        
+                    if ((data.boardState != undefined) && (data.killCheck == false)) {
+                        player1Score = data.player1Score;
+                        player2Score = data.player2Score+0.5;
                         if (playerTurn == 1){
                             svg.append(makeShape(x_grid_location,y_grid_location,radius,token1,tokenShape));
                             playerTurn = 2;
@@ -85,10 +89,31 @@ function makeMove(game){
                             svg.append(makeShape(x_grid_location,y_grid_location,radius,token2,tokenShape));
                             playerTurn = 1;
                         }
-                        updateScoreView()
+                        updateScoreView();
+                    } else if ((data.boardState != undefined) && (data.killCheck == true)) {
+                        player1Score = data.player1Score;
+                        player2Score = data.player2Score+0.5;
+                        if (playerTurn == 1){
+                            playerTurn = 2;
+                        } else {
+                            playerTurn = 1;
+                        }
+                        $('#canvas').empty();
+                        console.log(data);
+                        board = data.boardState;
+                        drawBoard(data);
+                        updateScoreView();
                     } else {
                         // here is where we put error
-                        console.log(data);
+                        clientServer.sendAndRecieveData({'userName' :document.cookie.split('=')[1] },"getCurrentGame", function(max) {
+                            console.log("Board prev:")
+                            console.log(board)
+                            // handle any errors here....
+                            board = max.currentGame.boardState;
+                            console.log("Board new:")
+                            console.log(board)
+                        });
+                        //console.log(data);
                     }
                         return;
                 });
@@ -118,6 +143,11 @@ function initializeBoard(game,visualSettings){
     
     vs = visualSettings;
     
+    if (game.turn == undefined){
+        playerTurn = 1;
+    } else {
+        playerTurn = game.turn;
+    }
     //console.log("myData is " + myData.token1);
     
     if (visualSettings.tokenColor == "Black and White") {
@@ -142,21 +172,19 @@ function initializeBoard(game,visualSettings){
     tokenShape = visualSettings.tokenShape;
     
     player1Score = game.player1Score;
-    player2Score = game.player2Score;
+    player2Score = game.player2Score+0.5;
     updateScoreView()
     
-    canvas = $("#canvas"); 
+    canvas = $("#canvas");
     W = 600;
     H = 600;
     svg = $(makeSVG(W, H));
      
-    canvas.css("height", H); 
+    canvas.css("height", H);
     canvas.css("width", W);
    // makeMove(game.boardState,gridSizeScaled,gridSizeNonScaled,ratio,game.gameSettings);
     makeMove(game);
     drawBoard(game);
-
-
 }
 
 
@@ -289,7 +317,7 @@ function updateScoreView() {
 
 function init(){
 
-    playerTurn = 1;
+    
     // do page load things here...
     clientServer = new ClientServer("localhost", 80);
     console.log("Initalizing Page...."); 

@@ -162,7 +162,7 @@ app.post("/makeMove", function(req,res){
        
         //console.log(position);
         
-        console.log(object.board);
+        //console.log(object.board);
         
         var numArmiesKilled = armiesKilled.length;
         var isValid = algorithms.validate(object.board, previousBoard, position, numArmiesKilled);
@@ -176,12 +176,9 @@ app.post("/makeMove", function(req,res){
         console.log("is valid is " + isValid);
         
         if (isValid==1) {
-            res.json("Error, Suicidal Move")
+            return res.json("Error, Suicidal Move");
         
-        }if (isValid==2) {
-             res.json("Error, Ko")
-        
-        }else {
+        } else {
             console.log("about to change turn");
             if(object.turn == 1){
                 object.turn = 2;
@@ -192,8 +189,9 @@ app.post("/makeMove", function(req,res){
             for (var i = 0; i < numArmiesKilled; i++) {
                 object.board[armiesKilled[i].row][armiesKilled[i].column] = 0;
             }
-            if (algorithms.isKO(object.board, previousBoard))  res.json("Error, Ko");
-            console.log(object.board)
+            if (algorithms.isKO(object.board, previousBoard)) return res.json("Error, Ko");
+            //console.log("AFTER KO INSIDE ELSE");
+            //console.log(object.board)
             var scores = {}
             if (scoringSettings == "Area Scoring") {
                 scores = algorithms.areaScoring(object.board);
@@ -213,6 +211,7 @@ app.post("/makeMove", function(req,res){
             object.player2Score = scores.player2;
         
             db.makeMove(object, function(docs) {
+                if (numArmiesKilled > 0) docs["killCheck"] = true;
                 res.json(docs);
                 console.log(armiesKilled);
                 var userName = req.body.userName;
