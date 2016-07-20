@@ -136,6 +136,90 @@ app.post("/getCurrentGame", function (req, res) {
   
 });
 
+
+/*
+    "size" : number,
+    "board" : [ [...], ...],
+    "last" : {
+        "x" : number,
+        "y" : number,
+        "c" : number,
+        "pass" : boolean
+    }
+*/
+app.post("/getAIMove", function(req, res) {
+    console.log("POST Request to: /getAIMove");
+    
+    var object = req.body;
+    var pass;
+    db.getCurrentGame({"userName": object.userName}, function(game){
+        var userName = object.userName;
+        console.log("Inside getCurrentGame");
+        pass = game.currentGame.pass;
+        
+    
+        //console.log(game[userName][games[userName]]);
+        
+        
+        var previousBoard = games[userName][games[userName].length-2];
+        if ( games[userName].length > 3)
+        {
+            previousBoard = games[userName][games[userName].length-3];
+        }
+    
+    
+        //console.log("About to call getPosition with : ");
+        //console.log(object.board);
+        //console.log("and ");
+        //console.log(previousBoard);
+    
+        getALTERNATEPosition(object, previousBoard, function(position) {
+        
+            console.log("inside get Position callback");
+            
+            var last = {
+                "x" : position.row,
+                "y" : position.column,
+                "c" : 1,
+                "pass": pass
+            }
+            console.log("before calling aiInterface");
+            aiInterface.getAttackEnemyMove(object.board.length, object.board, last, function(move){
+                console.log(move);
+                res.json(move);
+             });   
+        });
+    });
+    
+    //console.log("exited getAIMove");
+});
+
+
+function getALTERNATEPosition(object,previousBoard, cb){
+    
+    var position = {row: 0, column: 0};
+        
+    
+    console.log("about to start nested for loop in getALTERNATEPosition");
+    /*prevBoard = */
+    //db.getCurrentGame({"userName": object.userName}, function(prevBoard){
+        //object.prevBoard = prevBoard;
+        for(var i=0; i < object.board.length; i++){
+            for(var j=0; j < object.board.length; j++){
+                if (object.board[i][j] != previousBoard[i][j]){
+                    position.row = i;
+                    position.column = j;
+                    console.log("about to exit getPosition")
+                    cb(position);
+                    return;
+                }
+            }
+        }
+        //console.log(position);
+    //})
+}
+
+
 app.post("/makeMove", function(req,res){
     console.log("POST Request to: /makeMove");
    
@@ -143,18 +227,21 @@ app.post("/makeMove", function(req,res){
     
    //console.log(position);
    //console.log(position.row);
-   getPosition(object, function(position){
+   getPosition(object, function(position) {
         var userName = req.body.userName;
         var previousBoard = games[userName][games[userName].length-1];
         if ( games[userName].length > 2)
         {
          previousBoard = games[userName][games[userName].length-2];
         }
+        
+        
 
        
         //console.log(isValid);
         
-        console.log("position is " + position.row + " " + position.column);
+        console.log("In make Move with position is " + position.row + " " + position.column + " with board ");
+        console.log(object.board);
         //console.log(new Date().getTime()/1000);
         var armiesKilled = algorithms.checkDeath(position, object.board);
         //console.log("checkDeath Has been called");
@@ -213,7 +300,7 @@ app.post("/makeMove", function(req,res){
             db.makeMove(object, function(docs) {
                 if (numArmiesKilled > 0) docs["killCheck"] = true;
                 res.json(docs);
-                console.log(armiesKilled);
+                //console.log(armiesKilled);
                 var userName = req.body.userName;
                 if(games[userName] != undefined){
                     games[userName].push(object.board);
@@ -238,20 +325,22 @@ function getPosition(object, cb){
     var position = {row: 0, column: 0};
         
     
-        
-    /*prevBoard = */db.getCurrentGame({"userName": object.userName}, function(prevBoard){
+    //console.log("about to start nested for loop in getPosition function");
+    /*prevBoard = */
+    db.getCurrentGame({"userName": object.userName}, function(prevBoard){
         //object.prevBoard = prevBoard;
         for(var i=0; i < object.board.length; i++){
             for(var j=0; j < object.board.length; j++){
                 if (object.board[i][j] != prevBoard.currentGame.boardState[i][j]){
                     position.row = i;
                     position.column = j;
-                    console.log("about to exit getPosition")
+                    //console.log("about to exit getPosition")
                     cb(position);
                     return;
                 }
             }
         }
+    
     })
 }
 

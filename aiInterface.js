@@ -23,21 +23,24 @@ var port = 8081;
         body: JSON.stringify(input)
       };
   
-      var body = [];
-      var req = http.request(options, (res) => {
-        res.on('data', (chunk) => {
-          console.log(`BODY: ${chunk}`);
-          cb(JSON.parse(chunk));
-        });
-  
-        res.on('end', () => {
-        })
+    var req = http.request(options, (res) => {
+      var output = '';
+      res.on('data', function(chunk){
+        output += chunk;
       });
+
+      res.on('end', function(){
+        var obj=JSON.parse(output);
+        cb(output);
+      })
+    });
       req.on('error',function(e){
-        console.log('Problem with getRamdomMove ${e.message}');
+        console.log("An error has occured with HTTP request " + e);
       });
-      req.write(JSON.stringify(input));
-      req.end();
+    console.log("About to send request with ----->")
+    console.log(JSON.stringify(input));
+    req.write(JSON.stringify(input));
+    req.end();
   
   }
   
@@ -59,22 +62,25 @@ var port = 8081;
         },
         body: JSON.stringify(input)
       };
-  
-      var body = [];
-      var req = http.request(options, (res) => {
-        res.on('data', (chunk) => {
-          console.log(`BODY: ${chunk}`);
-          cb(JSON.parse(chunk));
-        });
-  
-        res.on('end', () => {
-        })
+      
+    var req = http.request(options, (res) => {
+      var output = '';
+      res.on('data', function(chunk){
+        output += chunk;
       });
+
+      res.on('end', function(){
+        var obj=JSON.parse(output);
+        cb(output);
+      })
+    });
       req.on('error',function(e){
-        console.log('Problem with getRamdomMove ${e.message}');
+        console.log("An error has occured with HTTP request " + e);
       });
-      req.write(JSON.stringify(input));
-      req.end();
+    console.log("About to send request with ----->")
+    console.log(JSON.stringify(input));
+    req.write(JSON.stringify(input));
+    req.end();
   
   }
   
@@ -100,21 +106,24 @@ var port = 8081;
         body: JSON.stringify(input)
       };
   
-      var body = [];
-      var req = http.request(options, (res) => {
-        res.on('data', (chunk) => {
-          console.log(`BODY: ${chunk}`);
-          cb(JSON.parse(chunk));
-        });
-  
-        res.on('end', () => {
-        })
+    var req = http.request(options, (res) => {
+      var output = '';
+      res.on('data', function(chunk){
+        output += chunk;
       });
+
+      res.on('end', function(){
+        var obj=JSON.parse(output);
+        cb(output);
+      })
+    });
       req.on('error',function(e){
-        console.log('Problem with getRamdomMove ${e.message}');
+        console.log("An error has occured with HTTP request " + e);
       });
-      req.write(JSON.stringify(input));
-      req.end();
+    console.log("About to send request with ----->")
+    console.log(JSON.stringify(input));
+    req.write(JSON.stringify(input));
+    req.end();
   
   }
   
@@ -138,21 +147,24 @@ var port = 8081;
         body: JSON.stringify(input)
       };
   
-      var body = [];
-      var req = http.request(options, (res) => {
-        res.on('data', (chunk) => {
-          console.log(`BODY: ${chunk}`);
-          cb(JSON.parse(chunk));
-        });
-  
-        res.on('end', () => {
-        })
+    var req = http.request(options, (res) => {
+      var output = '';
+      res.on('data', function(chunk){
+        output += chunk;
       });
+
+      res.on('end', function(){
+        var obj=JSON.parse(output);
+        cb(output);
+      })
+    });
       req.on('error',function(e){
-        console.log('Problem with getRamdomMove ${e.message}');
+        console.log("An error has occured with HTTP request " + e);
       });
-      req.write(JSON.stringify(input));
-      req.end();
+    console.log("About to send request with ----->")
+    console.log(JSON.stringify(input));
+    req.write(JSON.stringify(input));
+    req.end();
   
   }
 
