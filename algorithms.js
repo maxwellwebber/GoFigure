@@ -123,13 +123,13 @@ function FloodFillBFSForDeath(Board,positions){
     if (Board.liberties > 0){
     	
     	kill = 0;
-    	//console.log("inside this if");
+    	console.log("inside this if so WILL NOT KILL ARMY");
     	return;
     } else {
     	queue.push(Board);
     }
     Board.visited = true;
-    ////console.log("visited  " + Board.x + " , " + Board.y);
+    console.log("visited  " + Board.x + " , " + Board.y);
     position_floodFill.push(new positionKilled(Board.x, Board.y));
     while (queue.length != 0){
         var r = queue.pop();
@@ -139,10 +139,11 @@ function FloodFillBFSForDeath(Board,positions){
             ////console.log(i);
             if(r.neighbour[i].visited == false){
                 r.neighbour[i].visited = true;
-                ////console.log("visited " + r.neighbour[i].x + " , " + r.neighbour[i].y);
+                console.log("visited " + r.neighbour[i].x + " , " + r.neighbour[i].y);
                 if (r.neighbour[i].liberties > 0){
-                    ////console.log("WILL NOT KILL ARMY");
+                    console.log("WILL NOT KILL ARMY");
                     kill = 0;
+                    return;
                 }
                 position_floodFill.push(new positionKilled(r.neighbour[i].x, r.neighbour[i].y));
                 queue.push(r.neighbour[i]);
@@ -157,7 +158,7 @@ function FloodFillBFSForDeath(Board,positions){
     	for (var i = 0; i < position_floodFill.length; i++){
     		positions.push(position_floodFill[i]);
     	}
-    	//console.log("ARMY IS DEAD");
+    	console.log("ARMY IS DEAD");
     }
     
 }
@@ -285,6 +286,7 @@ function FloodFillBFSForDeath(Board,positions){
 	
 	
 	function isSuicide(A,position,numArmiesKilled){
+		console.log("num armies killed are " + numArmiesKilled);
 		if (A[position.row][position.column].liberties == 0  && numArmiesKilled == 0){
 		    //trying to commit suicide
 		    if (A[position.row][position.column].neighbour.length > 0){
@@ -350,7 +352,7 @@ function checkDeath(position, board){
 
 	var A = getNeighbours(board);
 	var positions = [];
-	//console.log("checking if token " + A[position.row][position.column].token + " placed at row: " + position.row + " column: " + position.column + " killed something in board");
+	console.log("checking if token " + A[position.row][position.column].token + " placed at row: " + position.row + " column: " + position.column + " killed something in board");
 	////console.log(board);
 	////console.log("token placed is  " + A[position.row][position.column].token);
 	////console.log("IN CHECK DEATH");
@@ -364,7 +366,7 @@ function checkDeath(position, board){
 			if (A[position.row][position.column+1].neighbour.length != 0){
 			    FloodFillBFSForDeath(A[position.row][position.column+1],positions);
 			} else if (A[position.row][position.column+1].liberties == 0){
-				////console.log("in special if with row and column " + position.row + " " + position.column+1);
+				console.log("in special if with row and column " + position.row + " " + position.column+1);
 				positions.push(new positionKilled(position.row, position.column+1));
 			}
 		}
@@ -376,7 +378,7 @@ function checkDeath(position, board){
 			if (A[position.row+1][position.column].neighbour.length != 0){
 			    FloodFillBFSForDeath(A[position.row+1][position.column],positions);
 			} else if (A[position.row+1][position.column].liberties == 0){
-				////console.log("in special if with row and column " + position.row+1 + " " + position.column);
+				console.log("in special if with row and column " + position.row+1 + " " + position.column);
 				positions.push(new positionKilled(position.row+1, position.column));
 			}
 		}
@@ -388,7 +390,7 @@ function checkDeath(position, board){
 		    if (A[position.row][position.column-1].neighbour.length != 0){
 		        FloodFillBFSForDeath(A[position.row][position.column-1],positions);
 		    } else if(A[position.row][position.column-1].liberties == 0){
-		    	////console.log("in special if with row and column " + position.row + " " + position.column-1);
+		    	console.log("in special if with row and column " + position.row + " " + position.column-1);
 		    	positions.push(new positionKilled(position.row, position.column-1));
 		    }
 		}
@@ -400,7 +402,7 @@ function checkDeath(position, board){
 			if (A[position.row-1][position.column].neighbour.length != 0){
 			    FloodFillBFSForDeath(A[position.row-1][position.column],positions);
 			} else if(A[position.row-1][position.column].liberties == 0){
-				////console.log("in special if with row and column " + position.row-1 + " " + position.column);
+				console.log("in special if with row and column " + position.row-1 + " " + position.column);
 				positions.push(new positionKilled(position.row-1, position.column));
 			}
 		}
