@@ -523,7 +523,7 @@ function initializePassButton() {
                     displayWinScreen(2);
                 }
             } else {
-               if (playerTurn == 1){
+               if (playerTurn == 1) {
                    playerTurn = 2;
                     if (gs.playerSettings == "One Player") {
                         getAiMove(board,false);
