@@ -23,7 +23,7 @@
 	
 	function getNeighbours(board){
 	    var A = [];
-	    ////console.log(A[0][0]);
+	    //////console.log(A[0][0]);
 	    //console.log(A);
 	 		//nested for loop to fill every single cell of the array with a Board object
 			for (var i = 0; i < board.length; i++){
@@ -90,17 +90,17 @@
 	    var queue = [];
 	    queue.push(Board);
 	    Board.visited = true;
-	    ////console.log(Board);
-	    //console.log("visited " + Board.x + " , " + Board.y);
+	    //////console.log(Board);
+	    ////console.log("visited " + Board.x + " , " + Board.y);
 	    while (queue.length != 0){
 	        var r = queue.pop();
-	        ////console.log(r);
-	        ////console.log(queue.length);
+	        //////console.log(r);
+	        //////console.log(queue.length);
 	        for (var i = 0; i < r.neighbour.length; i++){
-	            ////console.log(i);
+	            //////console.log(i);
 	            if(r.neighbour[i].visited == false){
 	                r.neighbour[i].visited = true;
-	                //console.log("visited " + r.neighbour[i].x + " , " + r.neighbour[i].y);
+	                ////console.log("visited " + r.neighbour[i].x + " , " + r.neighbour[i].y);
 	                queue.push(r.neighbour[i]);
 	            }
 	        }    
@@ -109,39 +109,39 @@
 	
 function FloodFillBFSForDeath(Board,positions){
 	
-	//console.log("FloodFillBFSForDeath");
+	////console.log("FloodFillBFSForDeath");
 	function positionKilled (row,column){
 		this.row = row,
 		this.column = column
 	}
 	
 	var position_floodFill = []
-    //console.log(Board);
+    ////console.log(Board);
 	var kill;
     var queue = [];
-    console.log("board liberties are: " + Board.liberties);
+    //console.log("board liberties are: " + Board.liberties);
     if (Board.liberties > 0){
     	
     	kill = 0;
-    	console.log("inside this if");
+    	//console.log("inside this if");
     	return;
     } else {
     	queue.push(Board);
     }
     Board.visited = true;
-    //console.log("visited  " + Board.x + " , " + Board.y);
+    ////console.log("visited  " + Board.x + " , " + Board.y);
     position_floodFill.push(new positionKilled(Board.x, Board.y));
     while (queue.length != 0){
         var r = queue.pop();
-        //console.log(r);
-        //console.log(queue.length);
+        ////console.log(r);
+        ////console.log(queue.length);
         for (var i = 0; i < r.neighbour.length; i++){
-            //console.log(i);
+            ////console.log(i);
             if(r.neighbour[i].visited == false){
                 r.neighbour[i].visited = true;
-                //console.log("visited " + r.neighbour[i].x + " , " + r.neighbour[i].y);
+                ////console.log("visited " + r.neighbour[i].x + " , " + r.neighbour[i].y);
                 if (r.neighbour[i].liberties > 0){
-                    //console.log("WILL NOT KILL ARMY");
+                    ////console.log("WILL NOT KILL ARMY");
                     kill = 0;
                 }
                 position_floodFill.push(new positionKilled(r.neighbour[i].x, r.neighbour[i].y));
@@ -149,34 +149,34 @@ function FloodFillBFSForDeath(Board,positions){
             }
         }//end for
     }//end while
-    //console.log(positions[0]);
+    ////console.log(positions[0]);
     if (kill == 0){
-    	console.log("Positions in FloddFill is  ");
-    	console.log(positions);
+    	//console.log("Positions in FloddFill is  ");
+    	//console.log(positions);
     } else {
     	for (var i = 0; i < position_floodFill.length; i++){
     		positions.push(position_floodFill[i]);
     	}
-    	console.log("ARMY IS DEAD");
+    	//console.log("ARMY IS DEAD");
     }
     
 }
 	
 	function checkAdjacentTokens(A, tokens,position){
-		////console.log(position.row + " AND " + position.column);
-		////console.log("TOKEN X and TOKEN Y " + tokens.one + "  " +  tokens.two);
-		////console.log(" A IS " + A);
+		//////console.log(position.row + " AND " + position.column);
+		//////console.log("TOKEN X and TOKEN Y " + tokens.one + "  " +  tokens.two);
+		//////console.log(" A IS " + A);
 		//tokens.one++;
-		////console.log(A.length);
-		////console.log("position row is  " + position.row + " and column " + position.column);
+		//////console.log(A.length);
+		//////console.log("position row is  " + position.row + " and column " + position.column);
 	    if (position.column+1 < A.length){
 		    if (A[position.row][position.column+1].visited == false){
-			////console.log("in here");
-			////console.log(A)
+			//////console.log("in here");
+			//////console.log(A)
 			
-			////console.log(A[position.row][position.column+1].token);
+			//////console.log(A[position.row][position.column+1].token);
 				if (A[position.row][position.column+1].token == 1){
-			//		//console.log("in here");
+			//		////console.log("in here");
 					A[position.row][position.column+1].visited = true;
 				    tokens.one++;
 				} else if (A[position.row][position.column+1].token == 2){
@@ -187,10 +187,10 @@ function FloodFillBFSForDeath(Board,positions){
 	    }
 		if (position.row+1 < A.length){
 			if (A[position.row+1][position.column].visited == false){
-			////console.log("in here");
-			////console.log(A[position.row+1][position.column].token);
+			//////console.log("in here");
+			//////console.log(A[position.row+1][position.column].token);
 				if (A[position.row+1][position.column].token == 1){
-			//		//console.log("in here");
+			//		////console.log("in here");
 					A[position.row+1][position.column].visited = true;
 				   tokens.one++;
 				} else if (A[position.row+1][position.column].token == 2){
@@ -201,11 +201,11 @@ function FloodFillBFSForDeath(Board,positions){
 		}	
 		if (position.column-1 >= 0){	
 			if (A[position.row][position.column-1].visited == false){
-			////console.log("in here");
-			////console.log(A[position.row][position.column-1].token);
+			//////console.log("in here");
+			//////console.log(A[position.row][position.column-1].token);
 				if (A[position.row][position.column-1].token == 1){
 					
-			//		//console.log("in here");
+			//		////console.log("in here");
 					A[position.row][position.column-1].visited = true;
 				    tokens.one++;
 				} else if (A[position.row][position.column-1].token == 2){
@@ -216,10 +216,10 @@ function FloodFillBFSForDeath(Board,positions){
 		}	
 		if (position.row-1 >= 0){	
 			if (A[position.row-1][position.column].visited == false){
-			////console.log("in here");
-			////console.log(A[position.row-1][position.column].token);
+			//////console.log("in here");
+			//////console.log(A[position.row-1][position.column].token);
 				if (A[position.row-1][position.column].token == 1){
-					////console.log("in here");
+					//////console.log("in here");
 					A[position.row-1][position.column].visited = true;
 				    tokens.one++;
 				} else if (A[position.row-1][position.column].token == 2){
@@ -228,65 +228,96 @@ function FloodFillBFSForDeath(Board,positions){
 				}
 			}
 		}
-		////console.log(tokens.one);
+		//////console.log(tokens.one);
 	}
 	
 	function FloodFillBFSArea(x,y,board, B,score){
-		////console.log(Board);
+		//////console.log(Board);
 		var A = getNeighbours(board);
 		var Board = A[x][y];
 		var tokens = {one: 0, two: 0}
 		var position = {row: 0, column: 0}
 		var visits = 0;
-	    ////console.log(Board);
+	    //////console.log(Board);
 	    var queue = [];
 	    queue.push(Board);
 	    Board.visited = true;
 	    B[x][y].visited = true;
-	    ////console.log(Board);
-	    //console.log("visited " + Board.x + " , " + Board.y);
+	    //////console.log(Board);
+	    ////console.log("visited " + Board.x + " , " + Board.y);
 	    visits++;
 	    position.row = Board.x;
 	    position.column = Board.y;
 	    checkAdjacentTokens(A,tokens,position);
-	    ////console.log(tokens.one + "   " + tokens.two);
+	    //////console.log(tokens.one + "   " + tokens.two);
 	    while (queue.length != 0){
 	        var r = queue.pop();
-	        ////console.log(r);
-	        ////console.log(queue.length);
+	        //////console.log(r);
+	        //////console.log(queue.length);
 	        for (var i = 0; i < r.neighbour.length; i++){
-	            ////console.log(i);
+	            //////console.log(i);
 	            if(r.neighbour[i].visited == false){
 	                r.neighbour[i].visited = true;
 	                //B.neighbour[i].visited = true;
 	                B[r.neighbour[i].x][r.neighbour[i].y].visited = true;
-	                //console.log("visited " + r.neighbour[i].x + " , " + r.neighbour[i].y);
+	                ////console.log("visited " + r.neighbour[i].x + " , " + r.neighbour[i].y);
 	                visits++;
 	                position.row = r.neighbour[i].x;
 	                position.column = r.neighbour[i].y;
 	                checkAdjacentTokens(A,tokens,position);
-	                ////console.log(tokens.one + "   " + tokens.two);
+	                //////console.log(tokens.one + "   " + tokens.two);
 	                queue.push(r.neighbour[i]);
 	            }
 	        }
 	      
 	    }
 	    if (tokens.one == 0){
-	    	//console.log("Area is controlled by player two with a score of " + visits);
+	    	////console.log("Area is controlled by player two with a score of " + visits);
 	    	score.player2 += visits;
 	    } else if (tokens.two == 0){
-	    	//console.log("Area is controlled by player one with a score of " + visits);
+	    	////console.log("Area is controlled by player one with a score of " + visits);
 	    	score.player1 += visits;
 	    } else {
-	    	//console.log("Are is disputed");	
+	    	////console.log("Are is disputed");	
 	    }
-	    //console.log("Area is surrounded by tokens one: " + tokens.one + " and two: " + tokens.two);
+	    ////console.log("Area is surrounded by tokens one: " + tokens.one + " and two: " + tokens.two);
 	}
 	
 	
 	function isSuicide(A,position,numArmiesKilled){
-		if (A[position.row][position.column].liberties == 0 && A[position.row][position.column].neighbour.length == 0 && numArmiesKilled == 0){
+		if (A[position.row][position.column].liberties == 0  && numArmiesKilled == 0){
 		    //trying to commit suicide
+		    if (A[position.row][position.column].neighbour.length > 0){
+				if (position.column+1 < A.length){
+				    if (A[position.row][position.column+1].token == A[position.row][position.column].token){
+				    	if(A[position.row][position.column+1].liberties > 0){
+				    		return false;
+				    	}
+					
+					}
+	    		}
+				if (position.row+1 < A.length){
+					if (A[position.row+1][position.column].token == A[position.row][position.column].token){
+						if(A[position.row+1][position.column].liberties > 0){
+							return false;
+						}
+					}
+				}	
+				if (position.column-1 >= 0){	
+					if (A[position.row][position.column-1].token == A[position.row][position.column].token){
+						if(A[position.row][position.column-1].liberties > 0){
+							return false;
+						}
+					}
+				}	
+				if (position.row-1 >= 0){	
+					if (A[position.row-1][position.column].token == A[position.row][position.column].token){
+						if(A[position.row-1][position.column].liberties > 0){
+							return false;
+						}
+					}
+				}
+		    }
 		    console.log("suicidal move");
 		    return true;
 		} else {
@@ -295,9 +326,9 @@ function FloodFillBFSForDeath(Board,positions){
 	}
 	
 	function isKO(board, prevBoard){
-		//console.log("prevBoard is :");
-		//console.log(prevBoard);
-		//console.log("ABOUT TO CHECK KO");
+		////console.log("prevBoard is :");
+		////console.log(prevBoard);
+		////console.log("ABOUT TO CHECK KO");
 		if (arraysIdentical(board,prevBoard)){
 		console.log(("KO KO KO KO KO!!!!"));
 			return  true;
@@ -315,81 +346,81 @@ function checkDeath(position, board){
 	}
 	
 	
-	//console.log("check death received position:  row:" + position.row +" and column: " + position.column );
+	////console.log("check death received position:  row:" + position.row +" and column: " + position.column );
 
 	var A = getNeighbours(board);
 	var positions = [];
-	console.log("checking if token " + A[position.row][position.column].token + " placed at row: " + position.row + " column: " + position.column + " killed something in board");
-	//console.log(board);
-	//console.log("token placed is  " + A[position.row][position.column].token);
-	//console.log("IN CHECK DEATH");
-	//console.log(A[position.row][position.column].token != A[position.row][position.column-1].token);
-	//console.log("checking if token " + A[position.row][position.column].token + " placed at row: " + position.row + " column: " + position.column + " killed something");
+	//console.log("checking if token " + A[position.row][position.column].token + " placed at row: " + position.row + " column: " + position.column + " killed something in board");
+	////console.log(board);
+	////console.log("token placed is  " + A[position.row][position.column].token);
+	////console.log("IN CHECK DEATH");
+	////console.log(A[position.row][position.column].token != A[position.row][position.column-1].token);
+	////console.log("checking if token " + A[position.row][position.column].token + " placed at row: " + position.row + " column: " + position.column + " killed something");
 	
     if (position.column+1 < board.length){
 	    if (A[position.row][position.column].token != A[position.row][position.column+1].token && A[position.row][position.column+1].token != 0){
-	        //console.log(A[position.row][position.column+1].token);
+	        ////console.log(A[position.row][position.column+1].token);
 			//addNeighbour(A[i][j],A[i][j+1]);
 			if (A[position.row][position.column+1].neighbour.length != 0){
 			    FloodFillBFSForDeath(A[position.row][position.column+1],positions);
 			} else if (A[position.row][position.column+1].liberties == 0){
-				//console.log("in special if with row and column " + position.row + " " + position.column+1);
+				////console.log("in special if with row and column " + position.row + " " + position.column+1);
 				positions.push(new positionKilled(position.row, position.column+1));
 			}
 		}
     }
 	if (position.row+1 < board.length){
 		if (A[position.row][position.column].token != A[position.row+1][position.column].token && A[position.row+1][position.column].token != 0){
-		    console.log(A[position.row+1][position.column].token);
+		    //console.log(A[position.row+1][position.column].token);
 			//addNeighbour(A[i][j],A[i+1][j]);
 			if (A[position.row+1][position.column].neighbour.length != 0){
 			    FloodFillBFSForDeath(A[position.row+1][position.column],positions);
 			} else if (A[position.row+1][position.column].liberties == 0){
-				//console.log("in special if with row and column " + position.row+1 + " " + position.column);
+				////console.log("in special if with row and column " + position.row+1 + " " + position.column);
 				positions.push(new positionKilled(position.row+1, position.column));
 			}
 		}
 	}	
 	if (position.column-1 >= 0){	
 		if (A[position.row][position.column].token != A[position.row][position.column-1].token && A[position.row][position.column-1].token != 0){
-		    console.log(A[position.row][position.column-1].token);
+		    //console.log(A[position.row][position.column-1].token);
 			//addNeighbour(A[i][j],A[i][j-1]);
 		    if (A[position.row][position.column-1].neighbour.length != 0){
 		        FloodFillBFSForDeath(A[position.row][position.column-1],positions);
 		    } else if(A[position.row][position.column-1].liberties == 0){
-		    	//console.log("in special if with row and column " + position.row + " " + position.column-1);
+		    	////console.log("in special if with row and column " + position.row + " " + position.column-1);
 		    	positions.push(new positionKilled(position.row, position.column-1));
 		    }
 		}
 	}	
 	if (position.row-1 >= 0){	
 		if (A[position.row][position.column].token != A[position.row-1][position.column].token && A[position.row-1][position.column].token != 0){
-		    //console.log(A[position.row-1][position.column-1]);
+		    ////console.log(A[position.row-1][position.column-1]);
 			//addNeighbour(A[i][j],A[i-1][j]);
 			if (A[position.row-1][position.column].neighbour.length != 0){
 			    FloodFillBFSForDeath(A[position.row-1][position.column],positions);
 			} else if(A[position.row-1][position.column].liberties == 0){
-				//console.log("in special if with row and column " + position.row-1 + " " + position.column);
+				////console.log("in special if with row and column " + position.row-1 + " " + position.column);
 				positions.push(new positionKilled(position.row-1, position.column));
 			}
 		}
 	}
-	//console.log("Killed armies");
-	 //console.log("Right before checkDeath returns");
-	 //console.log(new Date().getTime()/1000);
-	 //console.log("Positions in check death is : ")
-	 //console.log(positions);
+	////console.log("Killed armies");
+	 ////console.log("Right before checkDeath returns");
+	 ////console.log(new Date().getTime()/1000);
+	 ////console.log("Positions in check death is : ")
+	 ////console.log(positions);
 	return positions;
     
 }
 	
 	function validate(board, previousBoard, position,numArmiesKilled){ //add previous board here to check against ko for previous state
 	    
-	    ////console.log(board[position.row][position.column]);
+	    //////console.log(board[position.row][position.column]);
 	    var A = getNeighbours(board);
-		//console.log("ALGORITHMS LINE 373");
+		////console.log("ALGORITHMS LINE 373");
 	    if (isSuicide(A, position,numArmiesKilled)){
-	    	//console.log("ALGORITHMS LINE 375");
+	    	////console.log("ALGORITHMS LINE 375");
 	    	return 1;
 	    } else if(isKO(board, previousBoard)) {
 	    	return 2;  
@@ -426,7 +457,7 @@ function checkDeath(position, board){
 				}
 			}
 		}
-		console.log(score);
+		//console.log(score);
 		return score; 
 	
 	}
@@ -435,7 +466,7 @@ function checkDeath(position, board){
 	function areaScoring(board){
 		var B = getNeighbours(board);
 		var score = {player1: 0, player2: 0};
-		////console.log(A);
+		//////console.log(A);
 		
 		for (var i =0; i <board.length; i++){
 			for(var j=0; j < board.length; j++){
@@ -444,7 +475,7 @@ function checkDeath(position, board){
 				}
 			}
 		}
-		console.log("Player 1 score is " + score.player1 + " Player 2 score is " + score.player2);
+		////console.log("Player 1 score is " + score.player1 + " Player 2 score is " + score.player2);
 		return score;
 	}
 	
@@ -452,7 +483,7 @@ function checkDeath(position, board){
 		var score = areaScoring(board);
 		//score.player1 -= player1.killedTokes;
 		//score.player2 -= player2.killedTokens;
-		//console.log(score);
+		////console.log(score);
 		return score;  
 		
 	}

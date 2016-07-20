@@ -102,7 +102,7 @@ app.post("/saveReplay", function(req, res) {
         //console.log(docs);
         if(docs == null){
             delete games[userName];
-            console.log(games);
+            //console.log(games);
         }
     });
 });
@@ -152,6 +152,9 @@ app.post("/getAIMove", function(req, res) {
     
     var object = req.body;
     var pass;
+    var diff = object.diff;
+    console.log("DIFF ON BACK END");
+    console.log(diff);
     db.getCurrentGame({"userName": object.userName}, function(game){
         var userName = object.userName;
         console.log("Inside getCurrentGame");
@@ -162,18 +165,18 @@ app.post("/getAIMove", function(req, res) {
         
         
         var previousBoard = games[userName][games[userName].length-2];
-        if ( games[userName].length > 3)
-        {
-            previousBoard = games[userName][games[userName].length-3];
-        }
+        //if (games[userName].length > 1)
+        //{
+        //    previousBoard = games[userName][games[userName].length-2];
+        //}
     
     
-        //console.log("About to call getPosition with : ");
-        //console.log(object.board);
-        //console.log("and ");
-        //console.log(previousBoard);
-    
-        getALTERNATEPosition(object, previousBoard, function(position) {
+        console.log("About to call getPosition with : ");
+        console.log(object.board);
+        console.log("and ");
+        console.log(previousBoard);
+        
+        getALTERNATEPosition(game.currentGame.boardState, previousBoard, function(position) {
         
             console.log("inside get Position callback");
             
@@ -184,10 +187,17 @@ app.post("/getAIMove", function(req, res) {
                 "pass": pass
             }
             console.log("before calling aiInterface");
-            aiInterface.getAttackEnemyMove(object.board.length, object.board, last, function(move){
-                console.log(move);
-                res.json(move);
-             });   
+            if(!diff){
+                aiInterface.getAttackEnemyMove(object.board.length, game.currentGame.boardState, last, function(move){
+                    console.log(move);
+                    res.json(move);
+                 }); 
+            }else{
+                aiInterface.getMaxLibsMove(object.board.length, game.currentGame.boardState, last, function(move){
+                    console.log(move);
+                    res.json(move);
+                 }); 
+            }
         });
     });
     
@@ -204,9 +214,9 @@ function getALTERNATEPosition(object,previousBoard, cb){
     /*prevBoard = */
     //db.getCurrentGame({"userName": object.userName}, function(prevBoard){
         //object.prevBoard = prevBoard;
-        for(var i=0; i < object.board.length; i++){
-            for(var j=0; j < object.board.length; j++){
-                if (object.board[i][j] != previousBoard[i][j]){
+        for(var i=0; i < object.length; i++){
+            for(var j=0; j < object.length; j++){
+                if ((object[i][j] != 0) && (object[i][j] != previousBoard[i][j])){
                     position.row = i;
                     position.column = j;
                     console.log("about to exit getPosition")
@@ -229,8 +239,9 @@ app.post("/makeMove", function(req,res){
    //console.log(position.row);
    getPosition(object, function(position) {
         var userName = req.body.userName;
+        
         var previousBoard = games[userName][games[userName].length-1];
-        if ( games[userName].length > 2)
+        if ( games[userName].length > 1)
         {
          previousBoard = games[userName][games[userName].length-2];
         }
@@ -253,20 +264,20 @@ app.post("/makeMove", function(req,res){
         
         var numArmiesKilled = armiesKilled.length;
         var isValid = algorithms.validate(object.board, previousBoard, position, numArmiesKilled);
-        console.log("\n");
-        console.log(armiesKilled);
-        console.log("There have been "+ numArmiesKilled + " armies killed\n");
+        //console.log("\n");
+        //console.log(armiesKilled);
+        //console.log("There have been "+ numArmiesKilled + " armies killed\n");
         
         var scoringSettings = object.gameSettings.scoringSettings;
         var playerTurn = object.turn;
         
-        console.log("is valid is " + isValid);
+        //console.log("is valid is " + isValid);
         
         if (isValid==1) {
             return res.json("Error, Suicidal Move");
         
         } else {
-            console.log("about to change turn");
+            //console.log("about to change turn");
             if(object.turn == 1){
                 object.turn = 2;
             }
@@ -276,9 +287,11 @@ app.post("/makeMove", function(req,res){
             for (var i = 0; i < numArmiesKilled; i++) {
                 object.board[armiesKilled[i].row][armiesKilled[i].column] = 0;
             }
+            console.log("THE BOARD AFTER ARMIES ARE KILLED");
+            console.log(object.board);
             if (algorithms.isKO(object.board, previousBoard)) return res.json("Error, Ko");
-            //console.log("AFTER KO INSIDE ELSE");
-            //console.log(object.board)
+            ////console.log("AFTER KO INSIDE ELSE");
+            ////console.log(object.board)
             var scores = {}
             if (scoringSettings == "Area Scoring") {
                 scores = algorithms.areaScoring(object.board);
@@ -331,7 +344,7 @@ function getPosition(object, cb){
         //object.prevBoard = prevBoard;
         for(var i=0; i < object.board.length; i++){
             for(var j=0; j < object.board.length; j++){
-                if (object.board[i][j] != prevBoard.currentGame.boardState[i][j]){
+                if ((object.board[i][j] != 0) && (object.board[i][j] != prevBoard.currentGame.boardState[i][j])){
                     position.row = i;
                     position.column = j;
                     //console.log("about to exit getPosition")

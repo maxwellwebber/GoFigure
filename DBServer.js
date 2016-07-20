@@ -176,7 +176,7 @@ class DBServer{
      	if (docs.length > 0){
      	    var user = docs[0];
      	    user.currentGame["killCheck"] = false;
-     	    console.log(user.currentGame.boardState);
+     	    //console.log(user.currentGame.boardState);
      		callback(user.currentGame);
      	} else {
      	    callback(err, null);
