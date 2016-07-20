@@ -10,25 +10,38 @@
   	<link rel="stylesheet" type="text/css" href="css/game.css"/>
   </head>
   <body>
-  <div class="container-fluid" align="center">  
-            <h1>FIGHT!</h1>
-            <div id="scores">
-              <h4>Player 1 Score: <span id="player1Score"></span></h4>
+    
+  <div class="container-fluid" align="center" style='background-color:red;'>  
+  
+    <div class="row ">
+      <div class="col-sm-1 side-bar"><img class="chinese-banner" src="img/chinese.png"\></div>
+      <div class="col-sm-6">
+        <div  align="center">
+          <div  id='canvas'>
               
-              <h4>Player 2 Score: <span id="player2Score"></span></h4>
-            </div>
-            <div>
-              <a class="btn btn-default" id="pass-button" role="button">Pass</a>
-              <a href="main-menu.html" id="exit-button" class="btn btn-default game-ender" role="button">Exit</a>
-            </div>
-            
-            
-            
-            <div style='width:100%;'>
-              <div id='canvas'>
-                
               </div>
             </div>
+         </div>
+      <div class="col-sm-4">
+        <div id="scores" class='score-div'>
+          <h4>Turn: <span id='current-turn'></span></h4>
+          <h4>Player 1 Score: <span id="player1Score"></span></h4>
+          <h4>Player 2 Score: <span id="player2Score"></span></h4>
+        </div>
+        <div><a class="btn btn-default" id="pass-button" role="button"><b>Pass  </b><span class="glyphicon glyphicon-share-alt"></span></a></div>
+        <div><a href="main-menu.html" id="exit-button" class="btn btn-default game-ender" role="button"><b>Exit </b><span class="glyphicon glyphicon-remove"></span></a></div>
+      <div id="scores" class='score-div'>
+        <h4 id="error-prompt"></h4>  
+        </div>
+      </div>
+      <div class="col-sm-1 side-bar"><img class='chinese-banner' src="img/chinese.png"\></div>
+      </div>
+  
+            
+            
+            
+            
+            
             
             <div ><p class="text-danger" id="error-prompt"></p>
               
@@ -40,5 +53,6 @@
         </div>
     </div>
   </div>  
+  
   </body>
 </html>

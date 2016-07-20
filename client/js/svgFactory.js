@@ -75,6 +75,7 @@ function makeSquare(x, y, w, c){
 	rect.setAttribute("width", w);
 	rect.setAttribute("height", w);
 	rect.style.fill = c;
+	rect.style.stroke = "black";
 	
   return rect;
 }
@@ -105,7 +106,9 @@ function makeStar(x,y,r,c){
 	
 	var points = ""+point1[0]+","+point1[1]+" "+point2[0]+","+point2[1]+" "+point3[0]+","+point3[1]+" "+point4[0]+","+point4[1]+" "+point5[0]+","+point5[1];
 	star.setAttribute("points", points);
+	star.style.stroke = "black";
     star.style.fill = c;
+    
 
   return star;
 }
@@ -130,6 +133,7 @@ function makeCircle(x, y, r, c){
 	circ.setAttribute("cy", y);
 	circ.setAttribute("r", r);
     circ.style.fill = c;
+    circ.style.stroke = "black";
     
     return circ;
 
@@ -147,6 +151,7 @@ function makeTriangle(x, y, r, c){
 	var points = ""+point1[0]+","+point1[1]+" "+point2[0]+","+point2[1]+" "+point3[0]+","+point3[1];
 	tri.setAttribute("points", points);
     tri.style.fill = c;
+    tri.style.stroke = "black";
     
     return tri;
 

@@ -40,7 +40,7 @@ function makeMove(game){
     var gridSizeScaled = (600-2*gridSizeNonScaled)/size;
     var ratio = size/(size-1);
     var gameSettings = game.gameSettings;
-    var board = game.boardState;
+    var board1 = game.boardState;
     var radius = gridSizeScaled/2.8;
     
     $("#canvas").click(function(e){
@@ -50,8 +50,8 @@ function makeMove(game){
         wentThrough = false;
         end:
         if (wentThrough == false) {
-            for (var i = 0;i< board.length; i++) {
-                for (var j = 0;j< board.length; j++) {
+            for (var i = 0;i< board1.length; i++) {
+                for (var j = 0;j< board1.length; j++) {
                     
                     //console.log(i + " " + j);
                     
@@ -62,17 +62,18 @@ function makeMove(game){
                     //var mouseX = 
                     //console.log(j*gridSizeScaled*ratio+gridSizeNonScaled + " " + i*gridSizeScaled*ratio+gridSizeNonScaled);
                     if (mouseX > x_grid_location-radius && mouseX < x_grid_location+radius && mouseY > y_grid_location-radius && mouseY < y_grid_location+radius) {
-                        if (board[i][j] == 0) {
+                        if (board1[i][j] == 0) {
                             //comment this out to not draw and add to the array so it is drawn by the draw board function
                             //svg.append(makeCircle(j*gridSizeScaled*ratio+gridSizeNonScaled,i*gridSizeScaled*ratio+gridSizeNonScaled,gridSizeScaled/2.8,"black")); 
                             //for this
                             if (playerTurn == 1) {
-                                board[i][j] = 1;
+                                board1[i][j] = 1;
                             } else {
-                                board[i][j] = 2;
+                                board1[i][j] = 2;
                             }
+                            $('#current-turn').text(playerTurn);
                             //console.log(board[i][j]);
-                            sendData = {'userName' :document.cookie.split('=')[1],'pass':false, 'board' : board, "turn":playerTurn,"gameSettings":gameSettings, 'player1Score':player1Score, 'player2Score':player2Score};
+                            sendData = {'userName' :document.cookie.split('=')[1],'pass':false, 'board' : board1, "turn":playerTurn,"gameSettings":gameSettings, 'player1Score':player1Score, 'player2Score':player2Score};
                             wentThrough = true;
                             $("#error-prompt").empty();
                             break end;
@@ -100,7 +101,8 @@ function makeMove(game){
                     playerTurn = 1;
                 }
                 updateScoreView();
-                board = data.boardState;
+                $('#current-turn').text(playerTurn);
+                board1 = data.boardState;
                 
             // Something has been killed, append the appropriate players token and switch turn
             } else if ((data.boardState != undefined) && (data.killCheck == true)) {
@@ -111,9 +113,10 @@ function makeMove(game){
                 } else {
                     playerTurn = 1;
                 }
+                $('#current-turn').text(playerTurn);
                 $('#canvas').empty();
                 //console.log(data);
-                board = data.boardState;
+                board1 = data.boardState;
                 drawBoard(data);
                 updateScoreView();
                 
@@ -122,7 +125,7 @@ function makeMove(game){
                 // here is where we put error
                 clientServer.sendAndRecieveData({'userName' :document.cookie.split('=')[1] },"getCurrentGame", function(errorBoard) {
                     // handle any errors here....
-                    board = errorBoard.currentGame.boardState;
+                    board1 = errorBoard.currentGame.boardState;
                      $("#error-prompt").text(data);
                 });
             }
@@ -210,6 +213,7 @@ function makeAiMove(game){
                 svg.append(makeShape(x_grid_location,y_grid_location,radius,token2,tokenShape));
                 playerTurn = 1;
             }
+            $('#current-turn').text(playerTurn);
             // update the scorew view
             updateScoreView();
             // Get the AI move
@@ -226,7 +230,7 @@ function makeAiMove(game){
                 playerTurn = 1;
             }
             $('#canvas').empty();
-            
+            $('#current-turn').text(playerTurn);
             board = data.boardState;
             
             // draw the board with the data
@@ -279,11 +283,12 @@ function getAiMove(boardState, diffAi) {
                 playerTurn = 1;
                 $("#error-prompt").empty();
             }
+            $('#current-turn').text(playerTurn);
            
         });
     }
-    });
-}
+    } );
+} 
 
 // send a move to the board?
 function sendMoveAI(sendData) {
@@ -306,7 +311,7 @@ function sendMoveAI(sendData) {
                 svg.append(makeShape(y_grid_location,x_grid_location,radius,token2,tokenShape));
                 playerTurn = 1;
             }
-            
+            $('#current-turn').text(playerTurn);
             // update the scorew view
             updateScoreView();
             
@@ -319,6 +324,7 @@ function sendMoveAI(sendData) {
             } else {
                 playerTurn = 1;
             }
+            $('#current-turn').text(playerTurn);
             
             
             $('#canvas').empty();
@@ -375,6 +381,7 @@ function initializeBoard(game,visualSettings){
     } else {
         playerTurn = game.turn;
     }
+    $('#current-turn').text(playerTurn);
     //console.log("myData is " + myData.token1);
     
     if (visualSettings.tokenColor == "Black and White") {
@@ -472,10 +479,10 @@ function displayWinScreen(winner) {
     $("#canvas").append('<div class="win-screen container"><h3>Player '+winner+' wins!</h3>'+
                   '<p>Player 1 score: <span id="p1score">'+player1Score+'</span></p>'+
                   '<p>Player 2 score: <span id="p1score">'+player2Score+'</span></p>'+
-                  '<a class="btn btn-default" role="button" id="save-replay-button-revealer">Save Replay</a>'+
+                  /*'<a class="btn btn-default" role="button" id="save-replay-button-revealer">Save Replay</a>'+*/
                   '<a href="main-menu.html" class="btn btn-default game-ender" role="button" id="main-menus">Main Menu</a>'+'</div>');
     initializeGameEnd();
-    initializeSaveReplayRevealerButton(winner);
+    //initializeSaveReplayRevealerButton(winner);
     // return winner
 }
 
@@ -531,6 +538,7 @@ function initializePassButton() {
                 } else {
                     playerTurn = 1;
                 }
+                $('#current-turn').text(playerTurn);
                 $("#error-prompt").empty();
             }
         });

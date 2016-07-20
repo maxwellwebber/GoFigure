@@ -11,9 +11,45 @@
    border: 1px solid #DDDDDD;
    width: 200px;
    height: 200px;
+   top: 30px;
    position: relative;
     
 }
+.score-div {
+    margin-top:30px;
+    margin-left:40px;
+    margin-right:40px;
+    background-color:yellow;
+    padding: 20px;
+    border-radius:15px;
+    border: 1px solid black;
+    
+}
+
+.chinese-banner {
+    /*display: block;*/
+    /*margin: auto;*/
+
+    /*height: auto;*/
+    /*max-height: 100%;*/
+
+    width: 100%;
+    height:100%;
+    /*max-width: 120%;*/
+}
+
+#exit-button {
+    background-color:#FFFF22;
+}
+#pass-button {
+    background-color:#FFFF22;
+}
+.side-bar {
+    padding: 0px;
+    height:100%;
+    background-color:#AAAAAA;
+}
+
 
 .win-screen {
    margin: 0 auto;
