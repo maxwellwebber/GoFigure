@@ -76,9 +76,11 @@ function makeMove(game){
                             sendData = {'userName' :document.cookie.split('=')[1],'pass':false, 'board' : board1, "turn":playerTurn,"gameSettings":gameSettings, 'player1Score':player1Score, 'player2Score':player2Score};
                             wentThrough = true;
                             $("#error-prompt").empty();
+                            $('.error-prompt-div').addClass('hidden');
                             break end;
                         } else {
                             $("#error-prompt").text("A token already exists on that spot");
+                            $('.error-prompt-div').removeClass('hidden');
                         }
                     }  
                 }
@@ -127,6 +129,7 @@ function makeMove(game){
                     // handle any errors here....
                     board1 = errorBoard.currentGame.boardState;
                      $("#error-prompt").text(data);
+                     $('.error-prompt-div').removeClass('hidden');
                 });
             }
                 return;
@@ -187,9 +190,11 @@ function makeAiMove(game){
                             // you have went through this loop so when you branch to end, it will leave the loop.
                             wentThrough = true;
                             $("#error-prompt").empty();
+                            $('.error-prompt-div').addClass('hidden');
                             break end2;
                         } else {
                             $("#error-prompt").text("A token already exists on that spot");
+                            $('.error-prompt-div').removeClass('hidden');
                         }
                     }
                 }
@@ -247,6 +252,7 @@ function makeAiMove(game){
             // handle any errors here....
             board = errorBoard.currentGame.boardState;
              $("#error-prompt").text(data);
+             $('.error-prompt-div').removeClass('hidden');
             });
         }
         return;
@@ -282,6 +288,9 @@ function getAiMove(boardState, diffAi) {
             } else {
                 playerTurn = 1;
                 $("#error-prompt").empty();
+                $('.error-prompt-div').addClass('hidden');
+                $("#error-prompt").text("Computer Passed");
+                $('.error-prompt-div').removeClass('hidden');
             }
             $('#current-turn').text(playerTurn);
            
@@ -347,6 +356,7 @@ function sendMoveAI(sendData) {
             board = errorBoard.currentGame.boardState;
              getAiMove(board,true);
              $("#error-prompt").text(data);
+             $('.error-prompt-div').removeClass('hidden');
             });
         }
         
@@ -540,6 +550,7 @@ function initializePassButton() {
                 }
                 $('#current-turn').text(playerTurn);
                 $("#error-prompt").empty();
+                $('.error-prompt-div').addClass('hidden');
             }
         });
     });  
