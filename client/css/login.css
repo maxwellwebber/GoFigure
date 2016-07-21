@@ -42,3 +42,12 @@ h2 {
 #user-prompt-good{
     color:green;
 }
+
+.navbar{
+            opacity:0.85;
+            background-color:yellow;
+        }
+.btn{
+    background-color:yellow;
+    color:red
+}

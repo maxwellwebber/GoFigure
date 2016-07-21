@@ -19,11 +19,11 @@ $(document).ready(function() {
            if(response === 401){
                console.log(response);
                //$("#user-prompt").append("This username already exists. Please choose a new username.");
-               $("#user-prompt").css('color', 'red');
+               $("#user-prompt").css('color', 'white');
                $("#user-prompt").html("This username already exists. Please choose a new username.");
            }
            else{
-               $("#user-prompt").css('color', 'green');
+               $("#user-prompt").css('color', 'white');
                $("#user-prompt").html("Your account has been created. Please log in with your new account");
            }
         });
@@ -43,11 +43,11 @@ $(document).ready(function() {
            if(response === 401){
                console.log(response);
                //$("#user-prompt").append("This username already exists. Please choose a new username.");
-               $("#user-prompt").css('color', 'red');
+               $("#user-prompt").css('color', 'white');
                $("#user-prompt").html("Invalid username or password.");
            }
            else{
-               $("#user-prompt").css('color', 'green');
+               $("#user-prompt").css('color', 'white');
                $("#user-prompt").html("Logging in");
                //put code to change page here
                console.log("THIS IS A VALID ACCOUNT, YOU ARE ABLE TO LOG IN");
