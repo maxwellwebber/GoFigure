@@ -1,21 +1,43 @@
 <html>
 
 <head>
-	<!-- JQuery and Bootstrap CSS -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script src="js/client-server.js"></script>
-	<script src="js/visual-settings.js"></script>
-	<script src="js/logout.js"></script>
-	<link rel="stylesheet" type="text/css" href="css/navBar.css"/>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-	<meta charset="utf-8">
+    <!-- JQuery and Bootstrap CSS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/client-server.js"></script>
+    <script src="js/visual-settings.js"></script>
+    <script src="js/logout.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/navBar.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .side-bar {
+            padding: 0px;
+            height: 88%;
+            background-color: #AAAAAA;
+        }
+        .panel-body {
+        	background-color: yellow;
+        }
+        .tr {
+        	background-color:yellow;
+        }
+        .chinese-banner {
+            width: 100%;
+            height: 100%;
+        }
+        .middlestuff {
+            padding: 0;
+        }
+    </style>
 </head>
 
-<body>
-  
-      <nav class="navbar navbar-default navbar-static">
-        <div class="container-fluid">
+<body style="background-color:red;">
+
+
+
+    <nav class="navbar navbar-default navbar-static">
+        <div class="navi container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
                     <span class="icon-bar"></span>
@@ -31,7 +53,7 @@
                         </li>
                         <li><a href="visual-settings.html">Visual Settings</a>
                         </li>
-                         <!--<li><a href="replays.html">Replays</a>-->
+                        <!--<li><a href="replays.html">Replays</a>-->
                         </li>
                         <li><a id="logout-button">Log Out</a>
                         </li>
@@ -41,110 +63,132 @@
         </div>
     </nav>
 
-	<div align="center">
-		<h1>Settings</h1>
-	</div>
-	<div class="container">
-		<!-- main container -->
-		<div class="panel-group" role="tablist" aria-multiselectable="true">
-			<div class="panel panel-default">
-				<div class="panel-heading" role="tab" id="headingOne">
-					<h4 class="panel-title">
-            <a role="button" data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+
+    <div class="container-fluid" align="center" style='background-color:red;'>
+        <div class='row'>
+            <div class="col-sm-1 side-bar"><img class='chinese-banner' src="img/chinese.png" \>
+            </div>
+
+            <div class="col-sm-10 middlestuff">
+                <div align="center">
+                    <h1 style = "color:yellow">Settings</h1>
+                </div>
+        
+                <div class="container">
+                    <!-- main container -->
+
+                    <div class="panel-group" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-default">
+
+                            <div class="panel-heading" role="tab" id="headingOne" style = "background-color:red" >
+                                <h4 class="panel-title" style = "color:yellow">
+            <a role="button" data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" >
               Board
             </a>
           </h4>
-				</div>
-				<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-					<div class="panel-body">
-					  <table class="table table-striped table-sm table-bordered">
-							<tr>
-								<td>Select Color:</td>
-								<td>
-						<div class="btn-group" data-toggle="buttons">
-							<label class="btn btn-primary active board-color">
-								<input type="radio" autocomplete="off"  checked>Brown</input>
-							</label>
-							<label class="btn btn-primary board-color">
-								<input type="radio" autocomplete="off">White</input>
-							</label>
-							<label class="btn btn-primary board-color">
-								<input type="radio" autocomplete="off">Pink</input>
-							</label>
-							<label class="btn btn-primary board-color">
-								<input type="radio" autocomplete="off">Grey</input>
-							</label>
-							<label class="btn btn-primary board-color">
-								<input type="radio" autocomplete="off">Yellow</input>
-							</label>
-							</div>
-							</td>
-							</tr>
-							</table>
-					</div>
-				</div>
-			</div>
-			<div class="panel panel-default">
-				<div class="panel-heading" role="tab" id="headingTwo">
-					<h4 class="panel-title">
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                <div class="panel-body">
+                                    <table class="table table-striped table-sm">
+                                        <tr style = "background-color:yellow">
+                                            <td>Select Color:</td>
+                                            <td>
+                                                <div class="btn-group" data-toggle="buttons">
+                                                    <label class="btn btn-danger active board-color">
+                                                        <input type="radio" autocomplete="off" checked>Brown</input>
+                                                    </label>
+                                                    <label class="btn btn-danger board-color">
+                                                        <input type="radio" autocomplete="off">White</input>
+                                                    </label>
+                                                    <label class="btn btn-danger board-color">
+                                                        <input type="radio" autocomplete="off">Pink</input>
+                                                    </label>
+                                                    <label class="btn btn-danger board-color">
+                                                        <input type="radio" autocomplete="off">Grey</input>
+                                                    </label>
+                                                    <label class="btn btn-danger board-color">
+                                                        <input type="radio" autocomplete="off">Yellow</input>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingTwo" style = "background-color:red">
+                                <h4 class="panel-title" style = "color:yellow">
         <a role="button" data-toggle="collapse"  href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
           Tokens
         </a>
       </h4>
-				</div>
-				<div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
-					<div class="panel-body">
-						<table class="table table-striped table-sm table-bordered">
-							<tr>
-								<td>Select Colors:</td>
-								<td>
-									<div class="btn-group" data-toggle="buttons">
+                            </div>
+                            <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+                                <div class="panel-body">
+                                    <table class="table table-striped table-sm">
+                                        <tr style = "background-color:yellow">
+                                            <td>Select Colors:</td>
+                                            <td>
+                                                <div class="btn-group" data-toggle="buttons">
 
-										<label class="btn btn-primary active token-color">
-											<input type="radio" autocomplete="off" checked>Black and White</input>
-										</label>
-										<label class="btn btn-primary token-color">
-											<input type="radio" autocomplete="off">Red and Green</input>
-										</label>
-										<label class="btn btn-primary token-color">
-											<input type="radio" autocomplete="off">Blue and Orange</input>
-										</label>
+                                                    <label class="btn btn-danger active token-color">
+                                                        <input type="radio" autocomplete="off" checked>Black and White</input>
+                                                    </label>
+                                                    <label class="btn btn-danger token-color">
+                                                        <input type="radio" autocomplete="off">Red and Yellow</input>
+                                                    </label>
+                                                    <label class="btn btn-danger token-color">
+                                                        <input type="radio" autocomplete="off">Blue and Orange</input>
+                                                    </label>
 
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td>Select Shape:</td>
-								<td>
-									<div class="btn-group" data-toggle="buttons">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr style = "background-color:yellow">
+                                            <td>Select Shape:</td>
+                                            <td>
+                                                <div class="btn-group" data-toggle="buttons">
 
-										<label class="btn btn-primary active token-shape">
-											<input type="radio" id="black" autocomplete="off" checked>Circle <span class="glyphicon glyphicon-adjust" aria-hidden="true"></span></input>
-										</label>
-										<label class="btn btn-primary token-shape">
-											<input type="radio" autocomplete="off">Square <span class="glyphicon glyphicon-stop" aria-hidden="true"></span></input>
-										</label>
-										<label class="btn btn-primary token-shape">
-											<input type="radio" autocomplete="off">Triangle <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span></input>
-										</label>
-										<label class="btn btn-primary token-shape">
-											<input type="radio" autocomplete="off">Star <span class="glyphicon glyphicon-star" aria-hidden="true"></span></input>
-										</label>
-									</div>
-								</td>
-							</tr>
-						</table>
-					</div>
-				</div>
-			</div>
-		</div>
+                                                    <label class="btn btn-danger active token-shape">
+                                                        <input type="radio" id="black" autocomplete="off" checked>Circle <span class="glyphicon glyphicon-adjust" aria-hidden="true"></span>
+                                                        </input>
+                                                    </label>
+                                                    <label class="btn btn-danger token-shape">
+                                                        <input type="radio" autocomplete="off">Square <span class="glyphicon glyphicon-stop" aria-hidden="true"></span>
+                                                        </input>
+                                                    </label>
+                                                    <label class="btn btn-danger token-shape">
+                                                        <input type="radio" autocomplete="off">Triangle <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+                                                        </input>
+                                                    </label>
+                                                    <label class="btn btn-danger token-shape">
+                                                        <input type="radio" autocomplete="off">Star <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                        </input>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
 
 
-		<a href="main-menu.html" class="btn btn-default save-button" role="button">Save</a>
 
-		<!-- Bootstrap core JavaScript -->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+                    <a href="main-menu.html" class="btn btn-lg btn-default save-button" role="button" style="background-color:yellow;color:red">Save</a>
+
+                </div>
+
+            </div>
+            <div class="col-sm-1 side-bar"><img class='chinese-banner' src="img/chinese.png" \>
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 </body>
 
 </html>

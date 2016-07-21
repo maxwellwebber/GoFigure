@@ -40,7 +40,7 @@ function makeMove(game){
     var gridSizeScaled = (600-2*gridSizeNonScaled)/size;
     var ratio = size/(size-1);
     var gameSettings = game.gameSettings;
-    var board1 = game.boardState;
+    board = game.boardState;
     var radius = gridSizeScaled/2.8;
     
     $("#canvas").click(function(e){
@@ -50,8 +50,8 @@ function makeMove(game){
         wentThrough = false;
         end:
         if (wentThrough == false) {
-            for (var i = 0;i< board1.length; i++) {
-                for (var j = 0;j< board1.length; j++) {
+            for (var i = 0;i< board.length; i++) {
+                for (var j = 0;j< board.length; j++) {
                     
                     //console.log(i + " " + j);
                     
@@ -62,18 +62,18 @@ function makeMove(game){
                     //var mouseX = 
                     //console.log(j*gridSizeScaled*ratio+gridSizeNonScaled + " " + i*gridSizeScaled*ratio+gridSizeNonScaled);
                     if (mouseX > x_grid_location-radius && mouseX < x_grid_location+radius && mouseY > y_grid_location-radius && mouseY < y_grid_location+radius) {
-                        if (board1[i][j] == 0) {
+                        if (board[i][j] == 0) {
                             //comment this out to not draw and add to the array so it is drawn by the draw board function
                             //svg.append(makeCircle(j*gridSizeScaled*ratio+gridSizeNonScaled,i*gridSizeScaled*ratio+gridSizeNonScaled,gridSizeScaled/2.8,"black")); 
                             //for this
                             if (playerTurn == 1) {
-                                board1[i][j] = 1;
+                                board[i][j] = 1;
                             } else {
-                                board1[i][j] = 2;
+                                board[i][j] = 2;
                             }
                             $('#current-turn').text(playerTurn);
                             //console.log(board[i][j]);
-                            sendData = {'userName' :document.cookie.split('=')[1],'pass':false, 'board' : board1, "turn":playerTurn,"gameSettings":gameSettings, 'player1Score':player1Score, 'player2Score':player2Score};
+                            sendData = {'userName' :document.cookie.split('=')[1],'pass':false, 'board' : board, "turn":playerTurn,"gameSettings":gameSettings, 'player1Score':player1Score, 'player2Score':player2Score};
                             wentThrough = true;
                             $("#error-prompt").empty();
                             $('.error-prompt-div').addClass('hidden');
@@ -104,7 +104,7 @@ function makeMove(game){
                 }
                 updateScoreView();
                 $('#current-turn').text(playerTurn);
-                board1 = data.boardState;
+                board = data.boardState;
                 
             // Something has been killed, append the appropriate players token and switch turn
             } else if ((data.boardState != undefined) && (data.killCheck == true)) {
@@ -118,7 +118,7 @@ function makeMove(game){
                 $('#current-turn').text(playerTurn);
                 $('#canvas').empty();
                 //console.log(data);
-                board1 = data.boardState;
+                board = data.boardState;
                 drawBoard(data);
                 updateScoreView();
                 
@@ -127,7 +127,7 @@ function makeMove(game){
                 // here is where we put error
                 clientServer.sendAndRecieveData({'userName' :document.cookie.split('=')[1] },"getCurrentGame", function(errorBoard) {
                     // handle any errors here....
-                    board1 = errorBoard.currentGame.boardState;
+                    board = errorBoard.currentGame.boardState;
                      $("#error-prompt").text(data);
                      $('.error-prompt-div').removeClass('hidden');
                 });
@@ -398,9 +398,9 @@ function initializeBoard(game,visualSettings){
         token1 = '#000000'
         token2 = '#FFFFFF'
     }
-    if (visualSettings.tokenColor == "Red and Green") {
+    if (visualSettings.tokenColor == "Red and Yellow") {
         token1 = '#FF0000'
-        token2 = '#00FF00'
+        token2 = '#FFFF00'
     }
     if (visualSettings.tokenColor == "Blue and Orange") {
         token1 = '#0000FF'
@@ -486,11 +486,11 @@ function drawBoard(game) {
 
 function displayWinScreen(winner) {
     // call algorithm to find winner
-    $("#canvas").append('<div class="win-screen container"><h3>Player '+winner+' wins!</h3>'+
-                  '<p>Player 1 score: <span id="p1score">'+player1Score+'</span></p>'+
-                  '<p>Player 2 score: <span id="p1score">'+player2Score+'</span></p>'+
+    $("#canvas").append('<div class="win-screen container" style="background-color:red;border-radius:15px;"><h3 style="color:yellow">Player '+winner+' wins!</h3>'+
+                  '<p style="color:yellow">Player 1 score: <span id="p1score">'+player1Score+'</span></p>'+
+                  '<p style="color:yellow">Player 2 score: <span id="p1score">'+player2Score+'</span></p>'+
                   /*'<a class="btn btn-default" role="button" id="save-replay-button-revealer">Save Replay</a>'+*/
-                  '<a href="main-menu.html" class="btn btn-default game-ender" role="button" id="main-menus">Main Menu</a>'+'</div>');
+                  '<a href="main-menu.html" class="btn btn-default game-ender" role="button" id="main-menus"><b  style="color:red">Main Menu </b><span style="color:red" class="glyphicon glyphicon-share-alt"></span></a>'+'</div>');
     initializeGameEnd();
     //initializeSaveReplayRevealerButton(winner);
     // return winner

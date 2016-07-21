@@ -1,2 +1,22 @@
-nav{opacity:0.85;}
+.navi{opacity:0.85;
+    background-color:yellow;
+}
+
 #logout-button {cursor:pointer;}
+
+
+.panel > .panel-heading {
+    background-image: none;
+    background-color: red;
+    color: yellow;
+
+}
+
+.panel  {
+    background-image: none;
+    background-color: yellow;
+    color: red;
+
+
+}
+

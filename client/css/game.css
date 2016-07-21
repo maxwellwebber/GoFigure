@@ -37,11 +37,17 @@
     height:100%;
     /*max-width: 120%;*/
 }
+#main-menus {
+    border-color:black;
+    background-color:#FFFF22;    
+}
 
 #exit-button {
+    border-color:black;
     background-color:#FFFF22;
 }
 #pass-button {
+    border-color:black;
     background-color:#FFFF22;
 }
 .side-bar {

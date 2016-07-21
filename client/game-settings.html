@@ -11,12 +11,32 @@
     <!-- <link rel="stylesheet" type="text/css" href="css/game-settings.css -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .side-bar {
+            padding: 0px;
+            height: 88%;
+            background-color: #AAAAAA;
+        }
+        .panel-body {
+        	background-color: yellow;
+        }
+        .tr {
+        	background-color:yellow;
+        }
+        .chinese-banner {
+            width: 100%;
+            height: 100%;
+        }
+        .middlestuff {
+            padding: 0;
+        }
+    </style>
 </head>
 
-<body>
+<body style = "background-color:red">
   
   <nav class="navbar navbar-default navbar-static">
-      <div class="container-fluid">
+      <div class="navi container-fluid">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
               <span class="icon-bar"></span>
@@ -41,12 +61,15 @@
     </nav>
   
   
+      <div class="container-fluid" align="center" style='background-color:red;'>
   
-  
-  
-    <div class="container">
+      <div class="row">
+      <div class="col-sm-1 side-bar"><img class='chinese-banner' src="img/chinese.png" \></div>
+      <div class="col-sm-10">
+      
+      
         <div align="center">
-            <h1>Game Settings</h1>
+            <h1 style="color:yellow">Game Settings</h1>
         </div>
         <!-- end Game Settings -->
 
@@ -72,13 +95,13 @@
 
                           <div class="btn-group" data-toggle="buttons">
               
-                            <label class="btn btn-primary active scoring-settings">
+                            <label class="btn btn-danger active scoring-settings">
                               <input type="radio" autocomplete="off" checked> Area Scoring
                             </label>
-                            <label class="btn btn-primary scoring-settings">
+                            <label class="btn btn-danger scoring-settings">
                               <input type="radio" name="options" autocomplete="off">Territory Scoring
                             </label>
-                            <label class="btn btn-primary scoring-settings">
+                            <label class="btn btn-danger scoring-settings">
                               <input type="radio" name="options" autocomplete="off">Army Scoring
                             </label>
                             
@@ -107,10 +130,10 @@
                             
                             <div class="btn-group" data-toggle="buttons">
               
-                            <label class="btn btn-primary active player-settings">
+                            <label class="btn btn-danger active player-settings">
                               <input type="radio" autocomplete="off" checked> One Player
                             </label>
-                            <label class="btn btn-primary player-settings">
+                            <label class="btn btn-danger player-settings">
                               <input id="i" type="radio" name="options" autocomplete="off">Two Player Hotseat
                             </label>
                             
@@ -143,16 +166,16 @@
                             
                             <div class="btn-group" data-toggle="buttons">
               
-                            <label class="btn btn-primary active handicap-settings">
+                            <label class="btn btn-danger active handicap-settings">
                               <input type="radio" autocomplete="off" checked>Zero
                             </label>
-                            <label class="btn btn-primary handicap-settings">
+                            <label class="btn btn-danger handicap-settings">
                               <input type="radio" name="options" autocomplete="off">One
                             </label>
-                            <label class="btn btn-primary handicap-settings">
+                            <label class="btn btn-danger handicap-settings">
                               <input type="radio" name="options" autocomplete="off">Two
                             </label>
-                            <label class="btn btn-primary handicap-settings">
+                            <label class="btn btn-danger handicap-settings">
                               <input type="radio" name="options" autocomplete="off">Four
                             </label>
                             
@@ -182,13 +205,13 @@
                             
                             <div class="btn-group" data-toggle="buttons">
               
-                            <label class="btn btn-primary board-size-settings">
+                            <label class="btn btn-danger board-size-settings">
                               <input type="radio" autocomplete="off" checked>9x9
                             </label>
-                            <label class="btn btn-primary active board-size-settings">
+                            <label class="btn btn-danger active board-size-settings">
                               <input type="radio" name="options" autocomplete="off">13x13
-                            </label>
-                            <label class="btn btn-primary board-size-settings">
+                            </label>  
+                            <label class="btn btn-danger board-size-settings">
                               <input type="radio" name="options" autocomplete="off">19x19
                             </label>
                             
@@ -206,15 +229,19 @@
 
         </div>
         <!-- end scoring settings -->
+        <div align="center">
+          <a href = "game.html" class="btn btn-default btn-lg start-button" role="button" style="background-color:yellow;border-color:while;color:red;">Start Game</a>
+        </div>
     </div>
-    </div>
+    
     <!-- end container -->
-
-    <div align="center">
-        <a href = "game.html" class="btn btn-default start-button" role="button">Start Game</a>
-    </div>
+<div class="col-sm-1 side-bar"><img class='chinese-banner' src="img/chinese.png" \></div>
+</div>
 
 
+</div>
+
+</div>
 
     <!-- Bootstrap core JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
