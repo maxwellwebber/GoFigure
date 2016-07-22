@@ -7,7 +7,9 @@
  */
 function getData(cb){
     
-    sendData = {'userName' :document.cookie.split('=')[1] }
+   
+    
+    sendData = {'userName' :cookie }
     clientServer.sendAndRecieveData(sendData,"getCurrentGame", function(data) {
 
         // handle any errors here....
@@ -73,7 +75,7 @@ function makeMove(game){
                             }
                             $('#current-turn').text(playerTurn);
                             //console.log(board[i][j]);
-                            sendData = {'userName' :document.cookie.split('=')[1],'pass':false, 'board' : board, "turn":playerTurn,"gameSettings":gameSettings, 'player1Score':player1Score, 'player2Score':player2Score};
+                            sendData = {'userName' :cookie,'pass':false, 'board' : board, "turn":playerTurn,"gameSettings":gameSettings, 'player1Score':player1Score, 'player2Score':player2Score};
                             wentThrough = true;
                             $("#error-prompt").empty();
                             $('.error-prompt-div').addClass('hidden');
@@ -125,7 +127,7 @@ function makeMove(game){
             // There was an error
             } else {
                 // here is where we put error
-                clientServer.sendAndRecieveData({'userName' :document.cookie.split('=')[1] },"getCurrentGame", function(errorBoard) {
+                clientServer.sendAndRecieveData({'userName' :cookie },"getCurrentGame", function(errorBoard) {
                     // handle any errors here....
                     board = errorBoard.currentGame.boardState;
                      $("#error-prompt").text(data);
@@ -185,7 +187,7 @@ function makeAiMove(game){
                             
                             // Timeout: setTimeout(function(){ svg.append(makeShape(x_grid_location,y_grid_location,radius,token2,tokenShape)); }, 1000);
                             //console.log(board[i][j]);
-                            sendData = {'userName' :document.cookie.split('=')[1],'pass':false, 'board' : board, "turn":playerTurn,"gameSettings":gameSettings, 'player1Score':player1Score, 'player2Score':player2Score};
+                            sendData = {'userName' :cookie,'pass':false, 'board' : board, "turn":playerTurn,"gameSettings":gameSettings, 'player1Score':player1Score, 'player2Score':player2Score};
                             
                             // you have went through this loop so when you branch to end, it will leave the loop.
                             wentThrough = true;
@@ -248,7 +250,7 @@ function makeAiMove(game){
         // A move was invalid
         } else {
             // here is where we put error
-            clientServer.sendAndRecieveData({'userName' :document.cookie.split('=')[1] },"getCurrentGame", function(errorBoard) {
+            clientServer.sendAndRecieveData({'userName' :cookie },"getCurrentGame", function(errorBoard) {
             // handle any errors here....
             board = errorBoard.currentGame.boardState;
              $("#error-prompt").text(data);
@@ -264,7 +266,7 @@ function makeAiMove(game){
 // request a move from the server. Send the username and the board.
 function getAiMove(boardState, diffAi) {
     sendData = {
-        "userName": document.cookie.split('=')[1],
+        "userName": cookie,
         "board": boardState,
         'diff': diffAi
     }
@@ -275,12 +277,12 @@ function getAiMove(boardState, diffAi) {
         if (data.pass == false) {
             boardState[data.x][data.y] = 2; 
             getXYPosition(data.x,data.y,boardState.length);
-            newSendData = {'userName' :document.cookie.split('=')[1],'pass':false, 
+            newSendData = {'userName' :cookie,'pass':false, 
             'board' : boardState, "turn":2,"gameSettings":gs, 'player1Score':player1Score, 'player2Score':player2Score}
             sendMoveAI(newSendData);
         } else {
             //AI PASSED
-            clientServer.sendAndRecieveData({"userName": document.cookie.split('=')[1]}, "/pass", function(passData){
+            clientServer.sendAndRecieveData({"userName": cookie}, "/pass", function(passData){
             if (passData.gameIsOver > 0) {
                 $('#canvas').off('click');
                 $('#pass-button').off('click');
@@ -351,7 +353,7 @@ function sendMoveAI(sendData) {
         // A move was invalid
         } else {
             // here is where we put error
-            clientServer.sendAndRecieveData({'userName' :document.cookie.split('=')[1] },"getCurrentGame", function(errorBoard) {
+            clientServer.sendAndRecieveData({'userName' :cookie },"getCurrentGame", function(errorBoard) {
             // handle any errors here....
             board = errorBoard.currentGame.boardState;
              getAiMove(board,true);
@@ -505,7 +507,7 @@ function initializeSaveReplayRevealerButton(winner) {
         
         $('#save-replay-button').one('click',function() {
             var sendData = {
-                "userName": document.cookie.split('=')[1],
+                "userName": cookie,
                 "replayName":  $('.replayname').val(),
                 "visualSettings": vs,
                 'winner': winner
@@ -527,7 +529,7 @@ function initializePassButton() {
         $('#pass-button').addClass('disabled');
         setTimeout(function(){  $('#pass-button').removeClass('disabled'); }, 1500);
         sendData = {
-            "userName": document.cookie.split('=')[1]
+            "userName": cookie
         }
         
         clientServer.sendAndRecieveData(sendData,"pass",function(data){
@@ -559,7 +561,7 @@ function initializePassButton() {
 function initializeGameEnd() {
     $(".game-ender").click(function() {
         var sendData = {
-            userName: document.cookie.split('=')[1]
+            userName: cookie
         }
         clientServer.sendData(sendData, 'endGame', function() {
         });
@@ -573,7 +575,7 @@ function updateScoreView() {
 
 function init(){
 
-    
+    cookie = getCookie('Gousername');
     // do page load things here...
     clientServer = new ClientServer("localhost", 80);
     console.log("Initalizing Page...."); 
@@ -582,3 +584,15 @@ function init(){
     initializeGameEnd();
    
 }
+
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
+}
+
