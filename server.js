@@ -298,10 +298,14 @@ app.post("/makeMove", function(req,res){
             } else if (scoringSettings == "Territory Scoring") {
                 scores = algorithms.areaScoring(object.board);
                 if(playerTurn == 1){
-                    object.player2Score = (scores.player2)-numArmiesKilled;
+                    if(scores.player2-numArmiesKilled < 0){ scores.player2 = 0; }
+                    else{scores.player2 = (scores.player2)-numArmiesKilled;}
+                    //console.log("player 2 score is "+object.player2Score);
                 }
                 else{
-                    object.player1Score = (scores.player1)-numArmiesKilled;
+                    if(scores.player1-numArmiesKilled < 0){ scores.player1 = 0 }
+                    else{scores.player1 = (scores.player1)-numArmiesKilled;}
+                    //console.log("player 1 score is "+object.player1Score);
                 }
                 
             } else {
