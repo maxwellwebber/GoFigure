@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    
+
     <!-- JQuery and Bootstrap CSS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="js/logout.js"></script>
@@ -11,58 +11,59 @@
     <title>How To</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-   
+
 
     <style>
         body {
             position: relative;
         }
         
-        .navbar{
-            opacity:0.85;
-            background-color:yellow;
+        .navbar {
+            opacity: 0.85;
+            background-color: yellow;
         }
         
-        .active a{
+        .active a {
             color: yellow !important;
             background-color: red !important;
         }
-
+        
         #section1 {
             padding: 40px 200px;
             padding-top: 50px;
             height: auto;
             color: yellow;
             background-color: red;
-
         }
+        
         #section2 {
             padding: 40px 200px;
             height: auto;
             color: red;
             background-color: yellow;
-
         }
+        
         #section3 {
             padding: 40px 200px;
             height: auto;
             color: yellow;
             background-color: red;
         }
+        
         #section4 {
             padding: 40px 200px;
             height: auto;
             color: red;
             background-color: yellow;
-            
         }
+        
         p {
             font-size: 20px;
         }
+        
         h1 {
             text-align: center;
         }
-        
     </style>
 </head>
 
@@ -83,10 +84,10 @@
             <div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
-                      <li><a href="how-to.html">How to Play</a></li>
-                      <li><a href="visual-settings.html">Visual Settings</a></li>
-                       <!--<li><a href="replays.html">Replays</a>-->
-                      <li><a id="logout-button">Log Out</a></li>
+                        <li><a href="how-to.html">How to Play</a></li>
+                        <li><a href="visual-settings.html">Visual Settings</a></li>
+                        <!--<li><a href="replays.html">Replays</a>-->
+                        <li><a id="logout-button">Log Out</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="#section1">History</a>
@@ -103,95 +104,54 @@
         </div>
     </nav>
 
-    
+
     <div id="section1" class="container-fluid">
         <h1>History</h1>
         <p>
-            Go, an ancient Chinese strategy board game, is played between two 
-            opponents and can be played on various sizes of boards, though the
-            tradition is a 19x19 board. Each player plays with their respective
-            white or black stones, referred to as armies. Armies can only be
-            placed on intersecting points of the board, known as liberties.
-            The four corners of the board , and the intersecting points along the
-            edges of the board are also considered liberties.
+            Go, an ancient Chinese strategy board game, is played between two opponents and can be played on various sizes of boards, though the tradition is a 19x19 board. Each player plays with their respective white or black stones, referred to as armies. Armies can only be placed on intersecting points of the board, known as liberties. The four corners of the board , and the intersecting points along the edges of the board are also considered liberties.
         </p>
     </div>
     <div id="section2" class="container-fluid">
         <h1>An Armies Life and Death</h1>
         <p>
-            By tradition, the player with black armies gets the first turn. Weaker
-            players are typically given black armies as there is an allowed
-            advantage. Black can be given an advantage, in which they are
-            permitted to place one or more armies at liberties on the board before
-            their first turn, this is called a handicap. At each turn each player
-            can choose to place an army or pass. Each player is only allowed to
-            set one army per turn and armies cannot be moved after placement. An
-            “alive” army is one that has at least one open liberty directly
-            adjacent to it, that is, there is at least one open liberty at any of
-            the positions above, below, leftward or rightward of the army. A chain
-            of armies is held to the same standard, that is, a chain of connected 
-            armies is alive if there is at least one open liberty directly
-            adjacent to any point in the chain. If all of an armies adjacent
-            liberties are occupied by enemy armies, the army is no longer
-            considered alive and is removed from the board. A chain of armies is
-            held to the same standard, that is, if all of the liberties adjacent
-            to a chain of armies are occupied by the enemy, the entire chain is
-            dead and removed from the board.
+            By tradition, the player with black armies gets the first turn. Weaker players are typically given black armies as there is an allowed advantage. Black can be given an advantage, in which they are permitted to place one or more armies at liberties on the board before their first turn, this is called a handicap. At each turn each player can choose to place an army or pass. Each player is only allowed to set one army per turn and armies cannot be moved after placement. An “alive” army is one that has at least one open liberty directly adjacent to it, that is, there is at least one open liberty at any of the positions above, below, leftward or rightward of the army. A chain of armies is held to the same standard, that is, a chain of connected armies is alive if there is at least one open liberty directly adjacent to any point in the chain. If all of an armies adjacent liberties are occupied by enemy armies, the army is no longer considered alive and is removed from the board. A chain of armies is held to the same standard, that is, if all of the liberties adjacent to a chain of armies are occupied by the enemy, the entire chain is dead and removed from the board.
         </p>
     </div>
     <div id="section3" class="container-fluid">
         <h1>KO</h1>
         <p>
-            Ko is a rule that reduces repetitiveness in the game. Ko states that no
-            moves shall be made that will return the game to a previous state. An
-            example of this is shown in Figure 1, where the spot labeled 1 marks the
-            unplayable spot. This spot is where, in the previous turn, black
-            exhausted all of white's liberties, in turn killing a white army. You
-            can see that, in this turn,  if white were to place an army on 1, the
-            black army would be dead and the game would return to a  previous state,
-            forbidden by ko.
+            Ko is a rule that reduces repetitiveness in the game. Ko states that no moves shall be made that will return the game to a previous state. An example of this is shown in Figure 1, where the spot labeled 1 marks the unplayable spot. This spot is where, in the previous turn, black exhausted all of white's liberties, in turn killing a white army. You can see that, in this turn, if white were to place an army on 1, the black army would be dead and the game would return to a previous state, forbidden by ko.
         </p>
     </div>
     <div id="section4" class="container-fluid">
         <h1>Scoring</h1>
         <p>
-            The game is played until such a point that both player no longer have
-            any moves to make that would benefit them. This is determined by two
-            consecutive passes, that is, both players pass instead placing an
-            army. After the game is over, a scoring technique is used to determine
-            the winner. There are three scoring techniques; Territory, Area and
-            Army scoring.
+            The game is played until such a point that both player no longer have any moves to make that would benefit them. This is determined by two consecutive passes, that is, both players pass instead placing an army. After the game is over, a scoring technique is used to determine the winner. There are three scoring techniques; Territory, Area and Army scoring.
         </p>
-      
-      <h3>
+
+        <h3>
         Territory Scoring
       </h3>
-      <p>
-        In territory scoring, at the end of the game, the score is determined by
-        the number of liberties you have completely surrounded by your stones
-        minus the number of stones killed during the game.
-      </p>
+        <p>
+            In territory scoring, at the end of the game, the score is determined by the number of liberties you have completely surrounded by your stones minus the number of stones killed during the game.
+        </p>
 
-      <h3>
+        <h3>
         Area Scoring
       </h3>
-      <p>
-        In area scoring, the score is determined by the number of stones you
-        have left on the board plus the number of empty spaces you have
-        completely surrounded by stones. 
-      </p>
-      <h3>
+        <p>
+            In area scoring, the score is determined by the number of stones you have left on the board plus the number of empty spaces you have completely surrounded by stones.
+        </p>
+        <h3>
         Army Scoring
       </h3>
-      <p>
-        In army scoring the score is determined only by the number of armies
-        each player has on the board. The liberties surrounded and armies lost
-        do not play a role in the overall score calculation.
-      </p>
+        <p>
+            In army scoring the score is determined only by the number of armies each player has on the board. The liberties surrounded and armies lost do not play a role in the overall score calculation.
+        </p>
     </div>
-    
 
-<!-- Bootstrap core JavaScript -->
+
+    <!-- Bootstrap core JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
 </body>

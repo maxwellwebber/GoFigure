@@ -3,52 +3,51 @@ $(document).ready(function() {
     function getCookie(name) {
         var nameEQ = name + "=";
         var ca = document.cookie.split(';');
-        for(var i=0;i < ca.length;i++) {
+        for (var i = 0; i < ca.length; i++) {
             var c = ca[i];
-            while (c.charAt(0)==' ') c = c.substring(1,c.length);
-            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
         }
         return null;
     }
 
     var clientServer = new ClientServer("localhost", 80);
-    
+
     var object = {
-        
-        userName : "userName",
-        visualSettings : {
-            tokenColor : "Black and White",
+
+        userName: "userName",
+        visualSettings: {
+            tokenColor: "Black and White",
             tokenShape: "Circle",
             boardColor: "Brown"
         }
     }
-    
-    object.userName = getCookie('Gousername');
-    
 
-    
+    object.userName = getCookie('Gousername');
+
+
+
     $('.token-color').click(function() {
-       object.visualSettings.tokenColor = $(this).text().trim();
-        
+        object.visualSettings.tokenColor = $(this).text().trim();
+
     });
-    
+
     $('.token-shape').click(function() {
-       
-       object.visualSettings.tokenShape = $(this).text().trim();
-       //console.log(visualSettings); 
+
+        object.visualSettings.tokenShape = $(this).text().trim();
+        //console.log(visualSettings); 
     });
-    
+
     $('.board-color').click(function() {
-       object.visualSettings.boardColor = $(this).text().trim();
-    
+        object.visualSettings.boardColor = $(this).text().trim();
+
     });
 
     $('.save-button').click(function() {
         console.log(document.cookie);
-        clientServer.sendData(object,"setVisualSettings", function(status) {
+        clientServer.sendData(object, "setVisualSettings", function(status) {
             // do error checking with status parameter here
         });
     });
-    
-});
 
+});

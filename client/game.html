@@ -1,54 +1,56 @@
 <html>
-  <head>
-   <!-- JQuery and Bootstrap CSS -->
+
+<head>
+    <!-- JQuery and Bootstrap CSS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" 
-    integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <script src="js/svgFactory.js"></script>
     <script src="js/client-server.js"></script>
     <script src="js/getCookies.js"></script>
     <script src="js/game-script.js"></script>
-  	<link rel="stylesheet" type="text/css" href="css/game.css"/>
-  </head>
-  <body>
-    
-  <div class="container-fluid" align="center" style='background-color:red;'>  
-  
-    <div class="row ">
-      <div class="col-sm-1 side-bar"><img class="chinese-banner" src="img/chinese.png"\></div>
-      <div class="col-sm-6">
-        <div  align="center">
-          <div  id='canvas'>
-              
-              </div>
+    <link rel="stylesheet" type="text/css" href="css/game.css" />
+</head>
+
+<body>
+
+    <div class="container-fluid" align="center" style='background-color:red;'>
+
+        <div class="row ">
+            <div class="col-sm-1 side-bar"><img class="chinese-banner" src="img/chinese.png" \></div>
+            <div class="col-sm-6">
+                <div align="center">
+                    <div id='canvas'>
+
+                    </div>
+                </div>
             </div>
-         </div>
-      <div class="col-sm-4">
-        <div id="scores" class='score-div'>
-          <h4 style="color:red">Turn: <span id='current-turn'></span></h4>
-          <h4 style="color:red">Player 1 Score: <span id="player1Score"></span></h4>
-          <h4 style="color:red">Player 2 Score: <span id="player2Score"></span></h4>
-        </div>
-        
-        
-      <div class="dragon"><img src="img/chinese-dragon.jpg" style="width:50%;hieght:50%;"/></div>
-      <div><a class="btn btn-default" id="pass-button" role="button"><b style="color:red">Pass  </b><span style="color:red" class="glyphicon glyphicon-share-alt"></span></a>
-      <a href="main-menu.html" id="exit-button" class="btn btn-default game-ender" role="button"><b style="color:red">Exit </b><span style="color:red" class="glyphicon glyphicon-remove"></span></a></div>
-      <div id="scores" class='score-div error-prompt-div hidden'>
-        <h4 id="error-prompt"></h4>  
-        </div>
-        
-        
-      </div>
-      
-      <div class="col-sm-1 side-bar"><img class='chinese-banner' src="img/chinese.png"\></div>
-          
+            <div class="col-sm-4">
+                <div id="scores" class='score-div'>
+                    <h4 style="color:red">Turn: <span id='current-turn'></span></h4>
+                    <h4 style="color:red">Player 1 Score: <span id="player1Score"></span></h4>
+                    <h4 style="color:red">Player 2 Score: <span id="player2Score"></span></h4>
+                </div>
+
+
+                <div class="dragon"><img src="img/chinese-dragon.jpg" style="width:50%;hieght:50%;" /></div>
+                <div><a class="btn btn-default" id="pass-button" role="button"><b style="color:red">Pass  </b><span style="color:red" class="glyphicon glyphicon-share-alt"></span></a>
+                    <a href="main-menu.html" id="exit-button" class="btn btn-default game-ender" role="button"><b style="color:red">Exit </b><span style="color:red" class="glyphicon glyphicon-remove"></span></a></div>
+                <div id="scores" class='score-div error-prompt-div hidden'>
+                    <h4 id="error-prompt"></h4>
+                </div>
+
+
+            </div>
+
+            <div class="col-sm-1 side-bar"><img class='chinese-banner' src="img/chinese.png" \></div>
+
             <script>
-              init();
+                init();
             </script>
         </div>
     </div>
-  </div>  
-  
-  </body>
+    </div>
+
+</body>
+
 </html>

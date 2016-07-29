@@ -5,10 +5,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="js/client-server.js"></script>
     <script src="js/getCookies.js"></script>
-	  <script src="js/game-settings.js"></script>
+    <script src="js/game-settings.js"></script>
     <script src="js/logout.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="css/navBar.css"/>
+    <link rel="stylesheet" type="text/css" href="css/navBar.css" />
     <!-- <link rel="stylesheet" type="text/css" href="css/game-settings.css -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,231 +18,235 @@
             height: 88%;
             background-color: #AAAAAA;
         }
+        
         .panel-body {
-        	background-color: yellow;
+            background-color: yellow;
         }
+        
         .tr {
-        	background-color:yellow;
+            background-color: yellow;
         }
+        
         .chinese-banner {
             width: 100%;
             height: 100%;
         }
+        
         .middlestuff {
             padding: 0;
         }
     </style>
 </head>
 
-<body style = "background-color:red">
-  
-  <nav class="navbar navbar-default navbar-static">
-      <div class="navi container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+<body style="background-color:red">
+
+    <nav class="navbar navbar-default navbar-static">
+        <div class="navi container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="main-menu.html">GO Home</a>
+                <a class="navbar-brand" href="main-menu.html">GO Home</a>
+            </div>
+            <div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav">
+                        <li><a href="how-to.html">How to Play</a>
+                        </li>
+                        <li><a href="visual-settings.html">Visual Settings</a>
+                        </li>
+                        <li><a id="logout-button">Log Out</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div>
-          <div class="collapse navbar-collapse" id="myNavbar">
-              <ul class="nav navbar-nav">
-              <li><a href="how-to.html">How to Play</a>
-              </li>
-              <li><a href="visual-settings.html">Visual Settings</a>
-              </li>
-              <li><a id="logout-button">Log Out</a>
-            </li>
-            </ul>
-          </div>
-        </div>
-      </div>
     </nav>
-  
-  
-      <div class="container-fluid" align="center" style='background-color:red;'>
-  
-      <div class="row">
-      <div class="col-sm-1 side-bar"><img class='chinese-banner' src="img/chinese.png" \></div>
-      <div class="col-sm-10">
-      
-      
-        <div align="center">
-            <h1 style="color:yellow">Game Settings</h1>
-        </div>
-        <!-- end Game Settings -->
+
+
+    <div class="container-fluid" align="center" style='background-color:red;'>
+
+        <div class="row">
+            <div class="col-sm-1 side-bar"><img class='chinese-banner' src="img/chinese.png" \></div>
+            <div class="col-sm-10">
+
+
+                <div align="center">
+                    <h1 style="color:yellow">Game Settings</h1>
+                </div>
+                <!-- end Game Settings -->
 
 
 
-        <div>
-            <!-- start scoring settings -->
+                <div>
+                    <!-- start scoring settings -->
 
-            <div class="panel-group" role="tablist" aria-multiselectable="true">
-                <!-- group of all the accordions -->
+                    <div class="panel-group" role="tablist" aria-multiselectable="true">
+                        <!-- group of all the accordions -->
 
-                <!-- stat accordion one -->
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingOne">
-                        <h4 class="panel-title">
+                        <!-- stat accordion one -->
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingOne">
+                                <h4 class="panel-title">
                 <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                   Scoring Settings
                 </a>
               </h4>
-                    </div>
-                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                        <div class="panel-body ">
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                <div class="panel-body ">
 
-                          <div class="btn-group" data-toggle="buttons">
-              
-                            <label class="btn btn-danger active scoring-settings">
+                                    <div class="btn-group" data-toggle="buttons">
+
+                                        <label class="btn btn-danger active scoring-settings">
                               <input type="radio" autocomplete="off" checked> Area Scoring
                             </label>
-                            <label class="btn btn-danger scoring-settings">
+                                        <label class="btn btn-danger scoring-settings">
                               <input type="radio" name="options" autocomplete="off">Territory Scoring
                             </label>
-                            <label class="btn btn-danger scoring-settings">
+                                        <label class="btn btn-danger scoring-settings">
                               <input type="radio" name="options" autocomplete="off">Army Scoring
                             </label>
-                            
-                          </div>
-                        
-                        
-                        
-                        </div>
-                    </div>
-                </div>
 
-                <!-- start accordion two -->
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingTwo">
-                        <h4 class="panel-title">
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- start accordion two -->
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingTwo">
+                                <h4 class="panel-title">
               <a role="button" data-toggle="collapse" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                 Player Settings
               </a>
             </h4>
-                    </div>
-                    <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
-                        <div class="panel-body">
-                            
-                            
-                            
-                            
-                            <div class="btn-group" data-toggle="buttons">
-              
-                            <label class="btn btn-danger active player-settings">
+                            </div>
+                            <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+                                <div class="panel-body">
+
+
+
+
+                                    <div class="btn-group" data-toggle="buttons">
+
+                                        <label class="btn btn-danger active player-settings">
                               <input type="radio" autocomplete="off" checked> One Player
                             </label>
-                            <label class="btn btn-danger player-settings">
+                                        <label class="btn btn-danger player-settings">
                               <input id="i" type="radio" name="options" autocomplete="off">Two Player Hotseat
                             </label>
-                            
-                          </div>
-                            
-                            
-                            
-                            
+
+                                    </div>
+
+
+
+
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
 
 
 
-                <!-- start accordion three -->
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingThree">
-                        <h4 class="panel-title">
+                        <!-- start accordion three -->
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingThree">
+                                <h4 class="panel-title">
               <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
                 Handicap
               </a>
             </h4>
-                    </div>
-                    <div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
-                        <div class="panel-body">
-                            
-                            
-                            
-                            
-                            
-                            <div class="btn-group" data-toggle="buttons">
-              
-                            <label class="btn btn-danger active handicap-settings">
+                            </div>
+                            <div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
+                                <div class="panel-body">
+
+
+
+
+
+                                    <div class="btn-group" data-toggle="buttons">
+
+                                        <label class="btn btn-danger active handicap-settings">
                               <input type="radio" autocomplete="off" checked>Zero
                             </label>
-                            <label class="btn btn-danger handicap-settings">
+                                        <label class="btn btn-danger handicap-settings">
                               <input type="radio" name="options" autocomplete="off">One
                             </label>
-                            <label class="btn btn-danger handicap-settings">
+                                        <label class="btn btn-danger handicap-settings">
                               <input type="radio" name="options" autocomplete="off">Two
                             </label>
-                            <label class="btn btn-danger handicap-settings">
+                                        <label class="btn btn-danger handicap-settings">
                               <input type="radio" name="options" autocomplete="off">Four
                             </label>
-                            
-                          </div>
-                            
-                            
-                            
-                            
-                            
-                            
+
+                                    </div>
+
+
+
+
+
+
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingFour">
-                        <h4 class="panel-title">
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingFour">
+                                <h4 class="panel-title">
               <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
                 Board Size
               </a>
             </h4>
-                    </div>
-                    <div id="collapseFour" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFour">
-                        <div class="panel-body">
-                            
-                            
-                            
-                            <div class="btn-group" data-toggle="buttons">
-              
-                            <label class="btn btn-danger board-size-settings">
+                            </div>
+                            <div id="collapseFour" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFour">
+                                <div class="panel-body">
+
+
+
+                                    <div class="btn-group" data-toggle="buttons">
+
+                                        <label class="btn btn-danger board-size-settings">
                               <input type="radio" autocomplete="off" checked>9x9
                             </label>
-                            <label class="btn btn-danger active board-size-settings">
+                                        <label class="btn btn-danger active board-size-settings">
                               <input type="radio" name="options" autocomplete="off">13x13
-                            </label>  
-                            <label class="btn btn-danger board-size-settings">
+                            </label>
+                                        <label class="btn btn-danger board-size-settings">
                               <input type="radio" name="options" autocomplete="off">19x19
                             </label>
-                            
-                          </div>
-                            
-                            
-                            
-                            
-                            
-                            
+
+                                    </div>
+
+
+
+
+
+
+                                </div>
+                            </div>
                         </div>
                     </div>
+
+                </div>
+                <!-- end scoring settings -->
+                <div align="center">
+                    <a href="game.html" class="btn btn-default btn-lg start-button" role="button" style="background-color:yellow;border-color:while;color:red;">Start Game</a>
                 </div>
             </div>
 
+            <!-- end container -->
+            <div class="col-sm-1 side-bar"><img class='chinese-banner' src="img/chinese.png" \></div>
         </div>
-        <!-- end scoring settings -->
-        <div align="center">
-          <a href = "game.html" class="btn btn-default btn-lg start-button" role="button" style="background-color:yellow;border-color:while;color:red;">Start Game</a>
-        </div>
+
+
     </div>
-    
-    <!-- end container -->
-<div class="col-sm-1 side-bar"><img class='chinese-banner' src="img/chinese.png" \></div>
-</div>
 
-
-</div>
-
-</div>
+    </div>
 
     <!-- Bootstrap core JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>

@@ -1,10 +1,10 @@
 "use strict";
 
-class ClientServer{
+class ClientServer {
 
-    constructor(url, port){
-        this._url = url || "localhost"; 
-        this._port = port || 3000; 
+    constructor(url, port) {
+        this._url = url || "localhost";
+        this._port = port || 3000;
     }
 
     /**
@@ -13,40 +13,40 @@ class ClientServer{
      * @param callback {function} called when the server responds.
      *      Takes 1 parameter, an error parameter which is null if everything is OK.
      */
-    sendAndRecieveData(obj, path, callback){
+    sendAndRecieveData(obj, path, callback) {
 
-        console.log("sending POST to "+path +" payload: "+JSON.stringify(obj));
-        
+        console.log("sending POST to " + path + " payload: " + JSON.stringify(obj));
+
         var postXhr = new XMLHttpRequest();
         postXhr.open("POST", path, true);
         postXhr.setRequestHeader("Content-type", "application/json");
         postXhr.send(JSON.stringify(obj));
 
-        postXhr.onreadystatechange = function(){
+        postXhr.onreadystatechange = function() {
 
             // this function is executed when the request comes 
             // back from the server. 
 
             if (postXhr.readyState == 4 && postXhr.status == 200) {
-               // callback(null);
+                // callback(null);
                 callback(JSON.parse(postXhr.responseText));
                 //callback(data);
-            }else if(postXhr.readyState == 4 && postXhr.status !== 200){
+            } else if (postXhr.readyState == 4 && postXhr.status !== 200) {
                 callback(postXhr.status);
             }
         }
     }
-    
-        sendData(obj, path, callback){
 
-        console.log("sending POST to "+path +" payload: "+JSON.stringify(obj));
-        
+    sendData(obj, path, callback) {
+
+        console.log("sending POST to " + path + " payload: " + JSON.stringify(obj));
+
         var postXhr = new XMLHttpRequest();
         postXhr.open("POST", path, true);
         postXhr.setRequestHeader("Content-type", "application/json");
         postXhr.send(JSON.stringify(obj));
 
-        postXhr.onreadystatechange = function(){
+        postXhr.onreadystatechange = function() {
 
             // this function is executed when the request comes 
             // back from the server. 
@@ -55,7 +55,7 @@ class ClientServer{
                 callback(null);
                 //callback(JSON.parse(postXhr.responseText));
                 //callback(data);
-            }else if(postXhr.readyState == 4 && postXhr.status !== 200){
+            } else if (postXhr.readyState == 4 && postXhr.status !== 200) {
                 callback(postXhr.status);
             }
         }
@@ -64,8 +64,8 @@ class ClientServer{
 
 
 
-    
-    /* Requests time tracker data from the server using a HTTP GET request.
+
+/* Requests time tracker data from the server using a HTTP GET request.
      *
      * @param callback {function} the function to call when the get request comes back.
      *      takes 2 parameters:
@@ -92,4 +92,3 @@ class ClientServer{
         };
     }
 }*/
-
