@@ -284,6 +284,9 @@ function FloodFillBFSForDeath(Board,positions){
 		if (A[position.row][position.column].liberties > 0){
 			return false;
 		}
+		if (numArmiesKilled > 0){
+			return false; 
+		}
 		
 		//If the positions has no liberties, it has not killed anything and it has no neighbours (tokens of same color) its a suicide
 		if (A[position.row][position.column].liberties == 0  && numArmiesKilled == 0 && A[position.row][position.column].neighbour.length == 0){
