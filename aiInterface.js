@@ -1,9 +1,24 @@
+/** 
+ * This file contains functions for communicating with an external AI
+ * provided by the instructor of SENG299 to play the boatd game Go.
+ * 
+ */ 
+
+
 var http = require("http");
 
 var port = 8081;
 
 
-
+/**
+ * Gets a move using the 
+ *
+ * @param size {int} the size of the board being played on 
+ * @param board {2D int array} The current board
+ * @param lastMove {object} the last move played (x, y and color)
+ * @param cb {function} callback function
+ *
+ */
 function getRandomMove(size, board, lastMove, cb) {
     var input = {
         size: size,
@@ -44,6 +59,15 @@ function getRandomMove(size, board, lastMove, cb) {
 
 }
 
+/**
+ * Gets a move using the 
+ *
+ * @param size {int} the size of the board being played on 
+ * @param board {2D int array} The current board
+ * @param lastMove {object} the last move played (x, y and color)
+ * @param cb {function} callback function
+ *
+ */
 function getMaxLibsMove(size, board, lastMove, cb) {
     var input = {
         size: size,
@@ -86,7 +110,15 @@ function getMaxLibsMove(size, board, lastMove, cb) {
 
 
 
-
+/**
+ * Gets a move using the 
+ *
+ * @param size {int} the size of the board being played on 
+ * @param board {2D int array} The current board
+ * @param lastMove {object} the last move played (x, y and color)
+ * @param cb {function} callback function
+ *
+ */
 function getAttackEnemyMove(size, board, lastMove, cb) {
     var input = {
         size: size,
@@ -127,7 +159,15 @@ function getAttackEnemyMove(size, board, lastMove, cb) {
 
 }
 
-
+/**
+ * Gets a move using the 
+ *
+ * @param size {int} the size of the board being played on 
+ * @param board {2D int array} The current board
+ * @param lastMove {object} the last move played (x, y and color)
+ * @param cb {function} callback function
+ *
+ */
 function getFormEyesMove(size, board, lastMove, cb) {
     var input = {
         size: size,
