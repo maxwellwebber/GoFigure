@@ -1,5 +1,5 @@
+// helper function to get the username cookie from list of cookies
 $(document).ready(function() {
-
     function getCookie(name) {
         var nameEQ = name + "=";
         var ca = document.cookie.split(';');

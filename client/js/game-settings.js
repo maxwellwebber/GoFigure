@@ -1,5 +1,5 @@
 $(document).ready(function() {
-
+    // helper function to get the username cookie from list of cookies
     function getCookie(name) {
         var nameEQ = name + "=";
         var ca = document.cookie.split(';');
@@ -15,6 +15,7 @@ $(document).ready(function() {
 
     cookieUsername = getCookie('Gousername');
 
+    // default game settings
     var object = {
         userName: cookieUsername,
         gameSettings: {
@@ -25,15 +26,13 @@ $(document).ready(function() {
         }
     }
 
+    // below functions are used to change different game settings
     $('.scoring-settings').click(function() {
         object.gameSettings.scoringSettings = $(this).text().trim();
-
     });
 
     $('.player-settings').click(function() {
-
         object.gameSettings.playerSettings = $(this).text().trim();
-        //console.log(visualSettings); 
     });
 
     $('.handicap-settings').click(function() {
@@ -46,10 +45,9 @@ $(document).ready(function() {
 
     });
 
+    // used to save game settings
     $('.start-button').click(function() {
-        clientServer.sendData(object, "setGame", function(status) {
-            // do error checking with status parameter here
-        });
+        clientServer.sendData(object, "setGame", function(status) {});
 
     });
 

@@ -5,13 +5,10 @@
 var MongoClient = require("mongodb").MongoClient;
 
 
-
 class DBServer {
 
-    constructor( /*u, p,*/ db, host, port) {
+    constructor( db, host, port) {
 
-        /*this._user   = u;
-        this._passwd = p;*/
         this._dbname = db;
         this._host = host || "localhost";
         this._port = port || 27017;
@@ -55,18 +52,23 @@ class DBServer {
         this._db.close();
     }
 
+    /**
+     * Checks if user exists in database and creates new user if 
+     * username is available
+     */
     makeAccount(newUser, callback) {
         var collection = this._db.collection("users");
 
         collection.find({
             "userName": newUser.userName
         }).toArray(function(err, docs) {
-            //console.log(docs[0]);
             if (docs.length > 0) {
+                // username already exists
                 callback("This user already exists");
                 console.log("USER " + newUser.userName + " EXISTS");
             } else {
-
+                // username is available 
+                // initialize default visual settings
                 newUser["visualSettings"] = {
                     "tokenColor": "Black and White",
                     "tokenShape": "Circle",
@@ -82,6 +84,9 @@ class DBServer {
         });
     }
 
+    /** verifies username and password against
+     *  database entry
+     */
     authenticateUser(user, callback) {
         var collection = this._db.collection("users");
 
@@ -89,11 +94,12 @@ class DBServer {
             "userName": user.userName,
             "password": user.password
         }).toArray(function(err, docs) {
-            //console.log(docs[0]);
             if (docs.length > 0) {
+                // username and password matched
                 if (err) callback(err);
                 else callback(null);
             } else {
+                // username and/or password not found
                 callback("incorrect username or password.");
             }
         });
@@ -101,7 +107,8 @@ class DBServer {
     }
 
 
-
+    /** Saves users selected visual settings in database
+    */
     setVisualSetting(object) {
         var collection = this._db.collection("users");
 
@@ -117,6 +124,8 @@ class DBServer {
         });
     }
 
+    /** Initializes new game with specified settings
+    */
     setGame(object) {
         var collection = this._db.collection("users");
 
@@ -127,9 +136,8 @@ class DBServer {
         var boardRow = []
         var board = [];
 
-
+        // creates board of correct size
         for (var i = 0; i < object.gameSettings.boardSize; i++) {
-
             boardRow.push(0);
         }
         for (var i = 0; i < object.gameSettings.boardSize; i++) {
@@ -137,10 +145,7 @@ class DBServer {
             board.push(row);
         }
 
-
-
-        //console.log(handicap)
-
+        // places appropriate number of handicap tokens
         if (handicap == "One") {
             board[Math.floor(gameSettings.boardSize / 2)][Math.floor(gameSettings.boardSize / 2)] = 1;
         }
@@ -149,7 +154,7 @@ class DBServer {
             board[Math.floor(gameSettings.boardSize / 2)][Math.floor(gameSettings.boardSize / 2) + Math.floor(gameSettings.boardSize / 4)] = 1;
             board[Math.floor(gameSettings.boardSize / 2)][Math.floor(gameSettings.boardSize / 2) - Math.floor(gameSettings.boardSize / 4)] = 1;
         }
-        //console.log(board);
+
         if (handicap == "Four") {
             board[Math.floor(gameSettings.boardSize / 2) + Math.floor(gameSettings.boardSize / 4)][Math.floor(gameSettings.boardSize / 2) + Math.floor(gameSettings.boardSize / 4)] = 1;
             board[Math.floor(gameSettings.boardSize / 2) + Math.floor(gameSettings.boardSize / 4)][Math.floor(gameSettings.boardSize / 2) - Math.floor(gameSettings.boardSize / 4)] = 1;
@@ -158,6 +163,7 @@ class DBServer {
 
         }
 
+        // initializes current game for database
         var game = {
             "pass": false,
             'gameSettings': gameSettings,
@@ -167,7 +173,7 @@ class DBServer {
             'player2Score': 0
         }
 
-        //console.log(game);
+        // uploads current game to database
         collection.update({
             "userName": userName
         }, {
@@ -179,6 +185,9 @@ class DBServer {
         });
     }
 
+    /** Updates boardState in database if
+     *  a valid move is made
+     */
     makeMove(object, callback) {
         var collection = this._db.collection("users");
         var currentGame = {
@@ -189,6 +198,7 @@ class DBServer {
             "player1Score": object.player1Score,
             "player2Score": object.player2Score
         }
+        // updates entry in database
         collection.update({
             "userName": object.userName
         }, {
@@ -199,13 +209,14 @@ class DBServer {
             "upsert": true
         });
 
+        // gets entry from database, sets killcheck to false
+        // and returns object to caller
         collection.find({
             "userName": object.userName
         }).toArray(function(err, docs) {
             if (docs.length > 0) {
                 var user = docs[0];
                 user.currentGame["killCheck"] = false;
-                //console.log(user.currentGame.boardState);
                 callback(user.currentGame);
             } else {
                 callback(err, null);
@@ -213,43 +224,10 @@ class DBServer {
         });
     }
 
-    saveReplay(object, callback) {
-        var collection = this._db.collection("users");
-
-        collection.find({
-            "userName": object.userName
-        }).toArray(function(err, docs) {
-            //collection.update({"userName":object.userName})
-            //if(docs.length > 0){
-            var user = docs[0];
-            if (user[object.replayName] != undefined) callback("Replay name already exists");
-            else {
-
-                var name = object.replayName;
-                var query = {};
-                query[name] = object;
-
-
-                var userName = object.userName;
-                delete object["userName"];
-                collection.update({
-                    "userName": userName
-                }, {
-                    $set: query
-                }, {
-                    "upsert": true
-                });
-                callback(null);
-            }
-            //}
-            /*else{
-                console.log("DIDNT ENTER THE docs.length>0");
-                callback("Ths");
-            }*/
-
-        });
-    }
-
+ /** checks pass variable of current game in database
+   *    if pass is true it responds with a game over
+   *    otherwise it turns pass to true
+   */
     passMove(object, callback) {
         var collection = this._db.collection("users");
         collection.find({
@@ -259,11 +237,12 @@ class DBServer {
                 var user = docs[0];
                 var currentGame = user.currentGame;
                 if (currentGame.pass == true) {
-                    //two passes have been detected
+                    // two passes have been detected
                     callback({
                         "gameIsOver": 1
                     });
                 } else {
+                    // previous turn was not a pass
                     currentGame.pass = true;
                     collection.update({
                         "userName": object.userName
@@ -283,10 +262,11 @@ class DBServer {
 
     }
 
+    /** gets current game in data base when
+     *  a game is started
+     */
     getCurrentGame(userName, callback) {
-
         var collection = this._db.collection("users");
-        //console.log()
         collection.find(userName).toArray(function(err, docs) {
             if (docs.length > 0) {
                 var user = docs[0];
@@ -295,7 +275,6 @@ class DBServer {
                         "visualSettings": user.visualSettings,
                         "currentGame": user.currentGame
                     }
-                    //console.log(game);
                 callback(game);
             } else {
                 callback(err, null);
@@ -304,32 +283,6 @@ class DBServer {
     }
 
 }
-
-
-/*getVisualSettings(object){
-    //    var collection = this._db.collection("users");
-        
-    //    var userName = object.userName;
-        
-    //    collection.find({"userName": userName}).toArray(function(err, docs) {
-    //        console.log(docs);
-        });
-    }
-    
-   getAllUsers(callback) {
-
-        var collection = this._db.collection("users");
-        
-        collection.find({}).toArray(function(err, data){
-            if(err){
-                callback(err, null);
-            }else{
-                callback(null, data);
-            }
-        });
-    }*/
-
-
 
 
 module.exports = DBServer;

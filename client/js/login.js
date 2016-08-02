@@ -7,27 +7,24 @@ $(document).ready(function() {
         password: "password"
     }
 
-    // 
-
     $(".register-button").click(function() {
-        //alert("create account");
         newUser.userName = $(".username-field").val();
         newUser.password = $(".password-field").val();
-        //alert("Name is :" + name+" "+ "Password is: " + password);
+        // used to register a new account
         clientServer.sendData(newUser, "makeAccount", function(response) {
-            //console.log(response);
             if (response === 401) {
-                console.log(response);
-                //$("#user-prompt").append("This username already exists. Please choose a new username.");
+                // error user already exists
                 $("#user-prompt").css('color', 'white');
                 $("#user-prompt").html("This username already exists. Please choose a new username.");
             } else {
+                // success
                 $("#user-prompt").css('color', 'white');
                 $("#user-prompt").html("Your account has been created. Please log in with your new account");
             }
         });
     });
 
+    // used to login
     $(".login-button").click(function() {
         var userName = $(".username-field").val();
         var password = $(".password-field").val();
@@ -37,22 +34,22 @@ $(document).ready(function() {
             "password": password
         }
 
+        // authenticates user
         clientServer.sendData(user, "authenticate", function(response) {
-            //console.log(response);
             if (response === 401) {
-                console.log(response);
-                //$("#user-prompt").append("This username already exists. Please choose a new username.");
+                // invalid username or password
                 $("#user-prompt").css('color', 'white');
                 $("#user-prompt").html("Invalid username or password.");
             } else {
+                //success
                 $("#user-prompt").css('color', 'white');
                 $("#user-prompt").html("Logging in");
-                //put code to change page here
-                console.log("THIS IS A VALID ACCOUNT, YOU ARE ABLE TO LOG IN");
                 var d = new Date();
                 d.setTime(d.getTime() + (4 * 60 * 60 * 1000));
                 var expires = "expires=" + d.toUTCString();
+                // sets new cookie
                 document.cookie = "Gousername" + "=" + user.userName + "; " + expires;
+                // changes page
                 window.location.pathname = "/main-menu.html"
             }
         });

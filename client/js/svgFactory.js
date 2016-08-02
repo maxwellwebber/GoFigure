@@ -82,7 +82,7 @@ function makeSquare(x, y, w, c) {
 
 
 /**
- * Makes and returns a new SVG circle object. 
+ * Makes and returns a new SVG star object. 
  * 
  * @param x {number} the x position of the circle.
  * @param y {number} the y position of the circle.
@@ -157,6 +157,7 @@ function makeTriangle(x, y, r, c) {
 
 }
 
+// used to draw a shape to the canvas
 function makeShape(x, y, r, c, shape) {
     switch (shape) {
         case "Circle":
