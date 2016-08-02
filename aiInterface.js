@@ -11,7 +11,7 @@ var port = 8081;
 
 
 /**
- * Gets a move using the 
+ * Gets a move using the random Move function
  *
  * @param size {int} the size of the board being played on 
  * @param board {2D int array} The current board
@@ -60,7 +60,7 @@ function getRandomMove(size, board, lastMove, cb) {
 }
 
 /**
- * Gets a move using the 
+ * Gets a move using the max Liberties function
  *
  * @param size {int} the size of the board being played on 
  * @param board {2D int array} The current board
@@ -111,7 +111,7 @@ function getMaxLibsMove(size, board, lastMove, cb) {
 
 
 /**
- * Gets a move using the 
+ * Gets a move using the attack enemy move
  *
  * @param size {int} the size of the board being played on 
  * @param board {2D int array} The current board
@@ -160,7 +160,7 @@ function getAttackEnemyMove(size, board, lastMove, cb) {
 }
 
 /**
- * Gets a move using the 
+ * Gets a move using the form eyes move
  *
  * @param size {int} the size of the board being played on 
  * @param board {2D int array} The current board
