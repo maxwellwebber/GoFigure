@@ -1,16 +1,14 @@
 {
-  "name": "chat-example",
+  "name": "GoFigure Go Game",
   "version": "0.0.0",
-  "description": "A chat example to showcase how to use `socket.io` with a static `express` server with `async` for control flow.",
+  "description": "A web application of the Chinesse game GO",
   "main": "server.js",
   "repository": "",
-  "author": "Mostafa Eweda <mo.eweda@gmail.com>",
+  "author": "GoFigure",
   "dependencies": {
     "async": "~0.2.8",
     "body-parser": "^1.15.2",
     "express": "~3.2.4",
-    "express-session": "^1.14.0",
-    "mongodb": "^2.2.0",
-    "socket.io": "~0.9.14"
+    "mongodb": "^2.2.0"
   }
 }
