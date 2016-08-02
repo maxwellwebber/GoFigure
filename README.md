@@ -17,6 +17,6 @@ Once the server is running, open the project in the shape of 'https://team-go-fi
 NOTE: 
 If running local then go to
 
-    $ localhost:port
+     localhost:port
 
  Port should be changed in the server.js file to any other port as its currently set to 80 for cloud 9, or ran with root priviliges. 
