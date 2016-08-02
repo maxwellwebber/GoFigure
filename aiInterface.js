@@ -20,12 +20,13 @@ var port = 8081;
  *
  */
 function getRandomMove(size, board, lastMove, cb) {
+    //input to be sent to the external AI
     var input = {
         size: size,
         board: board,
         last: lastMove
     };
-
+    //options for the connection
     var options = {
         host: 'localhost',
         path: '/ai/random',
@@ -38,6 +39,7 @@ function getRandomMove(size, board, lastMove, cb) {
         body: JSON.stringify(input)
     };
 
+    //the actual request
     var req = http.request(options, (res) => {
         var output = '';
         res.on('data', function(chunk) {
@@ -49,11 +51,11 @@ function getRandomMove(size, board, lastMove, cb) {
             cb(output);
         })
     });
+    //if error print it 
     req.on('error', function(e) {
         console.log("An error has occured with HTTP request " + e);
     });
-    console.log("About to send request with ----->")
-    console.log(JSON.stringify(input));
+    //actually write the input we are sending to the extenal request
     req.write(JSON.stringify(input));
     req.end();
 
@@ -101,8 +103,6 @@ function getMaxLibsMove(size, board, lastMove, cb) {
     req.on('error', function(e) {
         console.log("An error has occured with HTTP request " + e);
     });
-    console.log("About to send request with ----->")
-    console.log(JSON.stringify(input));
     req.write(JSON.stringify(input));
     req.end();
 
@@ -152,8 +152,6 @@ function getAttackEnemyMove(size, board, lastMove, cb) {
     req.on('error', function(e) {
         console.log("An error has occured with HTTP request " + e);
     });
-    console.log("About to send request with ----->")
-    console.log(JSON.stringify(input));
     req.write(JSON.stringify(input));
     req.end();
 
@@ -201,14 +199,12 @@ function getFormEyesMove(size, board, lastMove, cb) {
     req.on('error', function(e) {
         console.log("An error has occured with HTTP request " + e);
     });
-    console.log("About to send request with ----->")
-    console.log(JSON.stringify(input));
     req.write(JSON.stringify(input));
     req.end();
 
 }
 
-
+//Exports each function to be used by server.js
 module.exports = {
 
     getRandomMove: getRandomMove,
