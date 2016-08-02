@@ -1,5 +1,5 @@
 {
-  "name": "GoFigure Go Game",
+  "name": "GoFigure",
   "version": "0.0.0",
   "description": "A web application of the Chinesse game GO",
   "main": "server.js",
