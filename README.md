@@ -21,16 +21,16 @@ If running local then go to
 
  Port should be changed in the server.js file to any other port as its currently set to 80 for cloud 9, or ran with root priviliges. 
  
- ## UML Diagrams
+## UML Diagrams
  
  The following UML class diagramss describe the basic structure of our web application. 
  
- ![Basic Class Diagram](/docs/frond_end.jpg "Main Class Diagram")
+ ![Basic Class Diagram](/docs/frond_end.jpg "Front End Class Diagram")
  
- ![Basic Class Diagram](/docs/back_end.jpg "Main Class Diagram")
+ ![Basic Class Diagram](/docs/back_end.jpg "Back End Class Diagram")
  
  
- ##Authors
+##Authors
  
 Gurjyot Grewal
 V00820022
