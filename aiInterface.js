@@ -7,7 +7,7 @@
 
 var http = require("http");
 
-var port = 8081;
+var port = 30000;
 
 
 /**
@@ -28,7 +28,7 @@ function getRandomMove(size, board, lastMove, cb) {
     };
     //options for the connection
     var options = {
-        host: 'localhost',
+        host: 'roberts.seng.uvic.ca',
         path: '/ai/random',
         port: port,
         method: "POST",
@@ -78,7 +78,7 @@ function getMaxLibsMove(size, board, lastMove, cb) {
     };
 
     var options = {
-        host: 'localhost',
+        host: 'roberts.seng.uvic.ca',
         path: '/ai/maxLibs',
         port: port,
         method: "POST",
@@ -127,7 +127,7 @@ function getAttackEnemyMove(size, board, lastMove, cb) {
     };
 
     var options = {
-        host: 'localhost',
+        host: 'roberts.seng.uvic.ca',
         path: '/ai/attackEnemy',
         port: port,
         method: "POST",
@@ -174,7 +174,7 @@ function getFormEyesMove(size, board, lastMove, cb) {
     };
 
     var options = {
-        host: 'localhost',
+        host: 'roberts.seng.uvic.ca',
         path: '/ai/formEyes',
         port: port,
         method: "POST",
